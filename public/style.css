@@ -1,0 +1,28 @@
+/* public/css/styles.css */
+
+/* Dark mode styles for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Text color */
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #555; /* Border color between rows */
+}
+
+thead {
+    background-color: #444; /* Header background color */
+}
+
+th {
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #444; /* Hover color for rows */
+}
