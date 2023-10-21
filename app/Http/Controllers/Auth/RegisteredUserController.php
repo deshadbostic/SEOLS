@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => isset($request->role) ? $request->role : "Customer",
+            'role' => "Customer",
             'fname' => isset($request->fname) ? $request->fname : "",
             'lname' => isset($request->lname) ? $request->lname : "",
             'phone' => isset($request->phone) ? $request->phone : "",
