@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use App\Http\Requests\ProfileUpdateRequest;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -28,9 +30,9 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->validate([
+        /* $request->validate([
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -39,7 +41,7 @@ class RegisteredUserController extends Controller
             'lastName' => ['required', 'alpha'],
             'address' => ['required', 'alpha'],
             'phoneNumber' => ['required', 'alpha'],
-        ]);
+        ]); */
 
         $user = User::create([
             'username' => $request->username,

@@ -9,17 +9,19 @@
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
-        <!-- First Name -->
+        <!-- First and Last Name -->
         <div class="mt-4">
-            <x-input-label for="firstName" :value="__('First Name')" />
-            <x-text-input id="firstName" class="block mt-1 w-full" type="text" name="firstName" :value="old('firstName')" required autocomplete="given-name" />
+            <div class="columns-2">
+                <div>
+                    <x-input-label for="firstName" :value="__('First Name')" />
+                    <x-text-input id="firstName" class="block mt-1 w-full" type="text" name="firstName" :value="old('firstName')" required autocomplete="given-name" />
+                </div>
+                <div>
+                    <x-input-label for="lastName" :value="__('Last Name')" />
+                    <x-text-input id="lastName" class="block mt-1 w-full" type="text" name="lastName" :value="old('lastName')" required autocomplete="family-name" />
+                </div>
+            </div>
             <x-input-error :messages="$errors->get('firstName')" class="mt-2" />
-        </div>
-
-        <!-- Last Name -->
-        <div class="mt-4">
-            <x-input-label for="lastName" :value="__('Last Name')" />
-            <x-text-input id="lastName" class="block mt-1 w-full" type="text" name="lastName" :value="old('lastName')" required autocomplete="family-name" />
             <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
         </div>
 
@@ -27,6 +29,7 @@
         <div class="mt-4">
             <x-input-label for="phoneNumber" :value="__('Phone Number')" />
             <x-text-input id="phoneNumber" class="block mt-1 w-full" type="text" name="phoneNumber" :value="old('phoneNumber')" required autocomplete="tel" />
+            <label for="phoneNumber" class="text-gray-700 dark:text-gray-300 text-sm opacity-60">Format: +1 (123) 456-7890</label>
             <x-input-error :messages="$errors->get('phoneNumber')" class="mt-2" />
         </div>
 
