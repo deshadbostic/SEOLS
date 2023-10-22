@@ -22,14 +22,14 @@ class ProfileUpdateRequest extends FormRequest
         $email_unique_rule = isset($this->user()->id) ? Rule::unique(User::class)->ignore($this->user()->id) : Rule::unique(User::class);
 
         return [
-            'username' => ['required', 'alpha_num', 'max:25'],
+            'username' => ['alpha_num', 'max:25', 'min:3'],
             'email' => ['email', 'max:255', $email_unique_rule],
-            'password' => ['required', 'confirmed', Rules\Password::defaults(), 'max:255'],
-            'role' => ['alpha', 'max;40'],
-            'firstName' => ['required', 'string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
-            'lastName' => ['required', 'string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
-            'address' => ['required', 'string', 'min:10', 'max:255'],
-            'phoneNumber' => ['required', 'regex:/^(\+\d{1,2} )?\(\d{1,4}\) \d{3}-\d{4}/'],
+            'password' => ['confirmed', Rules\Password::defaults(), 'max:255'],
+            'role' => ['alpha', 'max:40'],
+            'firstName' => ['string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
+            'lastName' => ['string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
+            'address' => ['string', 'min:10', 'max:255'],
+            'phoneNumber' => ['regex:/^(\+\d{1,2} )?\(\d{1,4}\) \d{3}-\d{4}/'],
             'budget' => ['numeric'],
         ];
     }
