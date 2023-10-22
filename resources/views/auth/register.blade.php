@@ -2,7 +2,7 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- Username -->
         <div>
             <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="nickname" />
@@ -11,29 +11,29 @@
 
         <!-- First Name -->
         <div class="mt-4">
-            <x-input-label for="fname" :value="__('First Name')" />
-            <x-text-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')" required autofocus autocomplete="given-name" />
-            <x-input-error :messages="$errors->get('fname')" class="mt-2" />
+            <x-input-label for="firstName" :value="__('First Name')" />
+            <x-text-input id="firstName" class="block mt-1 w-full" type="text" name="firstName" :value="old('firstName')" required autocomplete="given-name" />
+            <x-input-error :messages="$errors->get('firstName')" class="mt-2" />
         </div>
 
         <!-- Last Name -->
         <div class="mt-4">
-            <x-input-label for="lname" :value="__('Last Name')" />
-            <x-text-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('lname')" required autofocus autocomplete="family-name" />
-            <x-input-error :messages="$errors->get('lname')" class="mt-2" />
+            <x-input-label for="lastName" :value="__('Last Name')" />
+            <x-text-input id="lastName" class="block mt-1 w-full" type="text" name="lastName" :value="old('lastName')" required autocomplete="family-name" />
+            <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
         </div>
 
         <!-- Phone -->
         <div class="mt-4">
-            <x-input-label for="phone" :value="__('Phone Number')" />
-            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="tel" />
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+            <x-input-label for="phoneNumber" :value="__('Phone Number')" />
+            <x-text-input id="phoneNumber" class="block mt-1 w-full" type="text" name="phoneNumber" :value="old('phoneNumber')" required autocomplete="tel" />
+            <x-input-error :messages="$errors->get('phoneNumber')" class="mt-2" />
         </div>
 
         <!-- Address -->
         <div class="mt-4">
             <x-input-label for="address" :value="__('Address')" />
-            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="family-name" />
+            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" requiredautocomplete="family-name" />
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
         </div>
 
