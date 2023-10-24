@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use App\Http\Requests\ProfileUpdateRequest;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -28,20 +30,19 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['alpha'],
-        ]);
-
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'Customer',
+            'role' => "Customer",
+            'fname' => isset($request->firstName) ? $request->firstName : "",
+            'lname' => isset($request->lastName) ? $request->lastName : "",
+            'phone' => isset($request->phoneNumber) ? $request->phoneNumber : "",
+            'address' => isset($request->address) ? $request->address : "",
+            'budget' => 0.00,
+            'visited' => 0,
         ]);
 
         event(new Registered($user));
