@@ -17,7 +17,7 @@ class HouseInfoController extends Controller
     {
         //Getting a list of all items in the HouseInfo model and diaplying them.
         $house_info = HouseInfo::all();
-        return view('house_info.index')->with('house_info', $house_info);
+        return view('forms/houseinfo.index')->with('house_info', $house_info);
     }
 
     /**
@@ -25,7 +25,7 @@ class HouseInfoController extends Controller
      */
     public function create(): View
     {
-        return view('house_info.create');
+        return view('forms/houseinfo.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class HouseInfoController extends Controller
             'roof_age' => $request->roof_age,
         ]);
         
-        return redirect(route('house_info.index'));
+        return redirect(route('houseinfo.index'));
     }
 
     /**
