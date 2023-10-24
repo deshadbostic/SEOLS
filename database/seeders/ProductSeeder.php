@@ -14,37 +14,37 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('inverter')->insert([
-        [
-            'Model' => 'SolarEdgeSE5000',
-            'InputPowerWatts' => '5000',
-            'OutputPowerWatts' => '4800',
-            'SizeInches' => '30x16x8',
-            'FrequencyHz' => '50-60',
-            'Efficiency' => '97.5',
-            'Cost' => '800'
-        ],
-        [
-            'Model' => 'SMASunnyBoy',
-            'InputPowerWatts' => '6000',
-            'OutputPowerWatts' => '5700',
-            'SizeInches' => '28x19x10',
-            'FrequencyHz' => '50-60',
-            'Efficiency' => '98.0',
-            'Cost' => '900'
-        ],
-        [
-            'Model' => 'FroniusPrimo',
-            'InputPowerWatts' => '7000',
-            'OutputPowerWatts' => '6600',
-            'SizeInches' => '32x20x12',
-            'FrequencyHz' => '50-60',
-            'Efficiency' => '98.5',
-            'Cost' => '1000'
-        ]
+            [
+                'Model' => 'SolarEdgeSE5000',
+                'InputPowerWatts' => '5000',
+                'OutputPowerWatts' => '4800',
+                'SizeInches' => '30x16x8',
+                'FrequencyHz' => '50-60',
+                'Efficiency' => '97.5',
+                'Cost' => '800'
+            ],
+            [
+                'Model' => 'SMASunnyBoy',
+                'InputPowerWatts' => '6000',
+                'OutputPowerWatts' => '5700',
+                'SizeInches' => '28x19x10',
+                'FrequencyHz' => '50-60',
+                'Efficiency' => '98.0',
+                'Cost' => '900'
+            ],
+            [
+                'Model' => 'FroniusPrimo',
+                'InputPowerWatts' => '7000',
+                'OutputPowerWatts' => '6600',
+                'SizeInches' => '32x20x12',
+                'FrequencyHz' => '50-60',
+                'Efficiency' => '98.5',
+                'Cost' => '1000'
+            ]
 
         ]);
 
-        DB::table('solar_panels')->insert([
+        DB::table('solar_panel')->insert([
             [
                 'Model' => 'Lg NeON',
                 'Warranty' => '25',

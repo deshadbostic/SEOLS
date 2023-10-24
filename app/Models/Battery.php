@@ -11,6 +11,7 @@ class Battery extends Model
 
     protected $table = 'battery';
 
-    protected $fillable =['Model','CapacityAh','VoltageV',
-    'RatingWh','WeightsLb','Cost'];
+    protected $fillable =['model','capacityAh','voltageV',
+    'ratingWh','weightLbs','cost'];
+
 }

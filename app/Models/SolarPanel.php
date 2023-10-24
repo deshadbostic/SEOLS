@@ -9,8 +9,10 @@ class SolarPanel extends Model
 {
     use HasFactory;
 
-    protected $table = 'solar_panels';
+    protected $table = 'solar_panel';
 
-    protected $fillable =['Model','Warranty','Durability',
-    'Cost','EnergyOutputWatts','DimensionsInches'];
+    protected $fillable = [
+        'Model', 'Warranty', 'Durability',
+        'Cost', 'EnergyOutputWatts', 'DimensionsInches'
+    ];
 }
