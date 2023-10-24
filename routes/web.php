@@ -35,6 +35,14 @@ Route::resource('schedule', ScheduleController::class)
 ->only(['index'])
 ->middleware(['auth', 'verified']);
 
+// This route is for viewing customer's house information. Type /house_info in the browser
+Route::resource('house_info', HouseInfoController::class)
+->middleware(['auth', 'verified']);
+
+// This route is for accessing the quotation page. Type /quote in the browser
+Route::resource('quote', QuoteController::class)
+->middleware(['auth', 'verified']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
