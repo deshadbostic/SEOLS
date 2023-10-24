@@ -15,9 +15,17 @@
                     <div class="mt-4">
                         <a href="{{ route('product.index') }}" class="text-blue-500 hover:underline">View Products</a>
                         <br>
+                        <a href="{{ route('product.create') }}" class="text-blue-500 hover:underline">Add Product Info</a>
+                        <br>
                         <a href="{{ route('customer.index') }}" class="text-blue-500 hover:underline">View Customers</a>
                         <br>
                         <a href="{{ route('schedule.index') }}" class="text-blue-500 hover:underline">View Schedules</a>
+                        <br>
+                        <a href="{{ route('houseinfo.index') }}" class="text-blue-500 hover:underline">View Housing Info</a>
+                        <br>
+                        <a href="{{ route('houseinfo.create') }}" class="text-blue-500 hover:underline">Add Housing Info</a>
+                        <br>
+                        <a href="{{ route('quote.index') }}" class="text-blue-500 hover:underline">System Quotations</a>
                     </div>
                 </div>
             </div>
