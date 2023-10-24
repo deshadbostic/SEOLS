@@ -32,17 +32,6 @@ class RegisteredUserController extends Controller
      */
     public function store(ProfileUpdateRequest $request): RedirectResponse
     {
-        /* $request->validate([
-            'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['alpha'],
-            'firstName' => ['required', 'alpha'],
-            'lastName' => ['required', 'alpha'],
-            'address' => ['required', 'alpha'],
-            'phoneNumber' => ['required', 'alpha'],
-        ]); */
-
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
