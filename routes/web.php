@@ -35,8 +35,8 @@ Route::resource('schedule', ScheduleController::class)
 ->only(['index'])
 ->middleware(['auth', 'verified']);
 
-// This route is for viewing customer's house information. Type /house_info in the browser
-Route::resource('house_info', HouseInfoController::class)
+// This route is for viewing customer's house information. Type /houseinfo in the browser
+Route::resource('houseinfo', HouseInfoController::class)
 ->middleware(['auth', 'verified']);
 
 // This route is for accessing the quotation page. Type /quote in the browser
