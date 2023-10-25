@@ -21,17 +21,25 @@
         <div class=" text-gray-200 block max-w-sm text-center mx-auto w-full rounded-md border-[1px] px-3 py-4 border-gray-300 bg-slate-800">
             <p>Model: {{ $inverter->Model }}</p>
             <p>Cost: ${{ $inverter->Cost }}</p>
-            <form method="GET" action="{{ route('inverter.show', $inverter) }}">
+            <form method="GET" action="{{ route('inverter.show', $inverter) }}" class="">
                 @csrf
-                <x-primary-button class="mt-4">{{ __('View') }}
+                <x-primary-button class="mt-4 ">{{ __('View More') }}
                 </x-primary-button>
             </form>
             @if(Auth::user()->role != "Customer")
-            <form method="GET" action="{{ route('inverter.edit', $inverter) }}">
-                @csrf
-                <x-primary-button class="mt-4">{{ __('Edit') }}
-                </x-primary-button>
-            </form>
+            <div class="flex gap-4 w-min mx-auto">
+                <form method="GET" action="{{ route('inverter.edit', $inverter) }}">
+                    @csrf
+                    <x-primary-button class="mt-4">{{ __('Edit') }}
+                    </x-primary-button>
+                </form>
+                <form method="POST" action="{{ route('inverter.destroy', $inverter) }}">
+                    @csrf
+                    @method('DELETE')
+                    <x-primary-button class="mt-4">{{ __('Delete') }}
+                    </x-primary-button>
+                </form>
+            </div>
             @endif
         </div>
         @endforeach
@@ -41,15 +49,23 @@
             <p>Cost: ${{ $battery->Cost }}</p>
             <form method="GET" action="{{ route('battery.show', $battery) }}">
                 @csrf
-                <x-primary-button class="mt-4">{{ __('View') }}
+                <x-primary-button class="mt-4">{{ __('View More') }}
                 </x-primary-button>
             </form>
             @if(Auth::user()->role != "Customer")
-            <form method="GET" action="{{ route('battery.edit', $battery) }}">
-                @csrf
-                <x-primary-button class="mt-4">{{ __('Edit') }}
-                </x-primary-button>
-            </form>
+            <div class="flex gap-4 w-min mx-auto">
+                <form method="GET" action="{{ route('battery.edit', $battery) }}">
+                    @csrf
+                    <x-primary-button class="mt-4">{{ __('Edit') }}
+                    </x-primary-button>
+                </form>
+                <form method="POST" action="{{ route('battery.destroy', $battery) }}">
+                    @csrf
+                    @method('DELETE')
+                    <x-primary-button class="mt-4">{{ __('Delete') }}
+                    </x-primary-button>
+                </form>
+            </div>
             @endif
         </div>
         @endforeach
@@ -59,15 +75,23 @@
             <p>Cost: ${{ $solar_panel->Cost }}</p>
             <form method="GET" action="{{ route('solarpanel.show', $solar_panel) }}">
                 @csrf
-                <x-primary-button class="mt-4">{{ __('View') }}
+                <x-primary-button class="mt-4">{{ __('View More') }}
                 </x-primary-button>
             </form>
             @if(Auth::user()->role != "Customer")
-            <form method="GET" action="{{ route('solarpanel.edit', $solar_panel) }}">
-                @csrf
-                <x-primary-button class="mt-4">{{ __('Edit') }}
-                </x-primary-button>
-            </form>
+            <div class="flex gap-4 w-min mx-auto">
+                <form method="GET" action="{{ route('solarpanel.edit', $solar_panel) }}">
+                    @csrf
+                    <x-primary-button class="mt-4">{{ __('Edit') }}
+                    </x-primary-button>
+                </form>
+                <form method="POST" action="{{ route('solarpanel.destroy', $solar_panel) }}">
+                    @csrf
+                    @method('DELETE')
+                    <x-primary-button class="mt-4">{{ __('Delete') }}
+                    </x-primary-button>
+                </form>
+            </div>
             @endif
         </div>
         @endforeach
