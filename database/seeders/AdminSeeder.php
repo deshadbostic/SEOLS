@@ -27,6 +27,18 @@ class AdminSeeder extends Seeder
                 'budget' => '100',
                 'password' => Hash::make('12345678'),
                 'role' => 'piDSSAdministrator'
+            ],
+            [
+                'username' => 'operationsManager',
+                'fname' => 'operationsManager',
+                'lname' => 'Manager',
+                'email' => 'manager@test.com',
+                'phone' => '123323223',
+                'address' => 'sds',
+                'visited' => '0',
+                'budget' => '100',
+                'password' => Hash::make('12345678'),
+                'role' => 'operationsManager'
             ]
         ]);
     }
