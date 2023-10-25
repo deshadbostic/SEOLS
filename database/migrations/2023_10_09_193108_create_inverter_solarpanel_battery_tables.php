@@ -12,34 +12,37 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inverter', function (Blueprint $table) {
-            $table->id("InverterId");
+            $table->id();
             $table->string("Model");
             $table->integer("InputPowerWatts");
             $table->integer("OutputPowerWatts");
             $table->string("SizeInches");
             $table->string("FrequencyHz");
-            $table->decimal("Efficiency",5,2);
-            $table->decimal("Cost",10,2);
+            $table->decimal("Efficiency", 5, 2);
+            $table->decimal("Cost", 10, 2);
+            $table->timestamps(0);
         });
 
-        Schema::create('solar_panels', function (Blueprint $table) {
-            $table->id("PanelId");
+        Schema::create('solar_panel', function (Blueprint $table) {
+            $table->id();
             $table->string("Model");
             $table->string("Warranty");
             $table->string("Durability");
-            $table->decimal("Cost",10,2);
+            $table->decimal("Cost", 10, 2);
             $table->integer("EnergyOutputWatts");
             $table->string("DimensionsInches");
+            $table->timestamps(0);
         });
 
         Schema::create('battery', function (Blueprint $table) {
-            $table->id("BatteryId");
+            $table->id();
             $table->string("Model");
-            $table->decimal("CapacityAh",6,2);
+            $table->decimal("CapacityAh", 6, 2);
             $table->string("VoltageV");
             $table->integer("RatingWh");
-            $table->decimal("WeightLbs",5,1);
-            $table->decimal("Cost",10,2);
+            $table->decimal("WeightLbs", 5, 1);
+            $table->decimal("Cost", 10, 2);
+            $table->timestamps(0);
         });
     }
 

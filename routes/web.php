@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\BatteryController;
 use App\Http\Controllers\InverterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\HouseInfoController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\SolarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,26 +27,35 @@ Route::get('/', function () {
 });
 
 // this route is for viewing the products type /product in the browser
-Route::resource('product', InverterController::class)
+Route::resource('products', ItemController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
 
 // this route is for viewing the customer type /customer in the browser
 Route::resource('customer', CustomerController::class)
-->only(['index'])
-->middleware(['auth', 'verified']);
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
 
 Route::resource('schedule', ScheduleController::class)
-->only(['index'])
-->middleware(['auth', 'verified']);
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
 
 // This route is for viewing customer's house information. Type /houseinfo in the browser
 Route::resource('houseinfo', HouseInfoController::class)
-->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified']);
 
 // This route is for accessing the quotation page. Type /quote in the browser
 Route::resource('quote', QuoteController::class)
-->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified']);
+
+Route::group(['prefix' => 'products'], function () {
+    Route::resource('battery', BatteryController::class)
+        ->middleware(['auth', 'verified']);
+    Route::resource('inverter', InverterController::class)
+        ->middleware(['auth', 'verified']);
+    Route::resource('solarpanel', SolarController::class)
+        ->middleware(['auth', 'verified']);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -55,4 +67,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

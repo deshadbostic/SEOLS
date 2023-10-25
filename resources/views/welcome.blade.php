@@ -435,35 +435,35 @@
             flex-direction: column;
         }
 
-        .space-x-0 > * + * {
+        .space-x-0>*+* {
             margin-left: 0px;
         }
 
-        .space-x-4 > * + * {
+        .space-x-4>*+* {
             margin-left: 1rem;
         }
 
-        .space-x-8 > * + * {
+        .space-x-8>*+* {
             margin-left: 2rem;
         }
 
-        .space-x-16 > * + * {
+        .space-x-16>*+* {
             margin-left: 4rem;
         }
 
-        .space-y-0 > * + * {
+        .space-y-0>*+* {
             margin-top: 0px;
         }
 
-        .space-y-4 > * + * {
+        .space-y-4>*+* {
             margin-top: 1rem;
         }
 
-        .space-y-8 > * + * {
+        .space-y-8>*+* {
             margin-top: 2rem;
         }
 
-        .space-y-16 > * + * {
+        .space-y-16>*+* {
             margin-top: 4rem;
         }
 
@@ -862,7 +862,7 @@
             }
         }
     </style>
-	@vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 
@@ -881,7 +881,6 @@
             @endauth
         </div>
         @endif
-
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <div class="flex justify-center max-w-[10rem] mx-auto">
                 <x-application-logo/>
