@@ -26,10 +26,10 @@ class ProfileUpdateRequest extends FormRequest
             'email' => ['email', 'max:255', $email_unique_rule],
             'password' => ['confirmed', Rules\Password::defaults(), 'max:255'],
             'role' => ['alpha', 'max:40'],
-            'firstName' => ['string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
-            'lastName' => ['string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
+            'fname' => ['string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
+            'lname' => ['string', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
             'address' => ['string', 'min:10', 'max:255'],
-            'phoneNumber' => ['regex:/^(\+\d{1,2} )?\(\d{1,4}\) \d{3}-\d{4}/'],
+            'phone' => ['regex:/^(\+\d{1,2} )?\(\d{1,4}\) \d{3}-\d{4}/'],
             'budget' => ['numeric', 'decimal:0,2', 'regex:/^\d{0,9}(\.\d{0,2})$/'],
         ];
     }

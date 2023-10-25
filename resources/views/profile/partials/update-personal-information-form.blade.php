@@ -19,23 +19,23 @@
         <div class="mt-4">
             <div class="columns-2">
                 <div>
-                    <x-input-label for="firstName" :value="__('First Name')" />
-                    <x-text-input id="firstName" class="block mt-1 w-full" type="text" name="firstName" :value="old('fname', $user->fname)" required autocomplete="given-name" />
+                    <x-input-label for="fname" :value="__('First Name')" />
+                    <x-text-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname', $user->fname)" required autocomplete="given-name" />
                 </div>
                 <div>
-                    <x-input-label for="lastName" :value="__('Last Name')" />
-                    <x-text-input id="lastName" class="block mt-1 w-full" type="text" name="lastName" :value="old('lname', $user->lname)" required autocomplete="family-name" />
+                    <x-input-label for="lname" :value="__('Last Name')" />
+                    <x-text-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('lname', $user->lname)" required autocomplete="family-name" />
                 </div>
             </div>
-            <x-input-error :messages="$errors->get('firstName')" class="mt-2" />
-            <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
+            <x-input-error :messages="$errors->get('fname')" class="mt-2" />
+            <x-input-error :messages="$errors->get('lname')" class="mt-2" />
         </div>
 
         <div>
-            <x-input-label for="phoneNumber" :value="__('Phone Number')" />
-            <x-text-input id="phoneNumber" name="phoneNumber" type="text" class="mt-1 block w-full" :value="old('phoneNumber', $user->phone)" required autocomplete="tel" />
-            <label for="phoneNumber" class="text-gray-700 dark:text-gray-300 text-sm opacity-60">Format: +1 (123) 456-7890</label>
-            <x-input-error class="mt-2" :messages="$errors->get('phoneNumber')" />
+            <x-input-label for="phone" :value="__('Phone Number')" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autocomplete="tel" />
+            <label for="phone" class="text-gray-700 dark:text-gray-300 text-sm opacity-60">Format: +1 (123) 456-7890</label>
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
         </div>
 
         <div>
