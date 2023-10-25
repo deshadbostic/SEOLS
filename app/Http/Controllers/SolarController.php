@@ -95,7 +95,7 @@ class SolarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SolarRequest $solarpanel): RedirectResponse
+    public function destroy(SolarPanel $solarpanel): RedirectResponse
     {
         //
         $this->authorize('delete', $solarpanel);

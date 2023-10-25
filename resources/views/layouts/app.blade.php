@@ -17,7 +17,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 grid grid-rows-fit">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
@@ -33,6 +33,10 @@
         <main class="px-4 py-2 container mx-auto">
             {{ $slot }}
         </main>
+
+        <footer class="py-4 text-center bg-gray-100 dark:bg-gray-900 dark:text-cyan-50 font-extrabold text-lg">
+            piDSS © 2023 Company
+        </footer>
     </div>
 </body>
 

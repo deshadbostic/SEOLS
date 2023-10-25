@@ -17,6 +17,9 @@ export default {
             gridTemplateColumns: {
                 autoLayout: "repeat(auto-fit, minmax(230px,1fr))",
             },
+            gridTemplateRows: {
+                fit: "auto 1fr auto",
+            },
         },
     },
 
