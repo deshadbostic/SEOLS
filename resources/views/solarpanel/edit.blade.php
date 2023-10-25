@@ -27,8 +27,8 @@
             </div>
 
             <div class="mt-4">
-                <label for="Durability " class="text-lg text-white">Durability :</label>
-                <input type="text" name="Durability " class="w-full border p-2 rounded text-black" value="{{$solarpanel->Durability }}">
+                <label for="Durability" class="text-lg text-white">Durability:</label>
+                <input type="text" name="Durability" class="w-full border p-2 rounded text-black" value="{{$solarpanel->Durability }}">
             </div>
             <div class="mt-4">
                 <label for="Cost" class="text-lg text-white">Cost:</label>

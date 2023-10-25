@@ -23,6 +23,7 @@
                 <div class="text-lg text-white">FrequencyHz: {{$inverter->FrequencyHz}}</div>
                 <div class="text-lg text-white">Cost : ${{$inverter->Cost }}</div>
             </div>
+            @if(Auth::user()->role != "Customer")
             <div class="flex gap-2 items-baseline">
 
                 <div class="mt-6">
@@ -36,6 +37,8 @@
                     <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Delete Inverter</button>
                 </form>
             </div>
+
+            @endif
         </div>
 
         <!-- <div class="mt-4">

@@ -22,6 +22,7 @@
                 <div class="text-lg text-white">WeightLbs : {{$battery->WeightLbs }}</div>
                 <div class="text-lg text-white">Cost : ${{$battery->Cost }}</div>
             </div>
+            @if(Auth::user()->role != "Customer")
             <div class="flex gap-2 items-baseline">
 
                 <div class="mt-6">
@@ -35,6 +36,7 @@
                     <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Delete Battery</button>
                 </form>
             </div>
+            @endif
         </div>
 
         <!-- <div class="mt-4">

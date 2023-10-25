@@ -43,11 +43,11 @@ class SolarController extends Controller
 
         SolarPanel::create([
             'Model' => $request->Model,
-            'CapacityAh' => $request->CapacityAh,
-            'VoltageV' => $request->VoltageV,
-            'RatingWh' => $request->RatingWh,
-            'WeightLbs' => $request->WeightLbs,
+            'Warranty' => $request->Warranty,
+            'Durability' => $request->Durability,
             'Cost' => $request->Cost,
+            'EnergyOutputWatts' => $request->EnergyOutputWatts,
+            'DimensionsInches' => $request->DimensionsInches,
         ]);
         return redirect(route('products.index'));
     }
@@ -82,11 +82,11 @@ class SolarController extends Controller
 
         $solarpanel->update([
             'Model' => $request->Model,
-            'CapacityAh' => $request->CapacityAh,
-            'VoltageV' => $request->VoltageV,
-            'RatingWh' => $request->RatingWh,
-            'WeightLbs' => $request->WeightLbs,
+            'Warranty' => $request->Warranty,
+            'Durability' => $request->Durability,
             'Cost' => $request->Cost,
+            'EnergyOutputWatts' => $request->EnergyOutputWatts,
+            'DimensionsInches' => $request->DimensionsInches,
         ]);
 
         return redirect(route('products.index'));

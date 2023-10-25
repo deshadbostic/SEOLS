@@ -32,7 +32,7 @@ class SolarPanelPolicy
     public function create(User $user): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -41,7 +41,7 @@ class SolarPanelPolicy
     public function update(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -50,7 +50,7 @@ class SolarPanelPolicy
     public function delete(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -59,7 +59,7 @@ class SolarPanelPolicy
     public function restore(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -68,6 +68,6 @@ class SolarPanelPolicy
     public function forceDelete(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 }

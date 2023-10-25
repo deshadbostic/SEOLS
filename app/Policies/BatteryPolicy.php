@@ -32,7 +32,7 @@ class BatteryPolicy
     public function create(User $user): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -41,7 +41,7 @@ class BatteryPolicy
     public function update(User $user, Battery $battery): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -50,7 +50,7 @@ class BatteryPolicy
     public function delete(User $user, Battery $battery): bool
     {
         //
-        return true;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -59,6 +59,7 @@ class BatteryPolicy
     public function restore(User $user, Battery $battery): bool
     {
         //
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -67,5 +68,6 @@ class BatteryPolicy
     public function forceDelete(User $user, Battery $battery): bool
     {
         //
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 }

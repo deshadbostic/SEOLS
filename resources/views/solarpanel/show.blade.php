@@ -18,10 +18,11 @@
                 <div class="text-lg text-white">Model: {{$solarpanel->Model}}</div>
                 <div class="text-lg text-white">Warranty: {{$solarpanel->Warranty}}</div>
                 <div class="text-lg text-white">Durability: {{$solarpanel->Durability}}</div>
-                <div class="text-lg text-white">Cost: {{$solarpanel->Cost}}</div>
+                <div class="text-lg text-white">Cost: S{{$solarpanel->Cost}}</div>
                 <div class="text-lg text-white">EnergyOutputWatts : {{$solarpanel->EnergyOutputWatts }}</div>
-                <div class="text-lg text-white">DimensionsInches : ${{$solarpanel->DimensionsInches }}</div>
+                <div class="text-lg text-white">DimensionsInches : {{$solarpanel->DimensionsInches }}</div>
             </div>
+            @if(Auth::user()->role != "Customer")
             <div class="flex gap-2 items-baseline">
 
                 <div class="mt-6">
@@ -35,6 +36,8 @@
                     <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Delete Solar Panel</button>
                 </form>
             </div>
+
+            @endif
         </div>
 
         <!-- <div class="mt-4">

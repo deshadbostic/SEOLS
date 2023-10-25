@@ -23,6 +23,12 @@ class SolarRequest extends FormRequest
     {
         return [
             //
+            'Model' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'Warranty' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'Durability' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'DimensionsInches' => 'required|regex:~[a-zA-Z0-9()-:.,xX]+$~',
+            'EnergyOutputWatts' => 'required|numeric',
+            'Cost' => 'required|numeric',
         ];
     }
 }

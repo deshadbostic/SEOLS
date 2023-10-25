@@ -32,7 +32,7 @@ class InverterPolicy
     public function create(User $user): bool
     {
         //
-        return false;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -41,7 +41,7 @@ class InverterPolicy
     public function update(User $user, Inverter $inverter): bool
     {
         //
-        return false;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -50,7 +50,7 @@ class InverterPolicy
     public function delete(User $user, Inverter $inverter): bool
     {
         //
-        return false;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -59,7 +59,7 @@ class InverterPolicy
     public function restore(User $user, Inverter $inverter): bool
     {
         //
-        return false;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 
     /**
@@ -68,6 +68,6 @@ class InverterPolicy
     public function forceDelete(User $user, Inverter $inverter): bool
     {
         //
-        return false;
+        return $user->role == "piDSSAdministrator" || $user->role == "operationsManager";
     }
 }

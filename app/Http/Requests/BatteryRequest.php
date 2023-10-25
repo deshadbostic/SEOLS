@@ -23,6 +23,12 @@ class BatteryRequest extends FormRequest
     {
         return [
             //
+            'Model' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'CapacityAh' => 'required|numeric',
+            'VoltageV' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'RatingWh' => 'required|numeric',
+            'WeightLbs' => 'required|numeric',
+            'Cost' => 'required|numeric',
         ];
     }
 }
