@@ -53,7 +53,7 @@ Route::group(['prefix' => 'products'], function () {
         ->middleware(['auth', 'verified']);
     Route::resource('inverter', InverterController::class)
         ->middleware(['auth', 'verified']);
-    Route::resource('panel', SolarController::class)
+    Route::resource('solarpanel', SolarController::class)
         ->middleware(['auth', 'verified']);
 });
 

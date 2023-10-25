@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InverterRequest;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -34,16 +35,21 @@ class InverterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ItemRequest $request): RedirectResponse
+    public function store(InverterRequest $request): RedirectResponse
     {
         //
         $this->authorize('create', Inverter::class);
 
         Inverter::create([
             'Model' => $request->Model,
+            'InputPowerWatts' => $request->InputPowerWatts,
+            'OutputPowerWatts' => $request->OutputPowerWatts,
+            'SizeInches' => $request->SizeInches,
+            'FrequencyHz' => $request->FrequencyHz,
+            'Efficiency' => $request->Efficiency,
             'Cost' => $request->Cost,
         ]);
-        return redirect(route('item.index'));
+        return redirect(route('products.index'));
     }
 
     /**
@@ -69,18 +75,22 @@ class InverterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ItemRequest $request, Inverter $inverter): RedirectResponse
+    public function update(InverterRequest $request, Inverter $inverter): RedirectResponse
     {
         //
         $this->authorize('update', $inverter);
 
         $inverter->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price
+            'Model' => $request->Model,
+            'InputPowerWatts' => $request->InputPowerWatts,
+            'OutputPowerWatts' => $request->OutputPowerWatts,
+            'SizeInches' => $request->SizeInches,
+            'FrequencyHz' => $request->FrequencyHz,
+            'Efficiency' => $request->Efficiency,
+            'Cost' => $request->Cost,
         ]);
 
-        return redirect(route('item.index'));
+        return redirect(route('products.index'));
     }
 
     /**
@@ -91,6 +101,6 @@ class InverterController extends Controller
         //
         $this->authorize('delete', $inverter);
         $inverter->delete();
-        return redirect(route('item.index'));
+        return redirect(route('products.index'));
     }
 }

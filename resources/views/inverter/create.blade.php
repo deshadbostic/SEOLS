@@ -56,5 +56,7 @@
                 <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Add Inverter</button>
             </div>
         </form>
+
+
     </div>
 </x-app-layout>

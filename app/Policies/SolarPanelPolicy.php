@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Inverter;
+use App\Models\SolarPanel;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class InverterPolicy
+class SolarPanelPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -20,7 +20,7 @@ class InverterPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Inverter $inverter): bool
+    public function view(User $user, SolarPanel $solarPanel): bool
     {
         //
         return true;
@@ -32,42 +32,42 @@ class InverterPolicy
     public function create(User $user): bool
     {
         //
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Inverter $inverter): bool
+    public function update(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Inverter $inverter): bool
+    public function delete(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Inverter $inverter): bool
+    public function restore(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Inverter $inverter): bool
+    public function forceDelete(User $user, SolarPanel $solarPanel): bool
     {
         //
-        return false;
+        return true;
     }
 }

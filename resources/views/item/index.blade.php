@@ -37,12 +37,12 @@
         <div class=" text-gray-200 block max-w-sm text-center mx-auto w-full rounded-md border-[1px] px-3 py-4 border-gray-300 bg-slate-800">
             <p>Model: {{ $solar_panel->Model }}</p>
             <p>Cost: ${{ $solar_panel->Cost }}</p>
-            <form method="GET" action="{{ route('panel.show', $solar_panel) }}">
+            <form method="GET" action="{{ route('solarpanel.show', $solar_panel) }}">
                 @csrf
                 <x-primary-button class="mt-4">{{ __('View') }}
                 </x-primary-button>
             </form>
-            <form method="GET" action="{{ route('panel.edit', $solar_panel) }}">
+            <form method="GET" action="{{ route('solarpanel.edit', $solar_panel) }}">
                 @csrf
                 <x-primary-button class="mt-4">{{ __('Edit') }}
                 </x-primary-button>

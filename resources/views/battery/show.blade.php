@@ -2,7 +2,7 @@
     @auth
     <div class="container mx-auto flex flex-col items-center text-white">
         <div class="flex gap-10">
-            <h1 class="text-2xl font-semibold mt-4">View Inverter to piDSS</h1>
+            <h1 class="text-2xl font-semibold mt-4">View Battery to piDSS</h1>
             <div class="relative">
                 <a href="{{ route('products.index') }}" class="absolute left-100 top-100 text-blue-500 hover:text-blue-600 font-semibold text-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline align-text-top" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -15,25 +15,24 @@
         @csrf
         <div class="my-8">
             <div class="flex flex-col gap-4">
-                <div class="text-lg text-white">Model: {{$inverter->Model}}</div>
-                <div class="text-lg text-white">Efficiency: {{$inverter->Efficiency}}</div>
-                <div class="text-lg text-white">InputPowerWatts: {{$inverter->InputPowerWatts}}</div>
-                <div class="text-lg text-white">OutputPowerWatts: {{$inverter->OutputPowerWatts}}</div>
-                <div class="text-lg text-white">SizeInches : {{$inverter->SizeInches }}</div>
-                <div class="text-lg text-white">FrequencyHz: {{$inverter->FrequencyHz}}</div>
-                <div class="text-lg text-white">Cost : ${{$inverter->Cost }}</div>
+                <div class="text-lg text-white">Model: {{$battery->Model}}</div>
+                <div class="text-lg text-white">CapacityAh: {{$battery->CapacityAh}}</div>
+                <div class="text-lg text-white">VoltageV: {{$battery->VoltageV}}</div>
+                <div class="text-lg text-white">RatingWh: {{$battery->RatingWh}}</div>
+                <div class="text-lg text-white">WeightLbs : {{$battery->WeightLbs }}</div>
+                <div class="text-lg text-white">Cost : ${{$battery->Cost }}</div>
             </div>
             <div class="flex gap-2 items-baseline">
 
                 <div class="mt-6">
-                    <a href="{{ route('inverter.edit', $inverter) }}">
-                        <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Edit Inverter</button>
+                    <a href="{{ route('battery.edit', $battery) }}">
+                        <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Edit Battery</button>
                     </a>
                 </div>
-                <form method="POST" action="{{ route('inverter.destroy', $inverter) }}" class=" block">
+                <form method="POST" action="{{ route('battery.destroy', $battery) }}" class=" block">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Delete Inverter</button>
+                    <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">Delete Battery</button>
                 </form>
             </div>
         </div>

@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ItemRequest extends FormRequest
+class InverterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,9 +23,13 @@ class ItemRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|regex:~^[a-zA-Z0-9]+$~',
-            'description' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
-            'price' => 'required|numeric',
+            'Model' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'InputPowerWatts' => 'required|numeric',
+            'OutputPowerWatts' => 'required|numeric',
+            'SizeInches' => 'required|regex:~[a-zA-Z0-9()-:.,xX]+$~',
+            'FrequencyHz' => 'required|regex:~[a-zA-Z0-9()-:.,]+$~',
+            'Efficiency' => 'required|numeric',
+            'Cost' => 'required|numeric',
         ];
     }
 }
