@@ -11,6 +11,8 @@ class Inverter extends Model
 
     protected $table = 'inverter';
 
-    protected $fillable =['Model','InputPowerWatts','OutputPowerWatts',
-    'SizeInches','FrequencyHz','Effieciency','Cost'];
+    protected $fillable = [
+        'Model', 'InputPowerWatts', 'OutputPowerWatts',
+        'SizeInches', 'FrequencyHz', 'Efficiency', 'Cost'
+    ];
 }
