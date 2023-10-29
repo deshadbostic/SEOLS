@@ -8,6 +8,8 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Validation\Rules;
 
+use App\Rules as R;
+
 class ProfileUpdateRequest extends FormRequest
 {
     /**
@@ -26,7 +28,7 @@ class ProfileUpdateRequest extends FormRequest
             'email' => ['email', 'max:255', $email_unique_rule],
             'password' => ['confirmed', Rules\Password::defaults(), 'max:255'],
             'role' => ['alpha', 'max:40'],
-            'first_name' => ['string', 'nullable', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
+            'first_name' => [new R\AlphaNumericSpace(['.', '-', '*', '&']), 'nullable', 'max:25'],
             'last_name' => ['string', 'nullable', 'regex:/^[a-z]+([ .-]*[a-z]+)*$/i', 'max:25'],
             'address' => ['string', 'nullable', 'min:10', 'max:255'],
             'phone' => ['regex:/^(\+\d{1,2} )?\(\d{1,4}\) \d{3}-\d{4}/', 'nullable'],
