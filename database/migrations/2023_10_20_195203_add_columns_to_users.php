@@ -18,12 +18,12 @@ return new class extends Migration
             {
                 $table->string('role', 40);
                 $table->string('username', 25);
-                $table->string('fname', 25);
-                $table->string('lname', 25);
-                $table->string('phone', 20);
-                $table->string('address', 75);
+                $table->string('first_name', 25)->nullable();
+                $table->string('last_name', 25)->nullable();
+                $table->string('phone', 20)->nullable();
+                $table->string('address', 75)->nullable();
                 $table->boolean('visited');
-                $table->float('budget', 10, 2);
+                $table->float('budget', 12, 2)->nullable();
             });
 
 

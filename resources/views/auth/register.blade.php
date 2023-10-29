@@ -10,7 +10,7 @@
         </div>
 
         <!-- First and Last Name -->
-        <div class="mt-4">
+<!--         <div class="mt-4">
             <div class="columns-2">
                 <div>
                     <x-input-label for="fname" :value="__('First Name')" />
@@ -23,22 +23,22 @@
             </div>
             <x-input-error :messages="$errors->get('fname')" class="mt-2" />
             <x-input-error :messages="$errors->get('lname')" class="mt-2" />
-        </div>
+        </div> -->
 
         <!-- Phone -->
-        <div class="mt-4">
+<!--         <div class="mt-4">
             <x-input-label for="phone" :value="__('Phone Number')" />
             <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autocomplete="tel" />
             <label for="phone" class="text-gray-700 dark:text-gray-300 text-sm opacity-60">Format: +1 (123) 456-7890</label>
             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-        </div>
+        </div> -->
 
         <!-- Address -->
-        <div class="mt-4">
+<!--         <div class="mt-4">
             <x-input-label for="address" :value="__('Address')" />
             <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
-        </div>
+        </div> -->
 
         <!-- Email Address -->
         <div class="mt-4">
