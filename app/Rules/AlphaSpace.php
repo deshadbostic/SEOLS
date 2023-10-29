@@ -13,7 +13,7 @@ class AlphaSpace implements ValidationRule
 
     public function __construct($things = [])
     {
-        $this->params = $things; // store the provided parameters
+        $this->params = is_array($things) ? $things : str_split($things); // store the provided parameters
     }
     
     /**
