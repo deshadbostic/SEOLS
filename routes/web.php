@@ -9,6 +9,7 @@ use App\Http\Controllers\HouseInfoController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SolarController;
+use App\Http\Controllers\FAQController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,11 @@ Route::resource('customer', CustomerController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('schedule', ScheduleController::class)
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
+
+// this route is for viewing the FAQ in the browser
+Route::resource('FAQs', FAQController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
 
