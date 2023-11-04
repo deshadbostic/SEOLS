@@ -20,6 +20,8 @@
         <div class="text-lg text-white">Q: {{ $faq->Questions }}</div>
         <div class="text-lg text-white">A: {{ $faq->Answers }}</div>
         @endforeach
+        <br>
+        <br>
         </div>
         @endforeach
     </div>
