@@ -1,14 +1,10 @@
 <?php
 
-use App\Http\Controllers\BatteryController;
-use App\Http\Controllers\InverterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\HouseInfoController;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\QuoteController;
-use App\Http\Controllers\SolarController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductAttributeController;
@@ -57,22 +53,9 @@ Route::resource('quote', QuoteController::class)
     ->middleware(['auth', 'verified']);
 
 // This route is for viewing products in the browser
-Route::resource('products', ProductController::class)
-    ->only(['index'])
+Route::resource('product', ProductController::class)
     ->middleware(['auth', 'verified']);
 
-// This route is for viewing product attributes in the browser
-Route::resource('product_attributes', ProductAttributeController::class)
-    ->middleware(['auth', 'verified']);
-
-Route::group(['prefix' => 'products'], function () {
-    Route::resource('battery', BatteryController::class)
-        ->middleware(['auth', 'verified']);
-    Route::resource('inverter', InverterController::class)
-        ->middleware(['auth', 'verified']);
-    Route::resource('solarpanel', SolarController::class)
-        ->middleware(['auth', 'verified']);
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

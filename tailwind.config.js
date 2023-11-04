@@ -15,10 +15,13 @@ export default {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
             gridTemplateColumns: {
-                autoLayout: "repeat(auto-fit, minmax(230px,1fr))",
+                autoLayout: "repeat(auto-fit, minmax(210px,1fr))",
             },
             gridTemplateRows: {
                 fit: "auto auto 1fr auto",
+            },
+            screens: {
+                mdx: "790px",
             },
         },
     },
