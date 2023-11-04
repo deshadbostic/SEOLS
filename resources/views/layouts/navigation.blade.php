@@ -33,6 +33,10 @@
                     <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
                         {{ __('PV System Quotation') }}
                     </x-nav-link>
+                    
+                    <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('quote')">
+                        {{ __('FAQs') }}
+                    </x-nav-link>
                 </div>
             </div>
 
