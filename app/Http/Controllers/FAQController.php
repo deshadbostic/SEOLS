@@ -13,6 +13,8 @@ class FAQController extends Controller
     public function index()
     {
         //
+        $FAQs = FAQ::all();
+        return view('FAQ.index')->with('FAQs', $FAQs);
     }
 
     /**
