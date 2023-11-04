@@ -71,6 +71,14 @@ class ProductSeeder extends Seeder
             ]
 
         ]);
+        DB::table('products')->insert([
+            [
+                'Name' => 'Tesla Powerwall ',
+                'Price' => '6000',
+                'Quantity' => '13.5',
+                'Category' => 'battery'
+            ],
+        ]);
 
         DB::table('battery')->insert([
             [

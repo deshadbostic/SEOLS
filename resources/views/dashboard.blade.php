@@ -26,6 +26,8 @@
                         <a href="{{ route('houseinfo.create') }}" class="text-blue-500 hover:underline">Add Housing Info</a>
                         <br>
                         <a href="{{ route('quote.index') }}" class="text-blue-500 hover:underline">System Quotations</a>
+                        <br>
+                        <a href="{{ route('FAQs.index') }}" class="text-blue-500 hover:underline">FAQ</a>
                     </div>
                 </div>
             </div>

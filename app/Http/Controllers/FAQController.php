@@ -18,7 +18,7 @@ class FAQController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.ch
+     * Show the form for creating a new resource.
      */
     public function create()
     {

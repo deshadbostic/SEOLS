@@ -10,6 +10,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SolarController;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductAttributeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +30,10 @@ Route::get('/', function () {
 });
 
 // this route is for viewing the products type /product in the browser
-Route::resource('products', ItemController::class)
+/*Route::resource('products', ItemController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
-
+*/
 // this route is for viewing the customer type /customer in the browser
 Route::resource('customer', CustomerController::class)
     ->only(['index'])
@@ -52,6 +54,15 @@ Route::resource('houseinfo', HouseInfoController::class)
 
 // This route is for accessing the quotation page. Type /quote in the browser
 Route::resource('quote', QuoteController::class)
+    ->middleware(['auth', 'verified']);
+
+// This route is for viewing products in the browser
+Route::resource('products', ProductController::class)
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
+
+// This route is for viewing product attributes in the browser
+Route::resource('product_attributes', ProductAttributeController::class)
     ->middleware(['auth', 'verified']);
 
 Route::group(['prefix' => 'products'], function () {
