@@ -17,24 +17,24 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product')">
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         {{ __('Product Catalog') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedules')">
+                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
                         {{ __('Schedules') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('quote')">
+                    <x-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('houseinfo.index')">
                         {{ __('House Information') }}
                     </x-nav-link>
                     @endauth
 
-                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
+                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote.index')">
                         {{ __('PV System Quotation') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('quote')">
+                    <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('FAQs.index')">
                         {{ __('FAQs') }}
                     </x-nav-link>
                 </div>
