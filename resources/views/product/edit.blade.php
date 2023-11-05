@@ -126,9 +126,13 @@
         {{ __('+ Add Attribute') }}
       </button>
       <div>
+      <form method="POST" action="{{ route('product.update', $product) }}">
         <x-primary-button class="ml-4">
           {{ __('Update') }}
         </x-primary-button>
+        </form>
+        <br>
+        <br>
         <form method="POST" action="{{ route('product.destroy', $product) }}">
           @csrf
           @method('delete')
