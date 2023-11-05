@@ -1,32 +1,29 @@
 <x-app-layout>
     @auth
-    <div class="container mx-auto flex flex-col items-center text-white">
-        <div class="flex gap-10">
-            <h1 class="text-2xl font-semibold mt-4">Frequently Asked Questions</h1>
-        </div>
-        <br>
-        <br>
-        <div class="my-8">
-            @foreach ($FAQs->groupBy('Category') as $category => $faqs)
-            <h2 class="text-xl font-semibold text-white">{{ $category }}</h2>
-            <div class="flex flex-col gap-4 w-[400px]">
-            @foreach ($faqs as $faq)
-            <div class="text-lg text-white">Q: {{ $faq->Questions }}</div>
-            <div class="text-lg text-white">A: {{ $faq->Answers }}</div>
-            <br>
-            @endforeach
-            <br>
-            <br>
+    <div class="container mx-auto p-6 text-white">
+        <h1 class="text-3xl font-bold text-center my-8">Frequently Asked Questions</h1>
+        
+        @foreach ($FAQs->groupBy('Category') as $category => $faqs)
+            <div class="mb-10">
+                <h2 class="text-xl font-semibold mb-4">{{ $category }}</h2>
+                <div class="space-y-6">
+                    @foreach ($faqs as $faq)
+                        <div class="bg-gray-800 p-4 rounded-md">
+                            <p class="text-lg font-semibold">Q: {{ $faq->Questions }}</p>
+                            <p class="text-lg mt-2">{{ $faq->Answers }}</p>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-            @endforeach
-        <div class="relative">
-            <a href="{{ route('dashboard') }}" class="absolute left-0 top-0 text-blue-500 hover:text-blue-600 font-semibold text-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline align-text-top" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        @endforeach
+
+        <div class="text-left">
+            <a href="{{ route('dashboard') }}" class="text-blue-500 hover:text-blue-600 font-semibold text-lg inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back
             </a>
-        </div>
         </div>
     </div>
     @endauth
