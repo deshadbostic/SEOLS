@@ -7,7 +7,7 @@
       alert.classList.add('dismissing');
       alert.addEventListener('animationend', () => {
 
-        alert.classList.add('hidden');
+        // alert.classList.add('hidden');
       })
     }
   })
@@ -54,7 +54,7 @@
     <form method="GET" action="{{ route('product.create') }}">
       @csrf
       <x-input-error :messages="$errors->get('message')" class="mt-2" />
-      <x-primary-button class="mt-4 dark:bg-gray-300 bg-gray-300 hover:bg-white focus-visible:bg-white active:bg-white focus:bg-white focus-within:bg-white shadow-md shadow-black">{{ __('Create Product') }}</x-primary-button>
+      <x-primary-button class="mt-4 dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white">{{ __('Create Product') }}</x-primary-button>
     </form>
   </div>
   @endif
@@ -72,12 +72,12 @@
           <form method="GET" action="{{ route('product.show', $product) }}" class=" inline-block w-full m-0">
             @csrf
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
-            <x-primary-button class="justify-center w-full dark:bg-gray-300 bg-gray-300 hover:bg-white focus-visible:bg-white active:bg-white focus:bg-white focus-within:bg-white">{{ __('View') }}</x-primary-button>
+            <x-primary-button class="justify-center w-full dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white">{{ __('View') }}</x-primary-button>
           </form>
           @if(Auth::user()->role != "Customer")
           <form method="GET" action="{{ route('product.edit', $product) }}" class="inline-block w-full m-0">
             @csrf
-            <x-primary-button class="justify-center w-full dark:bg-gray-300 bg-gray-300 hover:bg-white focus-visible:bg-white active:bg-white focus:bg-white focus-within:bg-white">
+            <x-primary-button class="justify-center w-full dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white">
               {{ __('Edit') }}
             </x-primary-button>
           </form>
@@ -88,7 +88,7 @@
           @csrf
           @method('DELETE')
           <x-input-error :messages="$errors->get('message')" class="mt-2" />
-          <x-primary-button class="justify-center w-full dark:bg-red-600 dark:text-white hover:bg-red-400 dark:focus-visible:bg-red-400 bg-red-600 text-white focus-visible:bg-red-400 del-btn focus:bg-red-400">{{ __('Delete') }}</x-primary-button>
+          <x-delete-button class="justify-center w-full ">{{ __('Delete') }}</x-delete-button>
         </form>
         @endif
       </div>

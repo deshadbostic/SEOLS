@@ -79,7 +79,7 @@
       <form method="POST" class="m-0" action="{{ route('product.destroy', $product) }}">
         @csrf
         @method('delete')
-        <x-delete-button class="justify-center dark:bg-red-600 dark:text-white hover:bg-red-400 dark:focus-visible:bg-red-400 bg-red-600 text-white focus-visible:bg-red-400 focus:bg-red-400 inline-flex">
+        <x-delete-button class="justify-center inline-flex">
           {{ __('Delete') }}
         </x-delete-button>
       </form>
@@ -126,19 +126,19 @@
             </div>
           </div>
           <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
-            <x-primary-button type="button" class="bg-red-500 dark:bg-red-500 text-white dark:text-white focus-within:bg-red-400 dark:focus-within:bg-red-400 active:bg-red-400 dark:active:bg-red-400 hover:bg-red-400 dark:hover:bg-red-400 focus:bg-red-400 dark:focus:bg-red-400 focus-visible:bg-red-400 dark:focus-visible:bg-red-400 px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-primary-button>
+            <x-delete-button type="button" class="px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-delete-button>
             <span class="text-red-500 text-sm hidden error-message">Both attribute name and value are required.</span>
           </div>
         </div>
         @endforeach
       </div>
-      <x-primary-button class="my-3 hover:bg-white focus-visible:bg-white active:bg-white focus:bg-white focus-within:bg-white" type="button" onclick="addAttribute()">
+      <x-primary-button class="my-3 dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
         {{ __('+ Add Attribute') }}
       </x-primary-button>
       <div>
-        <x-primary-button class=" bg-blue-500 dark:bg-blue-500 text-white dark:text-white hover:bg-blue-400 focus-visible:bg-blue-400 dark:hover:bg-blue-400 dark:active:bg-blue-400 dark:focus:bg-blue-400 dark:focus-visible:bg-blue-400 dark:focus-within::bg-blue-400">
+        <x-edit-button class="">
           {{ __('Update') }}
-        </x-primary-button>
+        </x-edit-button>
       </div>
     </form>
 

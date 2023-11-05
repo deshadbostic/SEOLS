@@ -26,13 +26,13 @@
           @csrf
           <form method="GET" action="{{ route('product.edit', $product) }}">
             @csrf
-            <x-primary-button type="submit" class="bg-blue-500 dark:bg-blue-500 text-white dark:text-white hover:bg-blue-400 dark:hover:bg-blue-400 focus:bg-blue-400 dark:focus:bg-blue-400 active:bg-blue-400 dark:active:bg-blue-400 focus-visible:bg-blue-400 dark:focus-visible:bg-blue-400 focus-within:bg-blue-400 dark:focus-within:bg-blue-400">Edit Product</x-primary-button>
+            <x-edit-button>Edit Product</x-edit-button>
           </form>
         </div>
         <form method="POST" action="{{ route('product.destroy', $product) }}" class=" block">
           @csrf
           @method('DELETE')
-          <x-primary-button type="submit" class="bg-red-500 dark:bg-red-500 text-white dark:text-white hover:bg-red-400 dark:hover:bg-red-400 focus:bg-red-400 dark:focus:bg-red-400 active:bg-red-400 dark:active:bg-red-400 focus-visible:bg-red-400 dark:focus-visible:bg-red-400 focus-within:bg-red-400 dark:focus-within:bg-red-400">Delete Product</x-primary-button>
+          <x-delete-button type="submit">Delete Product</x-delete-button>
         </form>
       </div>
       @endif
