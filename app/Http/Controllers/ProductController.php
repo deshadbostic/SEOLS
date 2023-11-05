@@ -46,6 +46,11 @@ class ProductController extends Controller
             'Category' => $request->Category,
         ]);
 
+        if (!$product) {
+            return redirect()->route('product.index')
+                ->with('error', 'Product creation failed. Please try again.');
+        }
+
         // Create the associated Attributes records
         $attributes = $request->input('attributes');
         $attributeNames = $attributes['Attribute_type'];
@@ -58,13 +63,18 @@ class ProductController extends Controller
 
             // Create and save the Attributes record for each attribute-value pair
             // Example:
-            $product->productAttributes()->create([
+            $attribute = $product->productAttributes()->create([
                 'Attribute_type' => $attributeName,
                 'Attribute_value' => $attributeValue,
                 // Set the 'product_id' if needed
             ]);
+
+            if (!$attribute) {
+                return redirect()->route('product.index')
+                    ->with('error', 'Product creation failed. Please try again.');
+            }
         }
-        return redirect(route('product.index'));
+        return redirect(route('product.index'))->with('success', 'Product successfully created.');
     }
 
     /**
@@ -163,7 +173,7 @@ class ProductController extends Controller
                     ->with('error', 'Product update failed. Please try again.');
             }
         }
-        return redirect()->route('product.index')->with('success', 'Product successfully updated.');;
+        return redirect()->route('product.index')->with('success', 'Product successfully updated.');
     }
 
     /**
@@ -173,7 +183,11 @@ class ProductController extends Controller
     {
         //
         $this->authorize('delete', $product);
-        $product->delete();
-        return redirect(route('product.index'));
+        $deleteProduct = $product->delete();
+        if (!($deleteProduct > 0)) {
+            return redirect()->route('product.index')
+                ->with('error', 'Product deletion failed. Please try again.');
+        }
+        return redirect(route('product.index'))->with('success', 'Product successfully deleted.');
     }
 }
