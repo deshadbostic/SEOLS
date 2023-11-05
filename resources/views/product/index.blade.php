@@ -57,7 +57,7 @@
     </form>
   </div>
   <div class=" grid grid-cols-autoLayout my-6 gap-4 w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4">
-    {{$products = null}}
+    
     @if($products)
     @foreach ($products as $product)
     <div class=" text-gray-200  max-w-[16rem] text-center mx-auto w-full rounded-md border-[1px] px-3 py-4 border-gray-300 bg-slate-800 flex flex-col justify-between">
