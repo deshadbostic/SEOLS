@@ -15,11 +15,11 @@ class ProductAttributeSeeder extends Seeder
     {
         DB::table('product_attributes')->insert([
             [
-                'product_id' => '1',
+                'product_id' => '11',
                 'Attribute_type' => 'weight',
                 'Attribute_value' => '60000',
             ], [
-                'product_id' => '2',
+                'product_id' => '12',
                 'Attribute_type' => 'size',
                 'Attribute_value' => '113.5',
             ],

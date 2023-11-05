@@ -65,15 +65,25 @@
 <x-app-layout>
   @auth
   <div class="mx-auto max-w-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-    <div class="relative">
-      <a href="{{ route('product.index') }}" class="absolute left-100 top-100 text-blue-500 hover:text-blue-600 font-semibold text-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline align-text-top" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Back
-      </a>
+
+    <div class=" flex justify-between my-3">
+      <div class="">
+        <a href="{{ route('product.index') }}" class="text-blue-500 hover:text-blue-600 font-semibold text-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline align-text-top" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back
+        </a>
+      </div>
+      <h1 class=" text-2xl font-bold text-center leading-none">Edit Existing Product</h1>
+      <form method="POST" class="m-0" action="{{ route('product.destroy', $product) }}">
+        @csrf
+        @method('delete')
+        <x-delete-button class="justify-center dark:bg-red-600 dark:text-white hover:bg-red-400 dark:focus-visible:bg-red-400 bg-red-600 text-white focus-visible:bg-red-400 focus:bg-red-400 inline-flex">
+          {{ __('Delete') }}
+        </x-delete-button>
+      </form>
     </div>
-    <h1 class=" text-2xl font-bold text-center my-3">Edit Existing Product</h1>
     <form method="POST" action="{{ route('product.update', $product) }}">
       @csrf
       @method('patch')
@@ -116,32 +126,22 @@
             </div>
           </div>
           <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
-            <button type="button" class="bg-red-500 px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</button>
+            <x-primary-button type="button" class="bg-red-500 dark:bg-red-500 text-white dark:text-white focus-within:bg-red-400 dark:focus-within:bg-red-400 active:bg-red-400 dark:active:bg-red-400 hover:bg-red-400 dark:hover:bg-red-400 focus:bg-red-400 dark:focus:bg-red-400 focus-visible:bg-red-400 dark:focus-visible:bg-red-400 px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-primary-button>
             <span class="text-red-500 text-sm hidden error-message">Both attribute name and value are required.</span>
           </div>
         </div>
         @endforeach
       </div>
-      <button class="" type="button" onclick="addAttribute()">
+      <x-primary-button class="my-3 hover:bg-white focus-visible:bg-white active:bg-white focus:bg-white focus-within:bg-white" type="button" onclick="addAttribute()">
         {{ __('+ Add Attribute') }}
-      </button>
+      </x-primary-button>
       <div>
-      <form method="POST" action="{{ route('product.update', $product) }}">
-        <x-primary-button class="ml-4">
+        <x-primary-button class=" bg-blue-500 dark:bg-blue-500 text-white dark:text-white hover:bg-blue-400 focus-visible:bg-blue-400 dark:hover:bg-blue-400 dark:active:bg-blue-400 dark:focus:bg-blue-400 dark:focus-visible:bg-blue-400 dark:focus-within::bg-blue-400">
           {{ __('Update') }}
         </x-primary-button>
-        </form>
-        <br>
-        <br>
-        <form method="POST" action="{{ route('product.destroy', $product) }}">
-          @csrf
-          @method('delete')
-          <x-primary-button class="ml-4">
-            {{ __('Delete') }}
-          </x-primary-button>
-        </form>
       </div>
     </form>
+
   </div>
   @endauth
 </x-app-layout>
