@@ -110,12 +110,12 @@
         </div>
       </div>
 
-      <button class="" type="button" onclick="addAttribute()">
+      <x-primary-button class="dark:bg-gray-300 bg-gray-300 hover:bg-white focus-visible:bg-white active:bg-white focus:bg-white focus-within:bg-white" type="button" onclick="addAttribute()">
         {{ __('+ Add Attribute') }}
-      </button>
+      </x-primary-button>
       <div>
 
-        <x-primary-button class="ml-4">
+        <x-primary-button class="my-4 bg-blue-500 dark:bg-blue-500 text-white dark:text-white hover:bg-blue-400 dark:hover:bg-blue-400 focus:bg-blue-400 dark:focus:bg-blue-400 active:bg-blue-400 dark:active:bg-blue-400 focus-visible:bg-blue-400 dark:focus-visible:bg-blue-400 focus-within:bg-blue-400 dark:focus-within:bg-blue-400 ">
           {{ __('Create') }}
         </x-primary-button>
       </div>

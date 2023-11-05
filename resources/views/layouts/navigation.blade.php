@@ -33,7 +33,7 @@
                     <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
                         {{ __('PV System Quotation') }}
                     </x-nav-link>
-                    
+
                     <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('quote')">
                         {{ __('FAQs') }}
                     </x-nav-link>
@@ -106,6 +106,10 @@
 
             <x-responsive-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
                 {{ __('PV System Quotation') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('FAQs.index')" :active="request()->routeIs('quote')">
+                {{ __('FAQs') }}
             </x-responsive-nav-link>
         </div>
 
