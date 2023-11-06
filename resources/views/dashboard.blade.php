@@ -27,7 +27,10 @@
                         <br>
                         <a href="{{ route('quote.index') }}" class="text-blue-500 hover:underline">System Quotations</a>
                         <br>
+                        <a href="{{ route('configuration.index') }}" class="text-blue-500 hover:underline">My Configurations</a>
+                        <br>
                         <a href="{{ route('FAQs.index') }}" class="text-blue-500 hover:underline">FAQ</a>
+
                     </div>
                 </div>
             </div>

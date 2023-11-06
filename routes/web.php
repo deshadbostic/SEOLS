@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ScheduleController;
@@ -56,6 +57,8 @@ Route::resource('quote', QuoteController::class)
 Route::resource('product', ProductController::class)
     ->middleware(['auth', 'verified']);
 
+Route::resource('configuration', ConfigurationController::class)
+    ->middleware(['auth', 'verified']);   
 
 Route::get('/dashboard', function () {
     return view('dashboard');

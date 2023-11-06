@@ -24,7 +24,7 @@ class ItemSeeder extends Seeder
             'description' => '1800 VA',
             'price' => '3000.00'
             ]
-            ]);
+        ]);
             
     }
 }
