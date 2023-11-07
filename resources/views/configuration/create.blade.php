@@ -147,22 +147,20 @@
     function updateConfigPrice() {
         let amount = 0
         product_prices.forEach((price,i) => {
-            console.log(`${price.value.split('---')[1]}  ${product_counts[i].value}`)
-            if((price.value !== '' || price.value.split('---')[1] === undefined) && product_counts[i].value !== '') {
+            if(price.value !== '' && product_counts[i].value !== '') {
                 amount += (parseFloat(price.value.split('---')[1])*parseInt(product_counts[i].value))
             }
         })
         console.log(amount)
-        if(!isNaN(amount)){
-            amount != 0 ? cost_field.value = '$'+(parseInt(amount)) : cost_field.value == ''
-        } 
+        cost_field.value = '$'+(parseInt(amount))
+         
     }
 
     function updateConfigEnergy() {
         let solar_panel_energy = document.getElementById('solar_panel_id').value.split("---")[2]
         let solar_panel_count = document.getElementById('solar_panel_count').value
         let amount = ((parseInt(solar_panel_energy) * solar_panel_count)*5)
-        amount !== 0 ? energy_field.value = parseInt(amount) + ' W' : energy_field.value = '' 
+        energy_field.value = parseInt(amount) + ' W' 
     } 
     addEvents()
 </script>
