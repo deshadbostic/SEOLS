@@ -65,7 +65,7 @@
       <div>
         <p>Name : {{ $product->Name }}</p>
         <p>Category : {{ $product->Category }}</p>
-        <p>Price : {{ $product->Price }}</p>
+        <p>Price : ${{ $product->Price }}</p>
       </div>
       <div>
         <div class="flex gap-3 mt-4">
