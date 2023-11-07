@@ -19,7 +19,7 @@
                     <!-- Solar Panel Quantity -->
                     <div>
                         <x-input-label for="solar_panel_count" :value="__('Quantity')" />
-                        <x-text-input id="solar_panel_count" class="count_calc block mt-1 w-full" type="text" name="solar_panel_count" :value="old('solar_panel_count')" autocomplete="solar_panel_count" />
+                        <x-text-input id="solar_panel_count" class="count_calc block mt-1 w-full" type="text" name="solar_panel_count" value="{{(null === old('solar_panel_count')) ? 0 : old('solar_panel_count')}}" autocomplete="solar_panel_count" />
                         <x-input-error :messages="$errors->get('solar_panel_count')" class="mt-2" />
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <!-- Inverter Quantity -->
                     <div>
                         <x-input-label for="inverter_count" :value="__('Quantity')" />
-                        <x-text-input id="inverter_count" class="count_calc block mt-1 w-full" type="text" name="inverter_count" :value="old('inverter_count')" autocomplete="inverter_count" />
+                        <x-text-input id="inverter_count" class="count_calc block mt-1 w-full" type="text" name="inverter_count" value="{{(null === old('inverter_count')) ? 0 : old('inverter_count')}}" autocomplete="inverter_count" />
                         <x-input-error :messages="$errors->get('inverter_count')" class="mt-2" />
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div>
                         <x-input-label for="battery_id" :value="__('Battery')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm price_calc" name="battery_id" id="battery_id">
-                            <option value="0">No Battery</option>
+                            <option value="">No Battery</option>
                             @foreach ($batteries as $battery)
                                 <option value="{{$battery->id.'---'.$battery->Price.'---'.$battery->Attribute_value}}" {{(null !== old('battery_id')) && (old('battery_id') == $battery->id) ? "selected" : ""}} >{{$battery->Name.', '.$battery->Attribute_value}}</option>
                             @endforeach
@@ -60,7 +60,7 @@
                     <!-- Battery Quantity -->
                     <div>
                         <x-input-label for="battery_count" :value="__('Quantity')" />
-                        <x-text-input id="battery_count" class="count_calc block mt-1 w-full" type="text" name="battery_count" :value="old('battery_count')" autocomplete="battery_count" />
+                        <x-text-input id="battery_count" class="count_calc block mt-1 w-full" type="text" name="battery_count" value="{{(null === old('battery_count')) ? 0 : old('battery_count')}}" autocomplete="battery_count" />
                         <x-input-error :messages="$errors->get('battery_count')" class="mt-2" />
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     <!-- Wire Quantity -->
                     <div>
                         <x-input-label for="wire_count" :value="__('Quantity')" />
-                        <x-text-input id="wire_count" class="count_calc block mt-1 w-full" type="text" name="wire_count" :value="old('wire_count')" autocomplete="wire_count" />
+                        <x-text-input id="wire_count" class="count_calc block mt-1 w-full" type="text" name="wire_count" value="{{(null === old('wire_count')) ? 0 : old('wire_count')}}" autocomplete="wire_count" />
                         <x-input-error :messages="$errors->get('wire_count')" class="mt-2" />
                     </div>
                 </div>
@@ -147,11 +147,15 @@
     function updateConfigPrice() {
         let amount = 0
         product_prices.forEach((price,i) => {
-            if(price.value !== '' && product_counts[i].value !== '') {
+            console.log(`${price.value.split('---')[1]}  ${product_counts[i].value}`)
+            if((price.value !== '' || price.value.split('---')[1] === undefined) && product_counts[i].value !== '') {
                 amount += (parseFloat(price.value.split('---')[1])*parseInt(product_counts[i].value))
             }
-        }) 
-        amount != 0 ? cost_field.value = '$'+(parseInt(amount)) : cost_field.value == ''
+        })
+        console.log(amount)
+        if(!isNaN(amount)){
+            amount != 0 ? cost_field.value = '$'+(parseInt(amount)) : cost_field.value == ''
+        } 
     }
 
     function updateConfigEnergy() {

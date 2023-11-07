@@ -31,6 +31,7 @@ class ConfigurationRequest extends FormRequest
             'wire_count' => ['required', 'numeric', 'min:1', 'max:100'],
             'budget' => 'required',
             'energy_requirement' => '',
+            'battery_count' => 'min:0'
         ];
     }
 }
