@@ -18,11 +18,11 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'username' => 'admin',
-                'first_name' => 'admin',
-                'last_name' => 'admin',
-                'email' => 'admin@test.com',
+                'first_name' => 'Admin',
+                'last_name' => 'Test',
+                'email' => 'admin@example.com',
                 'phone' => '123323223',
-                'address' => 'sds',
+                'address' => 'Lot #465',
                 'visited' => '0',
                 'budget' => '100',
                 'password' => Hash::make('12345678'),
@@ -30,27 +30,15 @@ class AdminSeeder extends Seeder
             ],
             [
                 'username' => 'operationsManager',
-                'first_name' => 'operationsManager',
-                'last_name' => 'Manager',
-                'email' => 'manager@test.com',
-                'phone' => '123323223',
-                'address' => 'sds',
+                'first_name' => 'Manager',
+                'last_name' => 'Test',
+                'email' => 'manager@example.com',
+                'phone' => '123456789',
+                'address' => 'Street #1',
                 'visited' => '0',
-                'budget' => '100',
+                'budget' => '25000',
                 'password' => Hash::make('12345678'),
                 'role' => 'operationsManager'
-            ],
-            [
-                'username' => 'Customer',
-                'first_name' => 'Customer',
-                'last_name' => 'Customer',
-                'email' => 'test@test.com',
-                'phone' => '123323223',
-                'address' => 'sds',
-                'visited' => '0',
-                'budget' => '100',
-                'password' => Hash::make('12345678'),
-                'role' => 'Customer'
             ]
         ]);
     }

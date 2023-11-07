@@ -40,7 +40,7 @@ return new class extends Migration
             }
             else
             {
-                // add it to the table if it doesnt
+                // add it to the table if it doesn't
                 $table->string('password');
             }
         });
