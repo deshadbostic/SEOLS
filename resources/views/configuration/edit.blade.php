@@ -105,7 +105,7 @@
                 <div class="flex space-x-6">
                     <!-- Config Cost  -->
                     <div>
-                        <x-input-label class="mt-3" for="config_cost" :value="__('Configuration Cost:')" />
+                        <x-input-label class="mt-3" for="config_cost" :value="__('Estimated Cost:')" />
                         <x-text-input readonly id="config_cost"  name="config_cost" :value="old('config_cost')"/>
                         <x-input-error :messages="$errors->get('config_cost')" class="mt-2" />
                     </div>
