@@ -45,7 +45,7 @@
         <div class="text-lg my-3 text-white">Installation Cost: {{'$'.number_format($configuration->installation_cost,2)}}</div>
         <div class="text-lg my-3 text-white">Total: {{'$'.number_format($configuration->installation_cost+$configuration->equipment_cost,2)}}</div>
         <div class="flex space-x-4">
-            <a href="javascript:history.back()">
+            <a href="{{ route('configuration.index') }}">
                 <x-primary-button class="justify-center">
                     {{ __('Return') }}
                 </x-primary-button>

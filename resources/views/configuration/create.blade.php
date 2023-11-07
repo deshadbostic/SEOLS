@@ -30,7 +30,7 @@
                         <x-input-label for="inverter" :value="__('Inverter')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm price_calc" name="inverter_id" id="inverter_id">
                             @foreach($inverters as $inverter)
-                                <option value="{{$inverter->id.'---'.$inverter->Price.'---'.$inverter->Attribute_value}}" {{(null !== old('inverter_id')) && (old('inverter_id') == $inverter->id) ? "selected" : ""}} >{{$inverter->Name.', '.$inverter->Attribute_value}}</option>
+                                <option value="{{$inverter->id.'---'.$inverter->Price.'---'.$inverter->Attribute_value}}" {{(null !== old('inverter_id')) && (old('inverter_id') == $inverter->id) ? selected : ""}} >{{$inverter->Name.', '.$inverter->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('inverter_id')" class="mt-2" />
@@ -153,7 +153,6 @@
         })
         console.log(amount)
         cost_field.value = '$'+(parseInt(amount))
-         
     }
 
     function updateConfigEnergy() {
