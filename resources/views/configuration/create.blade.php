@@ -8,7 +8,7 @@
                     <!-- Solar Panel Model -->
                     <div>
                         <x-input-label for="solar_panel_id" :value="__('Solar Panel')" />
-                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="solar_panel_id" id="solar_panel_id">
+                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm price_calc" name="solar_panel_id" id="solar_panel_id">
                             @foreach($solar_panels as $solar_panel)
                                 <option value="{{$solar_panel->id.'---'.$solar_panel->Price.'---'.$solar_panel->Attribute_value}}" {{(null !== old('solar_panel_id')) && (old('solar_panel_id') == $solar_panel->id) ? "selected" : ""}} > {{$solar_panel->Name.', '.$solar_panel->Attribute_value}}</option>
                             @endforeach
@@ -19,7 +19,7 @@
                     <!-- Solar Panel Quantity -->
                     <div>
                         <x-input-label for="solar_panel_count" :value="__('Quantity')" />
-                        <x-text-input id="solar_panel_count" class="block mt-1 w-full" type="text" name="solar_panel_count" :value="old('solar_panel_count')" autocomplete="solar_panel_count" />
+                        <x-text-input id="solar_panel_count" class="count_calc block mt-1 w-full" type="text" name="solar_panel_count" :value="old('solar_panel_count')" autocomplete="solar_panel_count" />
                         <x-input-error :messages="$errors->get('solar_panel_count')" class="mt-2" />
                     </div>
                 </div>
@@ -28,9 +28,9 @@
                     <!-- Inverter Model -->
                     <div>
                         <x-input-label for="inverter" :value="__('Inverter')" />
-                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="inverter_id" id="inverter_id">
+                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm price_calc" name="inverter_id" id="inverter_id">
                             @foreach($inverters as $inverter)
-                                <option value="{{$inverter->id}}" {{(null !== old('inverter_id')) && (old('inverter_id') == $inverter->id) ? "selected" : ""}} >{{$inverter->Name.', '.$inverter->Attribute_value}}</option>
+                                <option value="{{$inverter->id.'---'.$inverter->Price.'---'.$inverter->Attribute_value}}" {{(null !== old('inverter_id')) && (old('inverter_id') == $inverter->id) ? "selected" : ""}} >{{$inverter->Name.', '.$inverter->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('inverter_id')" class="mt-2" />
@@ -39,7 +39,7 @@
                     <!-- Inverter Quantity -->
                     <div>
                         <x-input-label for="inverter_count" :value="__('Quantity')" />
-                        <x-text-input id="inverter_count" class="block mt-1 w-full" type="text" name="inverter_count" :value="old('inverter_count')" autocomplete="inverter_count" />
+                        <x-text-input id="inverter_count" class="count_calc block mt-1 w-full" type="text" name="inverter_count" :value="old('inverter_count')" autocomplete="inverter_count" />
                         <x-input-error :messages="$errors->get('inverter_count')" class="mt-2" />
                     </div>
                 </div>
@@ -48,10 +48,10 @@
                     <!-- Battery Model -->
                     <div>
                         <x-input-label for="battery_id" :value="__('Battery')" />
-                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="battery_id" id="battery_id">
+                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm price_calc" name="battery_id" id="battery_id">
                             <option value="0">No Battery</option>
                             @foreach ($batteries as $battery)
-                                <option value="{{$battery->id}}" {{(null !== old('battery_id')) && (old('battery_id') == $battery->id) ? "selected" : ""}} >{{$battery->Name.', '.$battery->Attribute_value}}</option>
+                                <option value="{{$battery->id.'---'.$battery->Price.'---'.$battery->Attribute_value}}" {{(null !== old('battery_id')) && (old('battery_id') == $battery->id) ? "selected" : ""}} >{{$battery->Name.', '.$battery->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('battery_if')" class="mt-2" />
@@ -60,7 +60,7 @@
                     <!-- Battery Quantity -->
                     <div>
                         <x-input-label for="battery_count" :value="__('Quantity')" />
-                        <x-text-input id="battery_count" class="block mt-1 w-full" type="text" name="battery_count" :value="old('battery_count')" autocomplete="battery_count" />
+                        <x-text-input id="battery_count" class="count_calc block mt-1 w-full" type="text" name="battery_count" :value="old('battery_count')" autocomplete="battery_count" />
                         <x-input-error :messages="$errors->get('battery_count')" class="mt-2" />
                     </div>
                 </div>
@@ -69,9 +69,9 @@
                     <!-- Wire Model -->
                     <div>
                         <x-input-label for="wire_id" :value="__('Wire')" />
-                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="wire_id" id="wire_id">
+                        <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm price_calc" name="wire_id" id="wire_id">
                             @foreach($wires as $wire)
-                                <option value="{{$wire->id}}" {{(null !== old('wire_id')) && (old('wire_id') == $wire->id) ? "selected" : ""}} >{{$wire->Name.', '.$wire->Attribute_value}}</option>
+                                <option value="{{$wire->id.'---'.$wire->Price.'---'.$wire->Attribute_value}}" {{(null !== old('wire_id')) && (old('wire_id') == $wire->id) ? "selected" : ""}} >{{$wire->Name.', '.$wire->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('wire_id')" class="mt-2" />
@@ -80,7 +80,7 @@
                     <!-- Wire Quantity -->
                     <div>
                         <x-input-label for="wire_count" :value="__('Quantity')" />
-                        <x-text-input id="wire_count" class="block mt-1 w-full" type="text" name="wire_count" :value="old('wire_count')" autocomplete="wire_count" />
+                        <x-text-input id="wire_count" class="count_calc block mt-1 w-full" type="text" name="wire_count" :value="old('wire_count')" autocomplete="wire_count" />
                         <x-input-error :messages="$errors->get('wire_count')" class="mt-2" />
                     </div>
                 </div>
@@ -126,30 +126,39 @@
 </x-app-layout>
 
 <script>
-    console.log(document.getElementById('solar_panel_id').innerText.split(",")[1].split('W')[0])
-    let solar_panel_energy = document.getElementById('solar_panel_id').innerText.split(",")[1].split('W')[0]
-    let solar_panel_price = document.getElementById('solar_panel_id').value.split('---')[1];
-    console.log(solar_panel_price)
     let energy_field = document.getElementById('energy_generated')
     let cost_field = document.getElementById('config_cost')
+    let product_prices = document.querySelectorAll('.price_calc');
+    let product_counts = document.querySelectorAll('.count_calc');
     let solar_panel_id_field = document.getElementById('solar_panel_id')
     let solar_panel_count_field = document.getElementById('solar_panel_count')
 
-    solar_panel_id_field.addEventListener('change', updateConfigPrice)
-    solar_panel_count_field.addEventListener('input', updateConfigPrice)
-    solar_panel_id_field.addEventListener('change', updateConfigEnergy)
-    solar_panel_count_field.addEventListener('input', updateConfigEnergy)
+    function addEvents() {
+        product_prices.forEach((product) => {
+            product.addEventListener('change', updateConfigPrice)
+        })
+        product_counts.forEach((count) => {
+            count.addEventListener('input', updateConfigPrice)
+        })
+        solar_panel_id_field.addEventListener('change', updateConfigEnergy)
+        solar_panel_count_field.addEventListener('input', updateConfigEnergy)
+    }
     
     function updateConfigPrice() {
-        let solar_panel_price = document.getElementById('solar_panel_id').value.split('---')[1];
-        let solar_panel_count = document.getElementById('solar_panel_count').value
-        cost_field.value = '$'+(parseInt(solar_panel_price) * solar_panel_count)
+        let amount = 0
+        product_prices.forEach((price,i) => {
+            if(price.value !== '' && product_counts[i].value !== '') {
+                amount += (parseFloat(price.value.split('---')[1])*parseInt(product_counts[i].value))
+            }
+        }) 
+        amount != 0 ? cost_field.value = '$'+(parseInt(amount)) : cost_field.value == ''
     }
 
     function updateConfigEnergy() {
         let solar_panel_energy = document.getElementById('solar_panel_id').value.split("---")[2]
         let solar_panel_count = document.getElementById('solar_panel_count').value
-
-        energy_field.value = ((parseInt(solar_panel_energy) * solar_panel_count)*5) + ' W'
-    }    
+        let amount = ((parseInt(solar_panel_energy) * solar_panel_count)*5)
+        amount !== 0 ? energy_field.value = parseInt(amount) + ' W' : energy_field.value = '' 
+    } 
+    addEvents()
 </script>

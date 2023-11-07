@@ -24,7 +24,7 @@ trait ConfigurationHelper {
     }//end generateConfigInfo
 
     private function getCostInfo(ConfigurationRequest $request) {
-        $inverter_id = $request->get('inverter_id');
+        $inverter_id = preg_split("/[-]{3}/",$request->get('inverter_id'))[0];
         $inverter = Product::where('id',$inverter_id)->first();
         $inverter_cost = $inverter->Price * $request->inverter_count;
         
@@ -33,18 +33,18 @@ trait ConfigurationHelper {
         $solar_panel_cost = $solar_panel->Price * $request->solar_panel_count;
 
         if(!empty($request->get('battery_id'))) {
-            $battery_id = $request->get('battery_id');
+            $battery_id = preg_split("/[-]{3}/",$request->get('battery_id'))[0];
             $battery = Product::where('id',$battery_id)->first();
             $battery_cost = $battery->Price * $request->battery_count;
         } else $battery_cost = 0;
 
-        $wire_id = $request->get('wire_id');
+        $wire_id = preg_split("/[-]{3}/",$request->get('wire_id'))[0];
         $wire = Product::where('id',$wire_id)->first();
         $wire_cost = $wire->Price * $request->wire_count;
 
         $equipment_cost = $inverter_cost + $solar_panel_cost + $battery_cost + $wire_cost;
-        $labour_cost = $equipment_cost*0.15;
-        $config_cost = ($equipment_cost + $labour_cost)*0.8;
+        $labour_cost = $equipment_cost*0.1;
+        $config_cost = ($equipment_cost + $labour_cost);
 
         return [$equipment_cost, $labour_cost, $config_cost];
     }
@@ -60,7 +60,7 @@ trait ConfigurationHelper {
         $solar_panel_energy *= 5;
         $solar_panel_energy *= $request->solar_panel_count;
 
-        $inverter_id = $request->get('inverter_id');
+        $inverter_id = preg_split("/[-]{3}/",$request->get('inverter_id'))[0];
         $inverter_capacity = DB::table('product_attributes')
             ->select('product_attributes.Attribute_value')
             ->where('product_attributes.product_id', '=', $inverter_id)
@@ -78,7 +78,7 @@ trait ConfigurationHelper {
         $inverter_energy = ($inverter_capacity*($inverter_efficiency/100))*$request->inverter_count;
 
         if(!empty($request->get('battery_id'))) {
-            $battery_id = $request->get('battery_id');
+            $battery_id = preg_split("/[-]{3}/",$request->get('battery_id'))[0];
             $battery_capacity = DB::table('product_attributes')
             ->select('product_attributes.Attribute_value')
             ->where('product_attributes.product_id', '=', $battery_id)

@@ -45,12 +45,11 @@
         <div class="text-lg my-3 text-white">Installation Cost: {{'$'.number_format($configuration->installation_cost,2)}}</div>
         <div class="text-lg my-3 text-white">Total: {{'$'.number_format($configuration->installation_cost+$configuration->equipment_cost,2)}}</div>
         <div class="flex space-x-4">
-            <form method="GET" action="{{ route('configuration.index') }}" class="inline-block">
-                @csrf
+            <a href="javascript:history.back()">
                 <x-primary-button class="justify-center">
-                {{ __('Return') }}
+                    {{ __('Return') }}
                 </x-primary-button>
-            </form>
+            </a>
             <form method="GET" action="{{ route('configuration.edit', $configuration) }}" class="inline-block">
                 @csrf
                 <x-primary-button class="justify-center">
