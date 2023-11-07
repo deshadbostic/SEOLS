@@ -10,7 +10,7 @@
                         <x-input-label for="solar_panel_id" :value="__('Solar Panel')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="solar_panel_id" id="solar_panel_id">
                             @foreach($solar_panels as $solar_panel)
-                                <option value="{{$solar_panel->id}}" {{(null !== old('solar_panel_id')) && (old('solar_panel_id') == $solar_panel->id) ? "selected" : ""}} > {{$solar_panel->Name.', '.$solar_panel->Attribute_value}}</option>
+                                <option value="{{$solar_panel->id.'---'.$solar_panel->Price.'---'.$solar_panel->Attribute_value}}" {{(null !== old('solar_panel_id')) && (old('solar_panel_id') == $solar_panel->id) ? "selected" : ""}} > {{$solar_panel->Name.', '.$solar_panel->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('solar_panel_id')" class="mt-2" />
@@ -54,7 +54,7 @@
                                 <option value="{{$battery->id}}" {{(null !== old('battery_id')) && (old('battery_id') == $battery->id) ? "selected" : ""}} >{{$battery->Name.', '.$battery->Attribute_value}}</option>
                             @endforeach
                         </select>
-                        <x-input-error :messages="$errors->get('fName')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('battery_if')" class="mt-2" />
                     </div>
 
                     <!-- Battery Quantity -->
@@ -84,7 +84,7 @@
                         <x-input-error :messages="$errors->get('wire_count')" class="mt-2" />
                     </div>
                 </div>
-                <!-- Costs -->
+                <!-- User Info -->
                 <div class="flex space-x-6">
                     <!-- Budget Info -->
                     <div>
@@ -100,9 +100,23 @@
                         <x-input-error :messages="$errors->get('energy_requirement')" class="mt-2" />
                     </div>
                 </div>
-                <select hidden name="prices" id="prices">
+                    <!-- Config Info -->
+                    <div class="flex space-x-6">
+                    <!-- Config Cost  -->
+                    <div>
+                        <x-input-label class="mt-3" for="config_cost" :value="__('Configuration Cost:')" />
+                        <x-text-input readonly id="config_cost"  name="config_cost" :value="old('config_cost')"/>
+                        <x-input-error :messages="$errors->get('config_cost')" class="mt-2" />
+                    </div>
                     
-                </select>
+                    <!--Energy Generated -->
+                    <div>
+                        <x-input-label class="mt-3" for="energy_generated" :value="__('Energy Generated:')" />
+                        <x-text-input readonly id="energy_generated"  name="energy_generated" :value="old('energy_generated')"/>
+                        <x-input-error :messages="$errors->get('energy_generated')" class="mt-2" />
+                    </div>
+                </div>
+                
                 <x-primary-button>
                     {{__('Save')}}
                 </x-primary-button>
@@ -112,7 +126,30 @@
 </x-app-layout>
 
 <script>
-/*     console.log(document.getElementById('solar_panel_id').innerText.split(",")[1].split('W')[0])
-    let solar_panel_energy = */ 
+    console.log(document.getElementById('solar_panel_id').innerText.split(",")[1].split('W')[0])
+    let solar_panel_energy = document.getElementById('solar_panel_id').innerText.split(",")[1].split('W')[0]
+    let solar_panel_price = document.getElementById('solar_panel_id').value.split('---')[1];
+    console.log(solar_panel_price)
+    let energy_field = document.getElementById('energy_generated')
+    let cost_field = document.getElementById('config_cost')
+    let solar_panel_id_field = document.getElementById('solar_panel_id')
+    let solar_panel_count_field = document.getElementById('solar_panel_count')
+
+    solar_panel_id_field.addEventListener('change', updateConfigPrice)
+    solar_panel_count_field.addEventListener('input', updateConfigPrice)
+    solar_panel_id_field.addEventListener('change', updateConfigEnergy)
+    solar_panel_count_field.addEventListener('input', updateConfigEnergy)
     
+    function updateConfigPrice() {
+        let solar_panel_price = document.getElementById('solar_panel_id').value.split('---')[1];
+        let solar_panel_count = document.getElementById('solar_panel_count').value
+        cost_field.value = '$'+(parseInt(solar_panel_price) * solar_panel_count)
+    }
+
+    function updateConfigEnergy() {
+        let solar_panel_energy = document.getElementById('solar_panel_id').value.split("---")[2]
+        let solar_panel_count = document.getElementById('solar_panel_count').value
+
+        energy_field.value = ((parseInt(solar_panel_energy) * solar_panel_count)*5) + ' W'
+    }    
 </script>

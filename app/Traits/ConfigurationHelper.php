@@ -28,7 +28,7 @@ trait ConfigurationHelper {
         $inverter = Product::where('id',$inverter_id)->first();
         $inverter_cost = $inverter->Price * $request->inverter_count;
         
-        $solar_panel_id = $request->get('solar_panel_id');
+        $solar_panel_id = preg_split("/[-]{3}/",$request->get('solar_panel_id'))[0];
         $solar_panel = Product::where('id',$solar_panel_id)->first();
         $solar_panel_cost = $solar_panel->Price * $request->solar_panel_count;
 
@@ -50,7 +50,7 @@ trait ConfigurationHelper {
     }
 
     private function getEnergyInfo(ConfigurationRequest $request) {
-        $solar_panel_id = $request->get('solar_panel_id');
+        $solar_panel_id = preg_split("/[-]{3}/",$request->get('solar_panel_id'))[0];
         $solar_panel_energy = DB::table('product_attributes')
         ->select('product_attributes.Attribute_value')
         ->where('product_attributes.product_id', '=', $solar_panel_id)

@@ -52,7 +52,7 @@ class ConfigurationController extends Controller
         $config_info = $this->generateConfigInfo($request);
         Configuration::create([
         'user_id' => Auth::id(),
-        'solar_panel_id' => $request->get('solar_panel_id'),
+        'solar_panel_id' => preg_split("/[-]{3}/",$request->get('solar_panel_id'))[0],
         'solar_panel_count' => $request->solar_panel_count,
         'battery_id' => empty($request->get('battery_id')) ? NULL : $request->get('battery_id'),
         'battery_count' => empty($request->get('battery_id')) ? 0 : $request->get('battery_count'),
