@@ -23,12 +23,12 @@ class ConfigurationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'solar_panel_id' => 'required',
-            'solar_panel_count' => 'required|numeric',
+            'solar_panel_id' => ['required'],
+            'solar_panel_count' => ['required', 'numeric', 'min:1', 'max:100'],
             'inverter_id' => 'required',
-            'inverter_count' => 'required|numeric',
+            'inverter_count' => ['required', 'numeric', 'min:1', 'max:100'],
             'wire_id' => 'required',
-            'wire_count' => 'required|numeric',
+            'wire_count' => ['required', 'numeric', 'min:1', 'max:100'],
             'budget' => 'required',
             'energy_requirement' => '',
         ];

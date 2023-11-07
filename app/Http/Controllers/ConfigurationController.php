@@ -50,20 +50,20 @@ class ConfigurationController extends Controller
     public function store(ConfigurationRequest $request) : RedirectResponse
     {
         $config_info = $this->generateConfigInfo($request);
-          Configuration::create([
-           'user_id' => Auth::id(),
-           'solar_panel_id' => $request->get('solar_panel_id'),
-           'solar_panel_count' => $request->solar_panel_count,
-           'battery_id' => $request->get('battery_id'),
-           'battery_count' => $request->battery_count,
-           'inverter_id' => $request->get('inverter_id'), 
-           'inverter_count' => $request->inverter_count,
-           'wire_id' => $request->get('wire_id'),
-           'wire_count' => $request->wire_count,
-           'energy_generated' => $config_info['solar_panel_energy'],
-           'equipment_cost' => $config_info['equipment_cost'],
-           'installation_cost' => $config_info['labour_cost'],    
-          ]);
+        Configuration::create([
+        'user_id' => Auth::id(),
+        'solar_panel_id' => $request->get('solar_panel_id'),
+        'solar_panel_count' => $request->solar_panel_count,
+        'battery_id' => empty($request->get('battery_id')) ? NULL : $request->get('battery_id'),
+        'battery_count' => empty($request->get('battery_id')) ? 0 : $request->get('battery_count'),
+        'inverter_id' => $request->get('inverter_id'), 
+        'inverter_count' => $request->inverter_count,
+        'wire_id' => $request->get('wire_id'),
+        'wire_count' => $request->wire_count,
+        'energy_generated' => $config_info['solar_panel_energy'],
+        'equipment_cost' => $config_info['equipment_cost'],
+        'installation_cost' => $config_info['labour_cost'],    
+        ]);
         
         $configurations = Configuration::where('user_id', Auth::id())->get();
         return redirect(route('configuration.index',))->with('configurations', $configurations);
@@ -77,7 +77,12 @@ class ConfigurationController extends Controller
         $solar_panel = Product::where('id', $configuration->solar_panel_id)->first();
         $inverter = Product::where('id', $configuration->inverter_id)->first();
         $wire = Product::where('id', $configuration->wire_id)->first();
-        $battery = Product::where('id', $configuration->battery_id)->first();
+        if($configuration->battery_id !== NULL) {
+            $battery = Product::where('id', $configuration->battery_id)->first();
+        } else {
+            $battery = '';
+        }
+        
         return view(
             'configuration.show',
             [
@@ -114,16 +119,33 @@ class ConfigurationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ConfigurationRequest $request, Configuration $configuration)
     {
         //
+        $config_info = $this->generateConfigInfo($request);
+        $configuration->update([
+            'solar_panel_id' => $request->get('solar_panel_id'),
+            'solar_panel_count' => $request->solar_panel_count,
+            'battery_id' => empty($request->get('battery_id')) ? NULL : $request->get('battery_id'),
+            'battery_count' => empty($request->get('battery_id')) ? 0 : $request->get('battery_count'),
+            'inverter_id' => $request->get('inverter_id'), 
+            'inverter_count' => $request->inverter_count,
+            'wire_id' => $request->get('wire_id'),
+            'wire_count' => $request->wire_count,
+            'energy_generated' => $config_info['solar_panel_energy'],
+            'equipment_cost' => $config_info['equipment_cost'],
+            'installation_cost' => $config_info['labour_cost'],
+        ]);
+        return redirect(route('configuration.show',[$configuration]));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Configuration $configuration) /* : RedirectResponse */
     {
         //
+        $configuration->delete();
+        return redirect(route('configuration.index'));
     }
 }

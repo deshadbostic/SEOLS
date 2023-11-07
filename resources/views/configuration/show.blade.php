@@ -30,13 +30,15 @@
             </form>
         </div>
         <div class="text-lg my-3 text-white">
-            Battery: {{ucfirst($battery->Name).' ('.$configuration->battery_count.')'}}
+            Battery: {{$battery !== '' ? ucfirst($battery->Name).' ('.$configuration->battery_count.')' : 'N/A'}}
+            @if($battery !== '')
             <form method="GET" action="{{ route('product.show', $battery) }}" class="inline">
                 @csrf
                 <x-primary-button class="justify-center">
                     {{ __('View') }}
                 </x-primary-button>
             </form>
+            @endif
         </div>
         <div class="text-lg my-3 text-white">Energy Generated (Month) : {{number_format($configuration->energy_generated*31).' W'}}</div>
         <div class="text-lg my-3 text-white">Equipment Cost: {{'$'.number_format($configuration->equipment_cost,2)}}</div>

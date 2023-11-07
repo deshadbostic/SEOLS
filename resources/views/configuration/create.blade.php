@@ -9,9 +9,8 @@
                     <div>
                         <x-input-label for="solar_panel_id" :value="__('Solar Panel')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="solar_panel_id" id="solar_panel_id">
-                            <option value="" selected>Choose Solar Panel</option>
                             @foreach($solar_panels as $solar_panel)
-                                <option value="{{$solar_panel->id}}">{{$solar_panel->Name.', '.$solar_panel->Attribute_value}}</option>
+                                <option value="{{$solar_panel->id}}" {{(null !== old('solar_panel_id')) && (old('solar_panel_id') == $solar_panel->id) ? "selected" : ""}} > {{$solar_panel->Name.', '.$solar_panel->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('solar_panel_id')" class="mt-2" />
@@ -30,9 +29,8 @@
                     <div>
                         <x-input-label for="inverter" :value="__('Inverter')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="inverter_id" id="inverter_id">
-                            <option value="" selected>Choose Inverter</option>
                             @foreach($inverters as $inverter)
-                                <option value="{{$inverter->id}}">{{$inverter->Name.', '.$inverter->Attribute_value}}</option>
+                                <option value="{{$inverter->id}}" {{(null !== old('inverter_id')) && (old('inverter_id') == $inverter->id) ? "selected" : ""}} >{{$inverter->Name.', '.$inverter->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('inverter_id')" class="mt-2" />
@@ -51,10 +49,9 @@
                     <div>
                         <x-input-label for="battery_id" :value="__('Battery')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="battery_id" id="battery_id">
-                            <option value="" selected>Choose Battery</option>
                             <option value="0">No Battery</option>
                             @foreach ($batteries as $battery)
-                                <option value="{{$battery->id}}">{{$battery->Name.', '.$battery->Attribute_value}}</option>
+                                <option value="{{$battery->id}}" {{(null !== old('battery_id')) && (old('battery_id') == $battery->id) ? "selected" : ""}} >{{$battery->Name.', '.$battery->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('fName')" class="mt-2" />
@@ -73,9 +70,8 @@
                     <div>
                         <x-input-label for="wire_id" :value="__('Wire')" />
                         <select class="mt-1 text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="wire_id" id="wire_id">
-                            <option value="" selected>Choose Wire</option>
                             @foreach($wires as $wire)
-                                <option value="{{$wire->id}}">{{$wire->Name.', '.$wire->Attribute_value}}</option>
+                                <option value="{{$wire->id}}" {{(null !== old('wire_id')) && (old('wire_id') == $wire->id) ? "selected" : ""}} >{{$wire->Name.', '.$wire->Attribute_value}}</option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('wire_id')" class="mt-2" />
@@ -104,6 +100,9 @@
                         <x-input-error :messages="$errors->get('energy_requirement')" class="mt-2" />
                     </div>
                 </div>
+                <select hidden name="prices" id="prices">
+                    
+                </select>
                 <x-primary-button>
                     {{__('Save')}}
                 </x-primary-button>
@@ -111,3 +110,9 @@
         </form>
     @endauth
 </x-app-layout>
+
+<script>
+/*     console.log(document.getElementById('solar_panel_id').innerText.split(",")[1].split('W')[0])
+    let solar_panel_energy = */ 
+    
+</script>

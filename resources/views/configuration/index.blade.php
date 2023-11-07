@@ -46,11 +46,14 @@
                                         <td class="p-3 text-center">{{'$'.$config->equipment_cost+$config->installation_cost}}</td>
                                         <td class="px-2 py-1 text-center">
                                             <form action="{{ route('configuration.show', $config) }}" method="GET">
+                                            @csrf
                                                 <x-primary-button>{{__('Show') }}</x-primary-button>
                                             </form>
                                         </td>    
                                         <td class="px-2 py-1 text-center">
-                                            <form action="{{ route('configuration.destroy', $config) }}" method="GET">
+                                            <form method="POST" action="{{ route('configuration.destroy', $config) }}">
+                                            @csrf
+                                            @method('DELETE')
                                                 <x-primary-button>{{__('Delete') }}</x-primary-button>
                                             </form>
                                         </td>
