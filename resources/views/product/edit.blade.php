@@ -102,7 +102,7 @@
           <option value="Solar Panel" {{$product->Category == "Solar Panel" ? "selected" :""}}>Solar Panel</option>
           <option value="Adapter" {{$product->Category == "Adapter" ? "selected" :""}}>Adapter</option>
           <option value="Cable" {{$product->Category == "Cable" ? "selected" :""}}>Cable</option>
-          <option value="Wire" {{$product->Category == "Wire" ? "selected" :""}}>Cable</option>
+          <option value="Wire" {{$product->Category == "Wire" ? "selected" :""}}>Wire</option>
         </select>
         <x-input-error :messages="$errors->get('Category')" class="mt-2" />
       </div>
