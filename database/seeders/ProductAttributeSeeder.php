@@ -25,12 +25,12 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '3000mha',
             ],
             [
-                'product_id' => '1',
+                'product_id' => '12',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '24V',
             ],
             [
-                'product_id' => '2',
+                'product_id' => '13',
                 'Attribute_type' => 'capacity',
                 'Attribute_value' => '3300mha',
             ],
@@ -150,7 +150,7 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => 'string'
             ],
             [
-                'product_id' => '9',
+                'product_id' => '13',
                 'Attribute_type' => 'efficiency',
                 'Attribute_value' => '82%'
             ],
