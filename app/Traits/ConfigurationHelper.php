@@ -84,7 +84,7 @@ trait ConfigurationHelper {
             ->where('product_attributes.product_id', '=', $battery_id)
             ->where('product_attributes.Attribute_type', '=', 'capacity')
             ->get();
-            $battery_capacity = preg_split("/mha/",$battery_capacity[0]->Attribute_value)[0];
+            $battery_capacity = preg_split("/maH/",$battery_capacity[0]->Attribute_value)[0];
             $battery_capacity*= $request->battery_count;
         } else $battery_capacity = 0;
 
@@ -96,6 +96,7 @@ trait ConfigurationHelper {
         ->join('product_attributes', 'products.id', 'product_attributes.product_id')
         ->select('products.id', 'products.Name', 'products.Price', 'product_attributes.Attribute_type','product_attributes.Attribute_value')
         ->where('products.Category', '=', 'Solar Panel')
+        ->orwhere('products.Category', '=', 'solar_panel')
         ->where('product_attributes.Attribute_type', '=', 'wattage')
         ->get(); 
 
