@@ -93,10 +93,16 @@
         <x-text-input id="Name" class="block mt-1 w-full" type="text" maxlength="20" name="Name" value="{{ old('Name', $product->Name) }}" required autofocus autocomplete="Name" />
         <x-input-error :messages="$errors->get('Name')" class="mt-2" />
       </div>
-      <!-- Name -->
+      <!-- Category -->
       <div>
         <x-input-label for="Category" :value="__('Category')" />
-        <x-text-input id="Category" class="block mt-1 w-full" type="text" maxlength="20" name="Category" value="{{ old('Category', $product->Category) }}" required autofocus autocomplete="Category" />
+        <select name="Category" id="Category" class="w-full bg-gray-900 rounded-md">
+          <option value="Battery" {{$product->Category == "Battery" ? "selected" :""}}>Battery</option>
+          <option value="Inverter" {{$product->Category == "Inverter" ? "selected" :""}}>Inverter</option>
+          <option value="Solar Panel" {{$product->Category == "Solar Panel" ? "selected" :""}}>Solar Panel</option>
+          <option value="Adapter" {{$product->Category == "Adapter" ? "selected" :""}}>Adapter</option>
+          <option value="Cable" {{$product->Category == "Cable" ? "selected" :""}}>Cable</option>
+        </select>
         <x-input-error :messages="$errors->get('Category')" class="mt-2" />
       </div>
       <!-- Description -->

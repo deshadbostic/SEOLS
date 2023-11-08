@@ -70,10 +70,17 @@
         <x-text-input id="Name" class="block mt-1 w-full" type="text" name="Name" :value="old('Name')" maxlength="20" required autofocus autocomplete="Name" />
         <x-input-error :messages="$errors->get('Name')" class="mt-2" />
       </div>
-      <!-- Name -->
+      <!-- Category -->
       <div>
         <x-input-label for="Category" :value="__('Category')" />
-        <x-text-input id="Category" class="block mt-1 w-full" type="text" maxlength="20" name="Category" :value="old('Category')" required autofocus autocomplete="Category" />
+        <select name="Category" id="Category" class="w-full bg-gray-900 rounded-md">
+          <option value="" selected disabled hidden>No Category</option>
+          <option value="Battery">Battery</option>
+          <option value="Inverter">Inverter</option>
+          <option value="Solar Panel">Solar Panel</option>
+          <option value="Adapter">Adapter</option>
+          <option value="Cable">Cable</option>
+        </select>
         <x-input-error :messages="$errors->get('Category')" class="mt-2" />
       </div>
       <!-- Description -->
