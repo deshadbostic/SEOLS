@@ -16,17 +16,17 @@ class FAQSeeder extends Seeder
         DB::table('FAQs')->insert([
             [
                 'Questions' => 'what is a battery you might ask ',
-                'Answers' => 'we dont know',
+                'Answers' => 'This stores power for the system',
                 'Category' => 'battery'
             ],
             [
                 'Questions' => 'What is an inverter you might ask',
-                'Answers' => 'we dont know this either',
+                'Answers' => 'That is in charge of power conversions',
                 'Category' => 'inverter'
             ],
             [
-                'Questions' => 'Is there anything that we do know?',
-                'Answers' => 'You probably should click another tab',
+                'Questions' => 'How much for a solar panel?',
+                'Answers' => 'It depends on what You will need',
                 'Category' => 'solarpanel'
             ],
             [
@@ -36,12 +36,12 @@ class FAQSeeder extends Seeder
             ],
             [
                 'Questions' => 'How much does a solar panel installation cost?',
-                'Answers' => 'It costs a lot but will work out....trust me',
+                'Answers' => 'They have various ranges depending on your demands',
                 'Category' => 'general'
             ],
             [
                 'Questions' => 'What are the benefits of using solar panels?',
-                'Answers' => 'for the government to pay you instead',
+                'Answers' => 'It provides sustainable energy. Greener too!!',
                 'Category' => 'general'
             ],
         ]);
