@@ -36,7 +36,7 @@ class ScheduleController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-   public function store(ScheduleRequest $request): RedirectReponse
+   public function store(ScheduleRequest $request): RedirectResponse
    {
        $user_id = Auth::user()->id;
        $user_fName = Auth::user()->first_name;

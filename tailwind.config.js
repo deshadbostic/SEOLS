@@ -21,7 +21,7 @@ export default {
                 fit: "auto auto 1fr auto",
             },
             screens: {
-                mdx: "790px",
+                mdx: "880px",
             },
         },
     },

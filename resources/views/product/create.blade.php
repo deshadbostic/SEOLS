@@ -54,7 +54,7 @@
   @auth
   <div class="mx-auto max-w-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <div class="relative">
-      <a href="{{ route('product.index') }}" class="absolute left-100 top-100 text-blue-500 hover:text-blue-600 font-semibold text-lg">
+      <a href="{{ route('product.index') }}" class="absolute left-100 top-100 text-blue-600 hover:text-blue-400 focus-within:text-blue-400 active:text-blue-400 font-semibold text-lg">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline align-text-top" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -103,21 +103,21 @@
           </div>
           <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
 
-            <button type="button" class="bg-red-500 px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</button>
+            <x-delete-button type="button" class=" px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-delete-button>
 
-            <span class="text-red-500 text-sm hidden error-message">Both attribute name and value are required.</span>
+            <span class="text-red-600 text-sm hidden error-message">Both attribute name and value are required.</span>
           </div>
         </div>
       </div>
 
-      <button class="" type="button" onclick="addAttribute()">
+      <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
         {{ __('+ Add Attribute') }}
-      </button>
+      </x-primary-button>
       <div>
 
-        <x-primary-button class="ml-4">
+        <x-edit-button class="my-4">
           {{ __('Create') }}
-        </x-primary-button>
+        </x-edit-button>
       </div>
     </form>
   </div>
