@@ -23,6 +23,7 @@ class BuildingController extends Controller
     public function create()
     {
         //
+        return view('building.create')->with('batteries', 'f');
     }
 
     /**
@@ -47,6 +48,7 @@ class BuildingController extends Controller
     public function edit(Building $building)
     {
         //
+        return view('building.edit')->with('batteries', 'f');
     }
 
     /**
@@ -63,5 +65,6 @@ class BuildingController extends Controller
     public function destroy(Building $building)
     {
         //
+        
     }
 }
