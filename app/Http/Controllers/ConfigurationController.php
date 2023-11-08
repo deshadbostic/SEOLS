@@ -21,7 +21,9 @@ class ConfigurationController extends Controller
      */
     public function index()
     {
-        $configurations = Configuration::where('user_id', Auth::id())->get();
+        Auth::user()->role == 'Customer' ?
+        $configurations = Configuration::where('user_id', Auth::id())->get() :
+        $configurations = Configuration::all();
         return view('configuration.index')->with('configurations', $configurations);
     }
 

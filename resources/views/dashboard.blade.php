@@ -14,11 +14,7 @@
                     <!-- Links to Product, Customer, and Schedule Pages -->
                     <div class="mt-4">
                         <a href="{{ route('product.index') }}" class="text-blue-500 hover:underline">View Products</a>
-                        <br>
-                        @if(Auth::user()->role != "Customer")
-                        <a href="{{ route('customer.index') }}" class="text-blue-500 hover:underline">View Customers</a>
-                        <br>
-                        @endif
+                        <br>        
                         <a href="{{ route('schedule.index') }}" class="text-blue-500 hover:underline">View Schedules</a>
                         <br>
                         <a href="{{ route('houseinfo.index') }}" class="text-blue-500 hover:underline">View Housing Info</a>
