@@ -56,36 +56,6 @@ class ProductSeeder extends Seeder
                 'Quantity' => '3',
                 'Category' => 'inverter'
             ],
-            [
-                'Name' => 'Enphase Energy',
-                'Price' => '2600',
-                'Quantity' => '8',
-                'Category' => 'inverter'
-            ],
-            [
-                'Name' => 'SolarEdge',
-                'Price' => '1700',
-                'Quantity' => '3',
-                'Category' => 'inverter'
-            ],
-            [
-                'Name' => 'Photovoltaic Wire',
-                'Price' => '50',
-                'Quantity' => '700',
-                'Category' => 'wire'
-            ],
-            [
-                'Name' => 'USE-2',
-                'Price' => '100',
-                'Quantity' => '78',
-                'Category' => 'wire'
-            ],
-            [
-                'Name' => 'THWN-2',
-                'Price' => '80',
-                'Quantity' => '900',
-                'Category' => 'wire',
-            ],
         ]);
     }
 }

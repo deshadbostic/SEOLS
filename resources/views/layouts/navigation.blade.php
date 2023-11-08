@@ -17,7 +17,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product')">
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         {{ __('Product Catalog') }}
                     </x-nav-link>
 
@@ -79,8 +79,12 @@
                     </div>
                     @endauth
 
-                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
+                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote.index')">
                         {{ __('PV System Quotation') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('FAQs.index')">
+                        {{ __('FAQs') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -131,26 +135,30 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden mdx:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product')">
+            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                 {{ __('Product Catalog') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedules')">
+            <x-responsive-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
                 {{ __('Schedules') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('quote')">
+            <x-responsive-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('houseinfo.index')">
                 {{ __('House Information') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
+            <x-responsive-nav-link :href="route('quote.index')" :active="request()->routeIs('quote.index')">
                 {{ __('PV System Quotation') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('FAQs.index')" :active="request()->routeIs('FAQs.index')">
+                {{ __('FAQs') }}
             </x-responsive-nav-link>
         </div>
 
