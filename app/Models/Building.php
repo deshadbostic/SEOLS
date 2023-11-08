@@ -13,7 +13,7 @@ class Building extends Model
 
     protected $fillable = [
         'name',
-        'customer_id',
+        'user_id',
        
     ];
 

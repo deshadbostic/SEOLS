@@ -50,6 +50,9 @@ Route::resource('building', BuildingController::class)
 Route::resource('room', RoomController::class)
     ->middleware(['auth', 'verified']);
 
+    Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
+
+    Route::get('room/delete', 'RoomController@destroy')->name('room.delete');
 Route::resource('appliance', ApplianceController::class)
     ->middleware(['auth', 'verified']);
 

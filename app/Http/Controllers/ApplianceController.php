@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Traits\ApplianceHelper;
+use App\Models\Room;
 
 class ApplianceController extends Controller
 {
+    use ApplianceHelper;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
+        return view('appliance.index')->with('batteries', 'f');
     }
 
     /**
@@ -20,6 +24,7 @@ class ApplianceController extends Controller
     public function create()
     {
         //
+        return view('appliance.index')->with('batteries', 'f');
     }
 
     /**
@@ -27,7 +32,23 @@ class ApplianceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try
+		{
+			$room = Room::find($request->room_id);
+
+			$validated = $request->validate([
+				'name' => 'required',
+				'wattage' => 'required|numeric', 
+			]);
+					
+			$room->appliance()->create($validated);
+		}
+		catch (\Exception $ex)
+		{
+			echo $ex->getMessage();
+			//error handling
+		}
+		return redirect(route('appliance.create'));
     }
 
     /**
@@ -44,6 +65,7 @@ class ApplianceController extends Controller
     public function edit(string $id)
     {
         //
+        return view('appliance.edit')->with('batteries', 'f');
     }
 
     /**

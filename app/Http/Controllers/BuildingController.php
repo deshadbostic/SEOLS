@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Building;
 use Illuminate\Http\Request;
+use App\Traits\BuildingHelper;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class BuildingController extends Controller
 {
+
+    use BuildingHelper;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
-       
-        return view('building.index')->with('batteries', 'f');
+       $user= Auth::user();
+        $buildings = Building::whereBelongsTo($user)->get();
+        return view('building.index')->with('buildings', $buildings);
     }
 
     /**
@@ -32,6 +37,20 @@ class BuildingController extends Controller
     public function store(Request $request)
     {
         //
+        try
+		{
+			$validated = $request->validate([
+				'name' => 'required',
+			]);
+			
+			$request->user()->building()->create($validated);	
+		}
+		catch (\Exception)
+		{
+			//error handling
+		}
+		
+		return redirect(route('building.index'));
     }
 
     /**
@@ -65,6 +84,6 @@ class BuildingController extends Controller
     public function destroy(Building $building)
     {
         //
-        
+
     }
 }
