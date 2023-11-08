@@ -30,7 +30,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                            @if(Auth::user()->role == 'Operations Manager')
+                            @if(Auth::user()->role == 'operationsManager')
                                 <x-dropdown-link :href="route('schedule.index')">
                                     {{ __('View All Appointments') }}
                                 </x-dropdown-link>
@@ -58,7 +58,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                            @if(Auth::user()->role == 'Operations Manager')
+                            @if(Auth::user()->role == 'operationsManager')
                                 <x-dropdown-link :href="route('houseinfo.index')">
                                     {{ __('View All Housing Information') }}
                                 </x-dropdown-link>

@@ -4,7 +4,7 @@
 </head>
 
 <x-app-layout>
-    @if(Auth::user()->role == "Operations Manager")
+    @if(Auth::user()->role == "operationsManager")
         <div class="flex pt-5 justify-center min-h-screen bg-gray-900 grid-cols-14">
             <div class="col-span-12">
                 <div class="overflow-auto lg:overflow-visible ">
