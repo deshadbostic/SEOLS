@@ -2,22 +2,19 @@
     @auth
         <div class="pt-5 justify-center min-h-screen bg-gray-900 grid-cols-14">
             <h2 class="font-semibold text-xl text-white leading-tight">
-                    {{ __('Edit Appliance') }}
+                    {{ __('Edit Room') }}
             </h2>
-            <x-input-label for="appliance_name" :value="__('Edit your appliance's name')" />
+            <x-input-label for="room_name" :value="__('Edit your room's name')" />
             <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
                 <h3 class="font-semibold text-xl text-white leading-tight">
-                    {{'Appliance: '. $appliance->name}}
+                    {{'Room: '. $room->name}}
                 </h3>
             </div>
             <div class="justify-start">
-                <x-input-label for="new_appliance_name" class="text-xl" :value="__('New Appliance Name')" />
+                <x-input-label for="new_room_name" class="text-xl" :value="__('New Room Name')" />
             </div>
             <div class="justify-start">
-                <x-text-input id="new_appliance_name"  name="new_appliance_name" :value="old('new_appliance_name')"/>
-            </div>
-            <div class="justify-start">
-                <x-text-input id="new_appliance_wattage"  name="new_appliance_wattage" :value="old('new_appliance_wattage')"/>
+                <x-text-input id="new_room_name"  name="new_room_name" :value="old('new_room_name')"/>
             </div>
             <div class="justify-start">
                 <x-primary-button>
