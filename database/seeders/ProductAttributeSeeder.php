@@ -40,7 +40,7 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '113.5',
             ],
             [
-                'product_id' => '2',
+                'product_id' => '15',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '12V',
             ],
@@ -55,7 +55,7 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '5800lbs',
             ],
             [
-                'product_id' => '3',
+                'product_id' => '14',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '24V',
             ],
@@ -75,7 +75,7 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '4000lbs',
             ],
             [
-                'product_id' => '4',
+                'product_id' => '16',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '24V',
             ],

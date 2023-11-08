@@ -92,6 +92,24 @@ class ProductSeeder extends Seeder
                 'Quantity' => '14',
                 'Category' => 'battery'
             ],
+            [
+                'Name' => 'THHN ',
+                'Price' => '800',
+                'Quantity' => '05',
+                'Category' => 'wire'
+            ],
+            [
+                'Name' => 'USE 2',
+                'Price' => '5800',
+                'Quantity' => '30',
+                'Category' => 'wire'
+            ],
+            [
+                'Name' => 'PV',
+                'Price' => '5800',
+                'Quantity' => '10',
+                'Category' => 'wire'
+            ],
         ]);
     }
 }
