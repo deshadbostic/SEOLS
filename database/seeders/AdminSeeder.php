@@ -18,8 +18,8 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'username' => 'admin',
-                'fname' => 'admin',
-                'lname' => 'admin',
+                'first_name' => 'admin',
+                'last_name' => 'admin',
                 'email' => 'admin@test.com',
                 'phone' => '123323223',
                 'address' => 'sds',
@@ -30,8 +30,8 @@ class AdminSeeder extends Seeder
             ],
             [
                 'username' => 'operationsManager',
-                'fname' => 'operationsManager',
-                'lname' => 'Manager',
+                'first_name' => 'operationsManager',
+                'last_name' => 'Manager',
                 'email' => 'manager@test.com',
                 'phone' => '123323223',
                 'address' => 'sds',
@@ -39,6 +39,18 @@ class AdminSeeder extends Seeder
                 'budget' => '100',
                 'password' => Hash::make('12345678'),
                 'role' => 'operationsManager'
+            ],
+            [
+                'username' => 'Customer',
+                'first_name' => 'Customer',
+                'last_name' => 'Customer',
+                'email' => 'test@test.com',
+                'phone' => '123323223',
+                'address' => 'sds',
+                'visited' => '0',
+                'budget' => '100',
+                'password' => Hash::make('12345678'),
+                'role' => 'Customer'
             ]
         ]);
     }
