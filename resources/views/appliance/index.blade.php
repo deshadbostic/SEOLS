@@ -12,7 +12,9 @@
                    @endforeach
                     <label> Select an appliance to edit or remove </label>
                     <form action="{{route('room.dedit') }}" method="GET">
+                         @csrf
                     <form action="{{route('room.delete') }}" method="POST">
+                    @csrf
 
                     <select id="roomid" name="roomid">
                     @foreach($appliances as $appliance)

@@ -53,6 +53,15 @@ Route::resource('room', RoomController::class)
     Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
 
     Route::get('room/delete', 'RoomController@destroy')->name('room.delete');
+
+    Route::get('appliance/dedit', 'ApplianceController@edit')->name('applince.dedit');
+
+    Route::get('appliance/delete', 'ApplianceController@destroy')->name('appliance.delete');
+
+    Route::get('building/dedit', 'BuildingController@edit')->name('building.dedit');
+
+    Route::get('building/delete', 'BuildingController@destroy')->name('building.delete');
+
 Route::resource('appliance', ApplianceController::class)
     ->middleware(['auth', 'verified']);
 

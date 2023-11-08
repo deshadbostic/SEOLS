@@ -64,6 +64,16 @@ class BuildingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
+     public function dedit(Request $request)
+     {
+         return redirect(route('room.edit'));
+     }
+ 
+     public function delete(Request $request)
+     {
+         return redirect(route('room.delete'));
+     }
     public function edit(Building $building)
     {
         //

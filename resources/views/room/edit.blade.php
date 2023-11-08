@@ -4,10 +4,10 @@
             <h2 class="font-semibold text-xl text-white leading-tight">
                     {{ __('Edit Room') }}
             </h2>
-            <x-input-label for="room_name" :value="__('Edit your room's name')" />
+            <x-input-label for="room_name" :value="__('Edit your rooms name')" />
             <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
                 <h3 class="font-semibold text-xl text-white leading-tight">
-                    {{'Room: '. $room->name}}
+                    {{'Room: '. $room[0]->name}}
                 </h3>
             </div>
             <div class="justify-start">

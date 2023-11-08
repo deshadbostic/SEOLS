@@ -74,7 +74,16 @@ class ApplianceController extends Controller
         //
         return view('appliance.edit')->with('batteries', 'f');
     }
+    public function dedit(Request $request)
+    {
+        return redirect(route('room.edit'));
+    }
 
+    public function delete(Request $request)
+    {
+        return redirect(route('room.delete'));
+    }
+    
     /**
      * Update the specified resource in storage.
      */
