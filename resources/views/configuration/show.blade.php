@@ -3,7 +3,7 @@
     <div class="container mx-auto flex flex-col items-center text-white">
         <h1 class="text-2xl font-semibold mt-4">View Configuration</h1>
         <div class="text-lg  my-3 text-white">
-            Solar Panel: {{$solar_panel->Name.' ('.$configuration->solar_panel_count.')'}}
+            Solar Panel: {{$solar_panel->Name.' - '.$configuration->solar_panel_count }}
             <form method="GET" action="{{ route('product.show', $solar_panel) }}" class="inline">
                 @csrf
                 <x-primary-button class="justify-center">
@@ -12,7 +12,7 @@
             </form>
         </div>
         <div class="text-lg my-3 text-white">
-            Inverter: {{ucfirst($inverter->Name).' ('.$configuration->inverter_count.')'}}
+            Inverter: {{ucfirst($inverter->Name).' - '.$configuration->inverter_count}}
             <form method="GET" action="{{ route('product.show', $inverter) }}" class="inline">
                 @csrf
                 <x-primary-button class="justify-center">
@@ -21,7 +21,7 @@
             </form>
         </div>
         <div class="text-lg my-3 text-white">
-            Wire: {{ucfirst($wire->Name).' ('.$configuration->wire_count.')'}}
+            Wire: {{ucfirst($wire->Name).' - '.$configuration->wire_count}}
             <form method="GET" action="{{ route('product.show', $wire) }}" class="inline">
                 @csrf
                 <x-primary-button class="justify-center">
@@ -30,7 +30,7 @@
             </form>
         </div>
         <div class="text-lg my-3 text-white">
-            Battery: {{$battery !== '' ? ucfirst($battery->Name).' ('.$configuration->battery_count.')' : 'N/A'}}
+            Battery: {{$battery !== '' ? ucfirst($battery->Name).' - '.$configuration->battery_count : 'N/A'}}
             @if($battery !== '')
             <form method="GET" action="{{ route('product.show', $battery) }}" class="inline">
                 @csrf
