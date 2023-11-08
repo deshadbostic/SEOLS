@@ -18,97 +18,97 @@ class ProductSeeder extends Seeder
                 'Name' => 'Tesla Powerwall',
                 'Price' => '6000',
                 'Quantity' => '14',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwalls',
                 'Price' => '5800',
                 'Quantity' => '14',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwall MK2',
                 'Price' => '6000',
                 'Quantity' => '13',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwall MK1 ',
                 'Price' => '6700',
                 'Quantity' => '10',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'Monocrystalline MK2',
                 'Price' => '7500',
                 'Quantity' => '12',
-                'Category' => 'solar_panel'
+                'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'Polycrystalline MK1',
                 'Price' => '8000',
                 'Quantity' => '19',
-                'Category' => 'solar_panel'
+                'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'power optimiser',
                 'Price' => '2000',
                 'Quantity' => '3',
-                'Category' => 'inverter'
+                'Category' => 'Inverter'
             ],
             [
                 'Name' => 'Tesla Powerwall MK1 ',
                 'Price' => '6700',
                 'Quantity' => '10',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'Monocrystalline MK2',
                 'Price' => '7500',
                 'Quantity' => '12',
-                'Category' => 'solar_panel'
+                'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'Polycrystalline MK1',
                 'Price' => '8000',
                 'Quantity' => '19',
-                'Category' => 'solar_panel'
+                'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'power optimiser',
                 'Price' => '2000',
                 'Quantity' => '3',
-                'Category' => 'inverter'
+                'Category' => 'Inverter'
             ],
             [
                 'Name' => 'Tesla Powerwall',
                 'Price' => '6000',
                 'Quantity' => '14',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwalls',
                 'Price' => '5800',
                 'Quantity' => '14',
-                'Category' => 'battery'
+                'Category' => 'Battery'
             ],
             [
                 'Name' => 'THHN ',
                 'Price' => '800',
                 'Quantity' => '05',
-                'Category' => 'wire'
+                'Category' => 'Wire'
             ],
             [
                 'Name' => 'USE 2',
                 'Price' => '5800',
                 'Quantity' => '30',
-                'Category' => 'wire'
+                'Category' => 'Wire'
             ],
             [
                 'Name' => 'PV',
                 'Price' => '5800',
                 'Quantity' => '10',
-                'Category' => 'wire'
+                'Category' => 'Wire'
             ],
         ]);
     }
