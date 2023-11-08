@@ -95,7 +95,7 @@ trait ConfigurationHelper {
         $solar_panels = DB::table('products')
         ->join('product_attributes', 'products.id', 'product_attributes.product_id')
         ->select('products.id', 'products.Name', 'products.Price', 'product_attributes.Attribute_type','product_attributes.Attribute_value')
-        ->where('products.Category', '=', 'solar_panel',)
+        ->where('products.Category', '=', 'Solar Panel')
         ->where('product_attributes.Attribute_type', '=', 'wattage')
         ->get(); 
 
