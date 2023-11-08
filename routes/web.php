@@ -29,6 +29,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// This route is for the custom name error method.
+Route::get('schedule/nameError', 'App\Http\Controllers\ScheduleController@nameError')->name('schedule.nameError');
+
 // this route is for viewing the products type /product in the browser
 Route::resource('products', ItemController::class)
     ->only(['index'])
@@ -40,7 +43,6 @@ Route::resource('products', ItemController::class)
 //     ->middleware(['auth', 'verified']);
 
 Route::resource('schedule', ScheduleController::class)
-    ->only(['index'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('building', BuildingController::class)

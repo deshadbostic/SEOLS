@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\ScheduleRequest;
 use App\Models\Schedule; // include the Schedule model
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -15,7 +17,7 @@ class ScheduleController extends Controller
    // Get a list of all the items in the Item
    // and display them.
    $schedule = Schedule::all();
-   return view('schedule.schedule')->with('schedules', $schedule);
+   return view('schedule.index')->with('schedules', $schedule);
    }
 
    /**
@@ -23,9 +25,9 @@ class ScheduleController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-   public function create()
+   public function create(): View
    {
-       //
+       return view('schedule.create');
    }
 
    /**
@@ -34,9 +36,27 @@ class ScheduleController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-   public function store(Request $request)
+   public function store(ScheduleRequest $request): Redirect Reponse
    {
-       //
+       $user_id = Auth::user()->id;
+       $user_fName = Auth::user()->first_name;
+       $user_lName = Auth::user()->last_name;
+       
+       if (($user_fName == NULL) || $user_lName == NULL) {
+           return redirect(route('schedule.nameError'));
+       } 
+       
+       Schedule::updateOrCreate(
+           ['id' => $user_id],
+           [
+               'fName' => $user_fName,
+               'lName' => $user_lName,
+               'address' => $request->address,
+               'DOA' => $request->date,
+               'time' => $request->time,
+               'directions' => $request->directions
+           ]);
+       return redirect(route('schedule.index'));
    }
 
    /**
@@ -79,8 +99,8 @@ class ScheduleController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function destroy($id)
+   public function nameError(): View
    {
-       //
+       return view('schedule.nameError');
    }
 }
