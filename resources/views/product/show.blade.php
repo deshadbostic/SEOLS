@@ -1,3 +1,4 @@
+<x-app-layout>
   @auth
   <div class="container mx-auto flex flex-col items-center text-white max-w-[22rem]">
     <div class="flex gap-4   w-full items-baseline">
