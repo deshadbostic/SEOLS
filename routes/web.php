@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApplianceController;
 use App\Http\Controllers\BatteryController;
+use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\InverterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
@@ -8,6 +10,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\HouseInfoController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SolarController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,14 +34,24 @@ Route::resource('products', ItemController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
 
-// this route is for viewing the customer type /customer in the browser
-Route::resource('customer', CustomerController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);
+// // this route is for viewing the customer type /customer in the browser
+// Route::resource('customer', CustomerController::class)
+//     ->only(['index'])
+//     ->middleware(['auth', 'verified']);
 
 Route::resource('schedule', ScheduleController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
+
+Route::resource('building', BuildingController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('room', RoomController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('appliance', ApplianceController::class)
+    ->middleware(['auth', 'verified']);
+
 
 // This route is for viewing customer's house information. Type /houseinfo in the browser
 Route::resource('houseinfo', HouseInfoController::class)
