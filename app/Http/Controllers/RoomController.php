@@ -69,6 +69,12 @@ class RoomController extends Controller
         return redirect(route('room.edit'));
     }
 
+    public function delete(Request $request)
+    {
+        return redirect(route('room.delete'));
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -81,9 +87,12 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Room $room)
     {
-        //
+        $room->update([
+            'name' => $request->name,
+        ]);
+        return redirect(route('room.index'));
     }
 
     /**
