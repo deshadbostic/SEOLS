@@ -80,6 +80,7 @@
           <option value="Solar Panel">Solar Panel</option>
           <option value="Adapter">Adapter</option>
           <option value="Cable">Cable</option>
+          <option value="Wire">Wire</option>
         </select>
         <x-input-error :messages="$errors->get('Category')" class="mt-2" />
       </div>
