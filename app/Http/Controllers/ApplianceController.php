@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\ApplianceHelper;
 use App\Models\Room;
+use App\Models\Building; 
+use App\Models\Appliance; 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ApplianceController extends Controller
 {
@@ -14,8 +18,11 @@ class ApplianceController extends Controller
      */
     public function index()
     {
-        //
-        return view('appliance.index')->with('batteries', 'f');
+        $user= Auth::user();
+        $buildings = Building::whereBelongsTo($user)->get();
+        $rooms=Room::whereBelongsTo($buildings[0])->get();
+        $appliances=Appliance::whereBelongsTo($rooms[0])->get();
+        return view('appliance.index')->with(['buildings'=> $buildings,'rooms'=>$rooms,'appliances'=>$appliances]);
     }
 
     /**
@@ -48,7 +55,7 @@ class ApplianceController extends Controller
 			echo $ex->getMessage();
 			//error handling
 		}
-		return redirect(route('appliance.create'));
+		return redirect(route('appliance.index'));
     }
 
     /**
@@ -67,7 +74,16 @@ class ApplianceController extends Controller
         //
         return view('appliance.edit')->with('batteries', 'f');
     }
+    public function dedit(Request $request)
+    {
+        return redirect(route('room.edit'));
+    }
 
+    public function delete(Request $request)
+    {
+        return redirect(route('room.delete'));
+    }
+    
     /**
      * Update the specified resource in storage.
      */

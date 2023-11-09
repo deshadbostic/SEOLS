@@ -19,8 +19,8 @@ class RoomController extends Controller
         //
         $user= Auth::user();
         $buildings = Building::whereBelongsTo($user)->get();
-        $rooms=Room::whereBelongsTo($buildings)->get();
-        return view('room.index')->with(['buildings',$buildings],['rooms',$rooms] );
+        $rooms=Room::whereBelongsTo($buildings[0])->get();
+        return view('room.index')->with(['buildings'=> $buildings,'rooms'=>$rooms] );
     }
 
     /**
@@ -42,19 +42,16 @@ class RoomController extends Controller
         //     'building_id' => $request->building_id
         // ]);
 
-        try
-		{
+    $building=
 			$validated = $request->validate([
 				'name' => 'required',
                 'building_id' => 'required',
 			]);
-			
-			$request->user()->building->room()->create($validated);	
-		}
-		catch (\Exception)
-		{
-			//error handling
-		}
+            $user= Auth::user();
+            $buildings = Building::whereBelongsTo($user)->get();
+			$buildings[0]->room()->create($validated);	
+	
+	
 		
 		return redirect(route('room.index'));
     }
@@ -72,6 +69,12 @@ class RoomController extends Controller
         return redirect(route('room.edit'));
     }
 
+    public function delete(Request $request)
+    {
+        return redirect(route('room.delete'));
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -84,9 +87,12 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Room $room)
     {
-        //
+        $room->update([
+            'name' => $request->name,
+        ]);
+        return redirect(route('room.index'));
     }
 
     /**

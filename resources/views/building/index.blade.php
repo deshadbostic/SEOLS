@@ -11,8 +11,9 @@
 
                     <label> Select a pre-existing building to edit </label>
                     <form action="{{route('room.dedit') }}" method="GET">
+                    @csrf
                     <form action="{{route('room.delete') }}" method="POST">
-
+                    @csrf
                     <select id="buildingid" name="buildingid">
                     @foreach($buildings as $building)
                                 <option value="{{$building->id}}">  {{$building->name}}</option>

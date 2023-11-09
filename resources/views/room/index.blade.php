@@ -7,13 +7,14 @@
 
                     <h2 class="text-2xl font-bold mb-2 text-white text-stone-300"> Room Select</h2>
                     <p> Select the room you wish to  model or add a new one</p>
-
-                   <p> Building: {{$buildingname}} </p>
-
+                    @foreach($buildings as $buildingname)
+                   <p> Building: {{$buildingname->name}} </p>
+                   @endforeach
                     <label> Select a pre-existing room to edit </label>
-                    <form action="{{route('room.dedit') }}" method="GET">
+                    <form action="{{route('room.edit',$rooms[0])}}" method="GET">
+                        @csrf
                     <form action="{{route('room.delete') }}" method="POST">
-
+                    @csrf
                     <select id="roomid" name="roomid">
                     @foreach($rooms as $room)
                                 <option value="{{$room->id}}"> {{$room->name}}</option>
@@ -29,11 +30,13 @@
                 </x-primary-button>
                     </form>
                 <form action="{{route('room.store')}}" method="POST">
+                    @csrf
                   <label>  Add a new room </label>
                   <h2>
                     Room name </h2>
 
-                    <input name="room_name"> 
+                    <input name="name"> 
+                    <input type="hidden" name="building_id" value="{{$buildings[0]->id}}">
                     <x-primary-button>
                     {{__('Add Room')}}
 
