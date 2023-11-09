@@ -62,7 +62,7 @@
                             </tbody>
                         </table>
                     @else
-                    <h2 class="text-2x font-bold mb-2 text-white text-stone-300">You currently have no configurations</h2>
+                    <h2 class="text-2x font-bold mb-2 text-white text-stone-300">You currently have no configurations.</h2>
                     @endif
 
                 </div>

@@ -96,7 +96,6 @@ trait ConfigurationHelper {
         ->join('product_attributes', 'products.id', 'product_attributes.product_id')
         ->select('products.id', 'products.Name', 'products.Price', 'product_attributes.Attribute_type','product_attributes.Attribute_value')
         ->where('products.Category', '=', 'Solar Panel')
-        ->orwhere('products.Category', '=', 'solar_panel')
         ->where('product_attributes.Attribute_type', '=', 'wattage')
         ->get(); 
 
