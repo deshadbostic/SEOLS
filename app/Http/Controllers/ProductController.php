@@ -116,7 +116,7 @@ class ProductController extends Controller
             $newAttributeValue = $request['attributes']['Attribute_value'][$updateId];
             // Check if the values have changed
             $existingAttribute = ProductAttribute::find($updateId);
-            if ($existingAttribute) {
+            if ($existingAttribute && $existingAttribute->product_id === $product->id) {
                 if ($existingAttribute->product_id === $product->id && ($existingAttribute->Attribute_type !== $newAttributeType || $existingAttribute->Attribute_value !== $newAttributeValue)) {
                     // Values have changed, update the existing attribute
                     $existingAttributeUpdate = $existingAttribute->update([
