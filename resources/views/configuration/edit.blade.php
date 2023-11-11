@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <x-primary-button>
-                    {{__('Edit')}}
+                    {{__('Save')}}
                 </x-primary-button>
             </div>
         </form>

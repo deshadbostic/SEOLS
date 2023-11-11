@@ -17,21 +17,74 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product')">
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         {{ __('Product Catalog') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedules')">
-                        {{ __('Schedules') }}
-                    </x-nav-link>
+                    <div class="mt-5">
+                        <x-dropdown>
+                            <x-slot name="trigger">
+                                <button class="text-gray-400">
+                                    {{ __('Appointments') }}
+                                </button>
+                            </x-slot>
 
-                    <x-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('quote')">
-                        {{ __('House Information') }}
-                    </x-nav-link>
+                            <x-slot name="content">
+                            @if(Auth::user()->role == 'operationsManager')
+                                <x-dropdown-link :href="route('schedule.index')">
+                                    {{ __('View All Appointments') }}
+                                </x-dropdown-link>
+                            @endif
+
+                            @if(Auth::user()->role == 'Customer')
+                                <x-dropdown-link :href="route('schedule.index')">
+                                    {{ __('View All Appointments') }}
+                                </x-dropdown-link>
+                            @endif
+
+                                <x-dropdown-link :href="route('schedule.create')">
+                                    {{ __('Schedule an Appointment') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+
+                    <div class="mt-5">
+                        <x-dropdown>
+                            <x-slot name="trigger">
+                                <button class="text-gray-400">
+                                    {{ __('House Information') }}
+                                </button>
+                            </x-slot>
+
+                            <x-slot name="content">
+                            @if(Auth::user()->role == 'operationsManager')
+                                <x-dropdown-link :href="route('houseinfo.index')">
+                                    {{ __('View All Housing Information') }}
+                                </x-dropdown-link>
+                            @endif
+
+                            @if(Auth::user()->role == 'Customer')
+                                <x-dropdown-link :href="route('houseinfo.index')">
+                                    {{ __('View Your Housing Information') }}
+                                </x-dropdown-link>
+                            @endif
+
+                                <x-dropdown-link :href="route('houseinfo.create')">
+                                    {{ __('Add Housing Information') }}
+                                </x-dropdown-link>
+                            </x-slot>
+
+                        </x-dropdown>
+                    </div>
                     @endauth
 
-                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
+                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote.index')">
                         {{ __('PV System Quotation') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('FAQs.index')">
+                        {{ __('FAQs') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -82,26 +135,30 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden mdx:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product')">
+            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                 {{ __('Product Catalog') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedules')">
+            <x-responsive-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
                 {{ __('Schedules') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('quote')">
+            <x-responsive-nav-link :href="route('houseinfo.index')" :active="request()->routeIs('houseinfo.index')">
                 {{ __('House Information') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('quote.index')" :active="request()->routeIs('quote')">
+            <x-responsive-nav-link :href="route('quote.index')" :active="request()->routeIs('quote.index')">
                 {{ __('PV System Quotation') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('FAQs.index')" :active="request()->routeIs('FAQs.index')">
+                {{ __('FAQs') }}
             </x-responsive-nav-link>
         </div>
 

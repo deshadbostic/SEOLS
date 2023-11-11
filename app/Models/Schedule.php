@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    
     protected $table = 'schedule'; // Specify the correct table name
-    protected $fillable = ['name', 'address', 'DOA'];
+    protected $fillable = ['id', 'fName', 'lName', 'address', 'DOA', 'time', 'directions'];
 }

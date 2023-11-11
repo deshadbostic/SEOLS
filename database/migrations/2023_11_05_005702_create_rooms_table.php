@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::create('items', function (Blueprint $table) {
-//            $table->id();
-//            $table->string('name');
-//            $table->string('description');
-//            $table->decimal('price', $precision = 8, $scale = 2);
-//            $table->timestamps();
-//        });
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->foreignId('building_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-//        Schema::dropIfExists('items');
+        Schema::dropIfExists('rooms');
     }
 };

@@ -16,6 +16,7 @@
                         <x-input-error :messages="$errors->get('solar_panel_id')" class="mt-2" />
                     </div>
 
+
                     <!-- Solar Panel Quantity -->
                     <div>
                         <x-input-label for="solar_panel_count" :value="__('Quantity')" />

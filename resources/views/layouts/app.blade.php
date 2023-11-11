@@ -30,7 +30,7 @@
         @endif
 
         <!-- Page Content -->
-        <main class="px-4 py-2 container mx-auto">
+        <main class="px-4 py-2 container mx-auto max-w-7xl">
             {{ $slot }}
         </main>
 

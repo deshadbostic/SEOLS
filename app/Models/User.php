@@ -31,6 +31,10 @@ class User extends Authenticatable
         'visited'
     ];
 
+    public function building(): HasMany
+    {
+        return $this->hasMany(Building::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

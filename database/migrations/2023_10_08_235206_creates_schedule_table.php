@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('schedule', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
+            $table->id('id');
+            $table->string('fName');
+            $table->string('lName');
             $table->string('address');
             $table->date('DOA');
+            $table->time('time');
+            $table->string('directions')->nullable();
         });
     }
 

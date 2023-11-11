@@ -16,14 +16,22 @@ class Scheduleseeder extends Seeder
     {
         DB::table('schedule')->insert([
             [
-            'name' => 'Solar Panel',
-            'address' => 'Parkonson Street',
-            'DOA' => date("Y-m-d h:i:s")
+            'id' => '23',
+            'fName' => 'Jason',
+            'lName' => 'Vincent',
+            'address' => 'Parkinson Street',
+            'DOA' => date("Y-m-d"),
+            'time' => date("H:i"),
+            'directions' => NULL
             ],
             [
-            'name' => 'Mark Anthony',
-            'address' => 'Maloney Drive Jamestown',
-            'DOA' => date("Y-m-d h:i:s")
+            'id' => '46',
+            'fName' => 'Mark',
+            'lName' => 'Anthony',
+            'address' => 'Maloney Drive, Jamestown',
+            'DOA' => date("Y-m-d"),
+            'time' => date("H:i"),
+            'directions' => '1st right turn after Northway Drive'
             ]
             ]);
     }

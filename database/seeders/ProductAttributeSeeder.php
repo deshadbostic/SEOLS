@@ -22,17 +22,17 @@ class ProductAttributeSeeder extends Seeder
             [
                 'product_id' => '1',
                 'Attribute_type' => 'capacity',
-                'Attribute_value' => '3000mha',
+                'Attribute_value' => '3000maH',
             ],
             [
-                'product_id' => '1',
+                'product_id' => '12',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '24V',
             ],
             [
-                'product_id' => '2',
+                'product_id' => '13',
                 'Attribute_type' => 'capacity',
-                'Attribute_value' => '3300mha',
+                'Attribute_value' => '3300maH',
             ],
             [
                 'product_id' => '2',
@@ -40,14 +40,14 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '113.5',
             ],
             [
-                'product_id' => '2',
+                'product_id' => '15',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '12V',
             ],
             [
                 'product_id' => '3',
                 'Attribute_type' => 'capacity',
-                'Attribute_value' => '2700mha',
+                'Attribute_value' => '2700maH',
             ],
             [
                 'product_id' => '3',
@@ -55,7 +55,7 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '5800lbs',
             ],
             [
-                'product_id' => '3',
+                'product_id' => '14',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '24V',
             ],
@@ -67,7 +67,7 @@ class ProductAttributeSeeder extends Seeder
             [
                 'product_id' => '4',
                 'Attribute_type' => 'capacity',
-                'Attribute_value' => '6000mha',
+                'Attribute_value' => '6000maH',
             ],
             [
                 'product_id' => '4',
@@ -75,7 +75,7 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => '4000lbs',
             ],
             [
-                'product_id' => '4',
+                'product_id' => '16',
                 'Attribute_type' => 'voltage',
                 'Attribute_value' => '24V',
             ],
@@ -150,22 +150,22 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_value' => 'string'
             ],
             [
-                'product_id' => '9',
+                'product_id' => '13',
                 'Attribute_type' => 'efficiency',
                 'Attribute_value' => '82%'
             ],
             [
-                'product_id' => '10',
+                'product_id' => '14',
                 'Attribute_type' => 'length',
                 'Attribute_value' => '100 foot',
             ],
             [
-                'product_id' => '11',
+                'product_id' => '15',
                 'Attribute_type' => 'length',
                 'Attribute_value' => '100 foot'
             ],
             [
-                'product_id' => '12',
+                'product_id' => '16',
                 'Attribute_type' => 'length',
                 'Attribute_value' => '100 foot'
             ],
