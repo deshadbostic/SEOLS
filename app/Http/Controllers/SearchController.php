@@ -10,24 +10,22 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
-        $search = $request->input('search');
-        $categories = $request->input('category', []);
-        $num_items = $request->input('items', 5);
-
-        
-        // Persist selected categories in session
-        Session::put('category', $categories);
-        Session::put('num_items', $num_items);
-        
+        if ($request->has("items")) {
+            Session::put('num_items', $request->get('items'));
+        }
+        if ($request->has("category")) {
+            Session::put('category', array_values($request->get('category')));
+        }
         // dd($request);
+        $category = Session::get('category');
+        $search = $request->search;
         $products = Product::query();
 
-        if (!empty($categories)) {
-            $products->whereIn("category", $categories);
+        if ($category) {
+            $products->whereIn("category", $category)->get();
         }
-
-        if (!empty($search)) {
-            $products->where(function ($query) use ($search) {
+        if ($search) {
+            $products->where(function ($query) use ($search, $category) {
                 $query->where("name", "like", "%" . $search . "%")
                     ->orWhere("quantity", "like", "%" . $search . "%")
                     ->orWhere("price", "like", "%" . $search . "%")
@@ -37,15 +35,14 @@ class SearchController extends Controller
                     });
 
                 // Consider category filtering if search term provided but no category selected
-                $categories = Session::get('category');
-                if (empty($categories)) {
+                if (!$category) {
                     $query->orWhere("category", "like", "%" . $search . "%");
                 }
             });
         }
 
-        $products = $products->paginate(Session::get('num_items'));
+        $products = $products->paginate($category = Session::get('num_items'));
 
-        return view("product.index", compact('products', 'search', 'categories'));
+        return view("product.index", compact('products', 'search', 'category'));
     }
 }

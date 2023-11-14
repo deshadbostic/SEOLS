@@ -22,6 +22,26 @@
       })
     }
   })
+  @section('custom-scripts')
+  function resetForm() {
+        // Reset form fields
+        document.getElementById('search').value = ''; // Reset search field
+
+        // Reset selected options in the number of items dropdown
+        const itemsSelect = document.getElementById('items');
+        itemsSelect.selectedIndex = 0; // Set the default option as selected
+
+        // Reset selected options in the category dropdown
+        const categorySelect = document.getElementById('category');
+        for (let i = 0; i < categorySelect.options.length; i++) {
+            categorySelect.options[i].selected = false; // Deselect all options
+        }
+
+        // Update session variables via AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/reset-session', true); // Create a route to handle resetting session variables
+        xhr.send();
+    }
   @show
 </script>
 <style>
@@ -83,7 +103,7 @@
         <div class="flex gap-2 items-baseline">
           <label for="items" class=" block w-max">Number of Items</label>
           <select id="items" name="items" class="w-[3.75rem] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-            <option value="5" {{ session('num_items') == "5" ? "selected" :""}} selected>5</option>
+            <option value="5" {{ session('num_items') == "5" ? "selected" :""}}>5</option>
             <option value="10" {{ session('num_items') == "10" ? "selected" :""}}>10</option>
             <option value="25" {{ session('num_items') == "25" ? "selected" :""}}>25</option>
             <option value="50" {{ session('num_items') == "50" ? "selected" :""}}>50</option>
@@ -93,19 +113,16 @@
         <div class="w-full h-fit flex flex-col gap-2">
           <label for="category" class=" block w-max">Filter by Category</label>
           <select id="category" name="category[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" multiple>
-            <option value="Battery" @if(in_array('Battery', session('category', []))) selected @endif>Battery</option>
-            <option value="Inverter" @if(in_array('Inverter', session('category', []))) selected @endif>Inverter</option>
-            <option value="Solar Panel" @if(in_array('Solar /Panel', session('category', []))) selected @endif>Solar Panel</option>
-            <option value="Adapter" @if(in_array('Adapter', session('category', []))) selected @endif>Adapter</option>
-            <option value="Cable" @if(in_array('Cable', session('category', []))) selected @endif>Cable</option>
-            <option value="Wire" @if(in_array('Wire', session('category', []))) selected @endif>Wire</option>
+            <option value="Battery" {{in_array("Battery",session('category'))?"selected" :"" }} >Battery</option>
+            <option value="Inverter" {{in_array("Inverter",session('category'))?"selected" :"" }}>Inverter</option>
+            <option value="Solar Panel" {{in_array("Solar Panel",session('category'))?"selected" :"" }}>Solar Panel</option>
+            <option value="Adapter" {{in_array("Adapter",session('category'))?"selected" :"" }}>Adapter</option>
+            <option value="Wire" {{in_array("Wire",session('category'))?"selected" :"" }}>Wire</option>
           </select>
         </div>
       </div>
       <div class="self-end">
-        <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white w-fit" onclick="var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/reset-num-items?num_items=5', true);
-        xhr.send();">{{ __('Reset') }}</x-primary-button>
+        <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white w-fit">{{ __('Reset') }}</x-primary-button>
         <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white  w-fit">{{ __('Apply') }}</x-primary-button>
       </div>
     </form>
