@@ -23,25 +23,12 @@
     }
   })
   @section('custom-scripts')
+
   function resetForm() {
-        // Reset form fields
-        document.getElementById('search').value = ''; // Reset search field
-
-        // Reset selected options in the number of items dropdown
-        const itemsSelect = document.getElementById('items');
-        itemsSelect.selectedIndex = 0; // Set the default option as selected
-
-        // Reset selected options in the category dropdown
-        const categorySelect = document.getElementById('category');
-        for (let i = 0; i < categorySelect.options.length; i++) {
-            categorySelect.options[i].selected = false; // Deselect all options
-        }
-
-        // Update session variables via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/reset-session', true); // Create a route to handle resetting session variables
-        xhr.send();
-    }
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/reset', true); // Create a route to handle resetting session variables
+    xhr.send();
+  }
   @show
 </script>
 <style>
@@ -113,7 +100,7 @@
         <div class="w-full h-fit flex flex-col gap-2">
           <label for="category" class=" block w-max">Filter by Category</label>
           <select id="category" name="category[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" multiple>
-            <option value="Battery" {{in_array("Battery",session('category'))?"selected" :"" }} >Battery</option>
+            <option value="Battery" {{in_array("Battery",session('category'))?"selected" :"" }}>Battery</option>
             <option value="Inverter" {{in_array("Inverter",session('category'))?"selected" :"" }}>Inverter</option>
             <option value="Solar Panel" {{in_array("Solar Panel",session('category'))?"selected" :"" }}>Solar Panel</option>
             <option value="Adapter" {{in_array("Adapter",session('category'))?"selected" :"" }}>Adapter</option>
@@ -122,7 +109,9 @@
         </div>
       </div>
       <div class="self-end">
-        <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white w-fit">{{ __('Reset') }}</x-primary-button>
+        <a href="/reset">
+          <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white w-fit" type="button">{{ __('Reset') }}</x-primary-button>
+        </a>
         <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white  w-fit">{{ __('Apply') }}</x-primary-button>
       </div>
     </form>
