@@ -11,6 +11,7 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,18 +32,10 @@ Route::get('/', function () {
 // This route is for the custom name error method.
 Route::get('schedule/nameError', 'App\Http\Controllers\ScheduleController@nameError')->name('schedule.nameError');
 
-// this route is for viewing the products type /product in the browser
-/*Route::resource('products', ItemController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);*/
-
-// // this route is for viewing the customer type /customer in the browser
-// Route::resource('customer', CustomerController::class)
-//     ->only(['index'])
-//     ->middleware(['auth', 'verified']);
-
 Route::resource('schedule', ScheduleController::class)
     ->middleware(['auth', 'verified']);
+
+Route::get('search', [SearchController::class, 'search']);
 
 Route::resource('building', BuildingController::class)
     ->middleware(['auth', 'verified']);
@@ -50,17 +43,17 @@ Route::resource('building', BuildingController::class)
 Route::resource('room', RoomController::class)
     ->middleware(['auth', 'verified']);
 
-    Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
+Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
 
-    Route::get('room/delete', 'RoomController@destroy')->name('room.delete');
+Route::get('room/delete', 'RoomController@destroy')->name('room.delete');
 
-    Route::get('appliance/dedit', 'ApplianceController@edit')->name('applince.dedit');
+Route::get('appliance/dedit', 'ApplianceController@edit')->name('applince.dedit');
 
-    Route::get('appliance/delete', 'ApplianceController@destroy')->name('appliance.delete');
+Route::get('appliance/delete', 'ApplianceController@destroy')->name('appliance.delete');
 
-    Route::get('building/dedit', 'BuildingController@edit')->name('building.dedit');
+Route::get('building/dedit', 'BuildingController@edit')->name('building.dedit');
 
-    Route::get('building/delete', 'BuildingController@destroy')->name('building.delete');
+Route::get('building/delete', 'BuildingController@destroy')->name('building.delete');
 
 Route::resource('appliance', ApplianceController::class)
     ->middleware(['auth', 'verified']);
@@ -84,7 +77,7 @@ Route::resource('product', ProductController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('configuration', ConfigurationController::class)
-    ->middleware(['auth', 'verified']);   
+    ->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
