@@ -11,12 +11,14 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
+    
+
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $products = Product::with('productAttributes')->get();
+        $products = Product::paginate(10);
         return view('product.index')->with('products', $products);
     }
 

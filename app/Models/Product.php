@@ -12,12 +12,13 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'Name', 'Price', 'Quantity',
+        'Name',
+        'Price',
+        'Quantity',
         'Category'
     ];
-    public function productAttributes(){
-
+    public function productAttributes()
+    {
         return $this->hasMAny(ProductAttribute::class);
     }
-
 }
