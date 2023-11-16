@@ -20,11 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             Scheduleseeder::class,
         ]);
-
         $this->call([
             HouseInfoSeeder::class,
         ]);
-
         $this->call([
             FAQSeeder::class,
         ]);
@@ -32,19 +30,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
         ]);
 
+        \App\Models\User::factory()->create();
         // \App\Models\User::factory(10)->create();
-
-         \App\Models\User::create([
-             'username' => 'Test User',
-             'first_name' => 'Test',
-             'last_name' => 'User',
-             'email' => 'test@example.com',
-             'phone' => '123456789',
-             'address' => 'Corner of Washington and 6th',
-             'visited' => '0',
-             'budget' => '50000',
-             'password' => Hash::make('12345678'),
-             'role' => 'Customer',
-         ]);
     }
 }

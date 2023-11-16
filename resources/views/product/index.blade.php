@@ -22,6 +22,21 @@
       })
     }
   })
+  @section('custom-scripts')
+  document.addEventListener('DOMContentLoaded', () => {
+    const delBtns = document.querySelectorAll('button[data-type="delete-btn"]');
+    delBtns.forEach(delBtn => {
+      delBtn.addEventListener('click', () => {
+        const modal = delBtn.nextElementSibling;
+        modal.showModal();
+        const cancel = modal.querySelector('.button[data-type="cancel"');
+        cancel.addEventListener("click", () => {
+          modal.close();
+          // console.log('cancel');
+        });
+      })
+    });
+  });
   @show
 </script>
 <style>
@@ -93,7 +108,7 @@
         <div class="w-full h-fit flex flex-col gap-2">
           <label for="category" class=" block w-max">Filter by Category</label>
           <select id="category" name="category[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" multiple>
-          @foreach($categories as $category)
+            @foreach($categories as $category)
             <option value="{{$category}}" {{ (session('category') && in_array($category, session('category'))) ? 'selected' : '' }}>{{$category}}</option>
             @endforeach
           </select>
@@ -141,7 +156,24 @@
           @csrf
           @method('DELETE')
           <x-input-error :messages="$errors->get('message')" class="mt-2" />
-          <x-delete-button class="justify-center w-full ">{{ __('Delete') }}</x-delete-button>
+          <x-delete-button class="justify-center w-full " type="button" data-type="delete-btn">{{ __('Delete') }}</x-delete-button>
+          <dialog class="modal flow bg-slate-900 text-white backdrop:bg-black/70 rounded-md border">
+            <div class="" >
+            <p class="bg-red-600 font-black text-xl">Danger Zone!!</p>
+              <h2 class="text-4xl font-black py-3 ">Delete Item
+              </h2>
+              <p class="max-w-sm px-5 text-xl">Are you sure you want to delete this item? This will remove the item and can't be undone.</p>
+
+              <div class="flex py-8 gap-3 justify-center">
+                <x-primary-button class="button text-xl" data-type="cancel" type="button">
+                  No, Cancel
+                </x-primary-button>
+                <x-delete-button class="button text-xl" data-type="delete-item" type="submit">
+                  Yes, Delete
+                </x-delete-button>
+              </div>
+            </div>
+          </dialog>
         </form>
         @endif
       </div>

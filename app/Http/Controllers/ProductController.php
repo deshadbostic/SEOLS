@@ -59,6 +59,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request): RedirectResponse
     {
+
         $this->authorize('create', Product::class);
         $product = Product::create([
             'Name' => $request->Name,
@@ -70,7 +71,7 @@ class ProductController extends Controller
             return redirect()->route('product.index')
                 ->with('error', 'Product creation failed. Please try again.');
         }
-        if ($request['attributes'] && $request['Attribute_type'] && $request['Attribute_type']) {
+        if ($request['attributes'] && $request['attributes']['Attribute_type'] && $request['attributes']['Attribute_type']) {
             // Create the associated Attributes records
             $attributes = $request->input('attributes');
             $attributeNames = $attributes['Attribute_type'];
@@ -130,11 +131,12 @@ class ProductController extends Controller
             return redirect()->route('product.index')
                 ->with('error', 'Product update failed. Please try again.');
         }
-        $ids = $product->productAttributes->pluck('id')->all();
-        if ($request['attributes'] && $request['Attribute_type'] && $request['Attribute_type']) {
-
-
+        if (!$request->has('attributes') || empty($request->attributes)) {
+            foreach ($product->productAttributes as $attribute) { $attribute->delete();}
+        }               
+        if ($request['attributes'] && $request['attributes']['Attribute_type'] && $request['attributes']['Attribute_type']) {
             $updateIds = array_keys($request['attributes']['Attribute_type']);
+            $ids = $product->productAttributes->pluck('id')->all();
             $removedIds = [];
             foreach ($ids as $id) {
                 if (!in_array($id, $updateIds)) {

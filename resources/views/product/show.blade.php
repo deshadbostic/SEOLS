@@ -1,3 +1,20 @@
+<script defer>
+  @section('custom-scripts')
+  document.addEventListener('DOMContentLoaded', () => {
+    const delBtns = document.querySelectorAll('button[data-type="delete-btn"]');
+    delBtns.forEach(delBtn => {
+      delBtn.addEventListener('click', () => {
+        const modal = delBtn.nextElementSibling;
+        modal.showModal();
+        const cancel = modal.querySelector('.button[data-type="cancel"');
+        cancel.addEventListener("click", () => {
+          modal.close();
+        });
+      })
+    });
+  });
+  @show
+</script>
 <x-app-layout>
   @auth
   <div class="container mx-auto flex flex-col items-center text-white max-w-[22rem]">
@@ -33,7 +50,24 @@
         <form method="POST" action="{{ route('product.destroy', $product) }}" class=" block">
           @csrf
           @method('DELETE')
-          <x-delete-button type="submit">Delete Product</x-delete-button>
+          <x-delete-button type="button" data-type="delete-btn">Delete Product</x-delete-button>
+          <dialog class="modal flow bg-slate-900 text-white backdrop:bg-black/70 rounded-md border text-center">
+            <div class="">
+              <p class="bg-red-600 font-black text-xl">Danger Zone!!</p>
+              <h2 class="text-4xl font-black py-3 ">Delete Item
+              </h2>
+              <p class="max-w-sm px-5 text-xl">Are you sure you want to delete this item? This will remove the item and can't be undone.</p>
+
+              <div class="flex py-8 gap-3 justify-center">
+                <x-primary-button class="button text-xl" data-type="cancel" type="button">
+                  No, Cancel
+                </x-primary-button>
+                <x-delete-button class="button text-xl" data-type="delete-item" type="submit">
+                  Yes, Delete
+                </x-delete-button>
+              </div>
+            </div>
+          </dialog>
         </form>
       </div>
       @endif

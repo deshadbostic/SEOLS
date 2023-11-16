@@ -4,49 +4,67 @@
   function addAttribute() {
     const attributesContainer = document.querySelector(".attributes");
     const attributeSets = attributesContainer.querySelectorAll(".attribute-set");
-
     let allInputsValid = true; // Assume all inputs are valid initially
-
-    // Check all existing attribute sets for empty fields
-    attributeSets.forEach(attributePair => {
-      const attributeInput = attributePair.querySelector("#attribute");
-      const valueInput = attributePair.querySelector("#value");
-
-      if (attributeInput.value.trim() === "" || valueInput.value.trim() === "") {
-        allInputsValid = false; // At least one pair is invalid
-        const errorMessage = attributePair.querySelector(".error-message");
-        errorMessage.classList.remove("hidden");
-
-        // Set a timer to hide the error message after 4000 milliseconds (4 seconds)
-        setTimeout(function() {
-          errorMessage.classList.add("hidden");
-        }, 4000);
-      }
-    });
+    if (attributeSets.length > 0) {
+      // Check all existing attribute sets for empty fields
+      attributeSets.forEach(attributePair => {
+        const attributeInput = attributePair.querySelector("#attribute");
+        const valueInput = attributePair.querySelector("#value");
+        if (attributeInput.value.trim() === "" || valueInput.value.trim() === "") {
+          allInputsValid = false; // At least one pair is invalid
+          const errorMessage = attributePair.querySelector(".error-message");
+          errorMessage.classList.remove("hidden");
+          // Set a timer to hide the error message after 4000 milliseconds (4 seconds)
+          setTimeout(function() {
+            errorMessage.classList.add("hidden");
+          }, 4000);
+        }
+      });
+    }
 
     // If all existing inputs are valid, you can add a new attribute set
     if (allInputsValid) {
-      const attributeSet = document.querySelector(".attribute-set").cloneNode(true);
+      const attributeSet = document.createElement('div')
+      attributeSet.classList.add('attribute-set');
+      attributeSet.innerHTML = `
+          <div class="flex justify-between">
+            <div>
+              <x-input-label for="attribute" :value="__('Attribute Name')" />
+              <x-text-input id="attribute" class="block mt-1 w-full" type="text" maxlength="26" name="attributes[Attribute_type][]" :value="old('attributes.Attribute_type.0')" required autofocus autocomplete="attribute" />
+            </div>
+            <div>
+              <x-input-label for="value" :value="__('Attribute Value')" />
+              <x-text-input id="value" class="block mt-1 w-full" type="text" maxlength="30" name="attributes[Attribute_value][]" :value="old('attributes.Attribute_value.0')" required autofocus autocomplete="value" />
+            </div>
+          </div>
+          <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
+
+            <x-delete-button type="button" class=" px-4 py-1 rounded-md uppercase remove" onclick="this.parentNode.parentNode.remove();">Remove</x-delete-button>
+
+            <span class="text-red-600 text-sm hidden error-message">Both attribute name and value are required.</span>
+        </div>`;
       const attributeInput = attributeSet.querySelector("#attribute");
       const valueInput = attributeSet.querySelector("#value");
       attributeInput.value = "";
       valueInput.value = "";
       attributesContainer.appendChild(attributeSet);
+      const newAttributeContainer = document.querySelector(".attributes");
+      newAttributeSets = newAttributeContainer.querySelectorAll(".attribute-set");
+      console.log(newAttributeSets);
+      newAttributeSets.forEach((attributeSet, index) => {
+        const attributeLabel = attributeSet.querySelector('label[for="attribute"]');
+        const attributeValue = attributeSet.querySelector('label[for="value"]');
+        attributeLabel.textContent = 'Attribute Name #' + (index + 1);
+        attributeValue.textContent = 'Attribute Value #' + (index + 1);
+      });
     }
   }
-
   @show
 </script>
 
 <style>
-  .attributes .attribute-set:only-child .remove {
-    /* pointer-events: none; */
-    cursor: not-allowed;
-  }
-
   .attributes .attribute-set:only-child .remove:hover,
   .attributes .attribute-set:only-child .remove:focus-visible {
-    /* pointer-events: none; */
     background-color: rgb(239 146 146);
   }
 </style>
@@ -98,26 +116,7 @@
       </div>
       <div class="attributes">
         <!-- Initial input fields for attribute and value -->
-        <div class="attribute-set">
-          <div class="flex justify-between">
-            <div>
-              <x-input-label for="attribute" :value="__('Attribute Name')" />
-              <x-text-input id="attribute" class="block mt-1 w-full" type="text" maxlength="10" name="attributes[Attribute_type][]" :value="old('attributes.Attribute_type.0')" required autofocus autocomplete="attribute" />
-            </div>
-            <div>
-              <x-input-label for="value" :value="__('Attribute Value')" />
-              <x-text-input id="value" class="block mt-1 w-full" type="text" maxlength="5" name="attributes[Attribute_value][]" :value="old('attributes.Attribute_value.0')" required autofocus autocomplete="value" />
-            </div>
-          </div>
-          <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
-
-            <x-delete-button type="button" class=" px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-delete-button>
-
-            <span class="text-red-600 text-sm hidden error-message">Both attribute name and value are required.</span>
-          </div>
-        </div>
       </div>
-
       <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
         {{ __('+ Add Attribute') }}
       </x-primary-button>
