@@ -31,42 +31,41 @@ Route::get('/', function () {
 });
 
 // This route is for the custom name error method.
-Route::get('schedule/nameError', 'App\Http\Controllers\ScheduleController@nameError')->name('schedule.nameError');
+// Route::get('schedule/nameError', 'App\Http\Controllers\ScheduleController@nameError')->name('schedule.nameError');
 
 Route::resource('schedule', ScheduleController::class)
     ->middleware(['auth', 'verified']);
 
-Route::get('search', [SearchController::class, 'search']);
+Route::get('search', [SearchController::class, 'search'])->middleware(['auth', 'verified']);
+
 Route::get('/reset', function () {
     // Reset session variables here
     session(['num_items' => 5]);
     session(['category' => []]);
     $products = Product::paginate(5);
     return redirect(route("product.index"));
-});
+})->middleware(['auth', 'verified']);
 
+// Route::resource('building', BuildingController::class)
+//     ->middleware(['auth', 'verified']);
 
-Route::resource('building', BuildingController::class)
-    ->middleware(['auth', 'verified']);
+// Route::resource('room', RoomController::class)
+//     ->middleware(['auth', 'verified']);
 
-Route::resource('room', RoomController::class)
-    ->middleware(['auth', 'verified']);
+// Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
 
-Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
+// Route::get('room/delete', 'RoomController@destroy')->name('room.delete');
 
-Route::get('room/delete', 'RoomController@destroy')->name('room.delete');
+// Route::get('appliance/dedit', 'ApplianceController@edit')->name('applince.dedit');
 
-Route::get('appliance/dedit', 'ApplianceController@edit')->name('applince.dedit');
+// Route::get('appliance/delete', 'ApplianceController@destroy')->name('appliance.delete');
 
-Route::get('appliance/delete', 'ApplianceController@destroy')->name('appliance.delete');
+// Route::get('building/dedit', 'BuildingController@edit')->name('building.dedit');
 
-Route::get('building/dedit', 'BuildingController@edit')->name('building.dedit');
+// Route::get('building/delete', 'BuildingController@destroy')->name('building.delete');
 
-Route::get('building/delete', 'BuildingController@destroy')->name('building.delete');
-
-Route::resource('appliance', ApplianceController::class)
-    ->middleware(['auth', 'verified']);
-
+// Route::resource('appliance', ApplianceController::class)
+//     ->middleware(['auth', 'verified']);
 
 // this route is for viewing the FAQ in the browser
 Route::resource('FAQs', FAQController::class)
