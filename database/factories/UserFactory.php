@@ -18,20 +18,50 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'username' => fake()->userName(),
-            'email' => fake()->unique()->safeEmail(),
-            'password' => '12345678', // password
+            'username' => $this->faker->userName,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt('12345678'), // Use bcrypt() to hash the password
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
             'role' => 'Customer',
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'phone' => fake()->phoneNumber(),
-            'address' => fake()->address(),
-            'budget' => fake()->numberBetween(20000, 100000),
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'phone' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'budget' => $this->faker->numberBetween(20000, 100000),
             'visited' => false,
             // Define other attributes as needed
         ];
+    }
+
+    /**
+     * Define an 'admin' state with different attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function admin(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'piDSSAdministrator',
+                // Add any other admin-specific attributes here
+            ];
+        });
+    }
+
+    /**
+     * Define an 'operationsManager' state with different attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function manager(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'operationsManager',
+                // Add any other manager-specific attributes here
+            ];
+        });
     }
 
     /**
@@ -39,8 +69,10 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(function (array $attributes) {
+            return [
+                'email_verified_at' => null,
+            ];
+        });
     }
 }

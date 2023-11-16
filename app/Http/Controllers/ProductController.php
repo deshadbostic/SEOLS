@@ -42,7 +42,7 @@ class ProductController extends Controller
 
         $categories = Product::groupBy('Category')->pluck('Category');
 
-        return view('product.index', compact('categories', 'products','category', 'search'));
+        return view('product.index', compact('categories', 'products', 'category', 'search'));
     }
 
     /**
@@ -70,23 +70,25 @@ class ProductController extends Controller
             return redirect()->route('product.index')
                 ->with('error', 'Product creation failed. Please try again.');
         }
-        // Create the associated Attributes records
-        $attributes = $request->input('attributes');
-        $attributeNames = $attributes['Attribute_type'];
-        $attributeValues = $attributes['Attribute_value'];
-        // Loop through the arrays to process each attribute-value pair
-        for ($i = 0; $i < count($attributeNames); $i++) {
-            $attributeName = $attributeNames[$i];
-            $attributeValue = $attributeValues[$i];
-            // Create and save the Attributes record for each attribute-value pair
-            $attribute = $product->productAttributes()->create([
-                'Attribute_type' => $attributeName,
-                'Attribute_value' => $attributeValue,
-                // Set the 'product_id' if needed
-            ]);
-            if (!$attribute) {
-                return redirect()->route('product.index')
-                    ->with('error', 'Product creation failed. Please try again.');
+        if ($request['attributes'] && $request['Attribute_type'] && $request['Attribute_type']) {
+            // Create the associated Attributes records
+            $attributes = $request->input('attributes');
+            $attributeNames = $attributes['Attribute_type'];
+            $attributeValues = $attributes['Attribute_value'];
+            // Loop through the arrays to process each attribute-value pair
+            for ($i = 0; $i < count($attributeNames); $i++) {
+                $attributeName = $attributeNames[$i];
+                $attributeValue = $attributeValues[$i];
+                // Create and save the Attributes record for each attribute-value pair
+                $attribute = $product->productAttributes()->create([
+                    'Attribute_type' => $attributeName,
+                    'Attribute_value' => $attributeValue,
+                    // Set the 'product_id' if needed
+                ]);
+                if (!$attribute) {
+                    return redirect()->route('product.index')
+                        ->with('error', 'Product creation failed. Please try again.');
+                }
             }
         }
         return redirect(route('product.index'))->with('success', 'Product successfully created.');
@@ -118,7 +120,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
         $this->authorize('update', $product);
-        $productUpdate = $product->updateOrFail([
+        $productUpdate = $product->update([
             'Name' => $request->Name,
             'Price' => $request->Price,
             'Quantity' => $request->Quantity,
@@ -129,48 +131,52 @@ class ProductController extends Controller
                 ->with('error', 'Product update failed. Please try again.');
         }
         $ids = $product->productAttributes->pluck('id')->all();
-        $updateIds = array_keys($request['attributes']['Attribute_type']);
-        $removedIds = [];
-        foreach ($ids as $id) {
-            if (!in_array($id, $updateIds)) {
-                $removedIds[] = $id;
+        if ($request['attributes'] && $request['Attribute_type'] && $request['Attribute_type']) {
+
+
+            $updateIds = array_keys($request['attributes']['Attribute_type']);
+            $removedIds = [];
+            foreach ($ids as $id) {
+                if (!in_array($id, $updateIds)) {
+                    $removedIds[] = $id;
+                }
             }
-        }
-        foreach ($updateIds as $updateId) {
-            $newAttributeType = $request['attributes']['Attribute_type'][$updateId];
-            $newAttributeValue = $request['attributes']['Attribute_value'][$updateId];
-            // Check if the values have changed
-            $existingAttribute = ProductAttribute::find($updateId);
-            if ($existingAttribute && $existingAttribute->product_id === $product->id) {
-                if ($existingAttribute->product_id === $product->id && ($existingAttribute->Attribute_type !== $newAttributeType || $existingAttribute->Attribute_value !== $newAttributeValue)) {
-                    // Values have changed, update the existing attribute
-                    $existingAttributeUpdate = $existingAttribute->update([
+            foreach ($updateIds as $updateId) {
+                $newAttributeType = $request['attributes']['Attribute_type'][$updateId];
+                $newAttributeValue = $request['attributes']['Attribute_value'][$updateId];
+                // Check if the values have changed
+                $existingAttribute = ProductAttribute::find($updateId);
+                if ($existingAttribute && $existingAttribute->product_id === $product->id) {
+                    if ($existingAttribute->product_id === $product->id && ($existingAttribute->Attribute_type !== $newAttributeType || $existingAttribute->Attribute_value !== $newAttributeValue)) {
+                        // Values have changed, update the existing attribute
+                        $existingAttributeUpdate = $existingAttribute->update([
+                            'Attribute_type' => $newAttributeType,
+                            'Attribute_value' => $newAttributeValue,
+                        ]);
+                        if (!$existingAttributeUpdate) {
+                            return redirect()->route('product.index')
+                                ->with('error', 'Product update failed. Please try again.');
+                        }
+                    }
+                } else {
+                    // Create a new attribute
+                    $newAttribute = ProductAttribute::create([
+                        'product_id' => $product->id,
                         'Attribute_type' => $newAttributeType,
                         'Attribute_value' => $newAttributeValue,
                     ]);
-                    if (!$existingAttributeUpdate) {
+                    if (!$newAttribute) {
                         return redirect()->route('product.index')
                             ->with('error', 'Product update failed. Please try again.');
                     }
                 }
-            } else {
-                // Create a new attribute
-                $newAttribute = ProductAttribute::create([
-                    'product_id' => $product->id,
-                    'Attribute_type' => $newAttributeType,
-                    'Attribute_value' => $newAttributeValue,
-                ]);
-                if (!$newAttribute) {
+            }
+            foreach ($removedIds as $removedId) {
+                $deleteAttribute = ProductAttribute::destroy($removedId);
+                if (!($deleteAttribute > 0)) {
                     return redirect()->route('product.index')
                         ->with('error', 'Product update failed. Please try again.');
                 }
-            }
-        }
-        foreach ($removedIds as $removedId) {
-            $deleteAttribute = ProductAttribute::destroy($removedId);
-            if (!($deleteAttribute > 0)) {
-                return redirect()->route('product.index')
-                    ->with('error', 'Product update failed. Please try again.');
             }
         }
         return redirect()->route('product.index')->with('success', 'Product successfully updated.');
