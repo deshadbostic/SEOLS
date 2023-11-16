@@ -8,18 +8,41 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
-    
-
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $products = Product::paginate(10);
-        return view('product.index')->with('products', $products);
+        $search = Session::get('search');
+        $category = Session::get('category');
+        $numItems = Session::get('num_items');
+
+        $productsQuery = Product::query();
+
+        if ($search) {
+            $productsQuery->where(function ($query) use ($search) {
+                $query->where('Name', 'like', '%' . $search . '%')
+                    ->orWhere('Price', 'like', '%' . $search . '%')
+                    ->orWhere('Quantity', 'like', '%' . $search . '%')
+                    ->orWhereHas('productAttributes', function ($query) use ($search) {
+                        $query->where("Attribute_type", "like", "%" . $search . "%")
+                            ->orWhere("Attribute_value", "like", "%" . $search . "%");
+                    });
+            });
+        }
+
+        if ($category) {
+            $productsQuery->whereIn('Category', $category);
+        }
+        $products = $productsQuery->paginate($numItems ?? 5);
+
+        $categories = Product::groupBy('Category')->pluck('Category');
+
+        return view('product.index', compact('categories', 'products','category', 'search'));
     }
 
     /**

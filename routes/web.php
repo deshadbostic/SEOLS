@@ -36,13 +36,13 @@ Route::get('/', function () {
 Route::resource('schedule', ScheduleController::class)
     ->middleware(['auth', 'verified']);
 
-Route::get('search', [SearchController::class, 'search'])->middleware(['auth', 'verified']);
+Route::get('search', [SearchController::class, 'search'])
+    ->middleware(['auth', 'verified']);
 
 Route::get('/reset', function () {
     // Reset session variables here
     session(['num_items' => 5]);
     session(['category' => []]);
-    $products = Product::paginate(5);
     return redirect(route("product.index"));
 })->middleware(['auth', 'verified']);
 
