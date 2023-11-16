@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-
     protected $table = 'products';
 
     protected $fillable = [
@@ -17,6 +16,10 @@ class Product extends Model
         'Quantity',
         'Category'
     ];
+    protected static function newFactory()
+    {
+        return \Database\Factories\ProductFactory::new();
+    }
     public function productAttributes()
     {
         return $this->hasMAny(ProductAttribute::class);
