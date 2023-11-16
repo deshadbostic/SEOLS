@@ -287,7 +287,7 @@ class SearchTest extends TestCase
 
         // Add assertions for handling special characters
         $response = $this->get('/search?search=#@!%$');
-        $response->assertRedirectToRoute('product.index')->assertSessionHas('search', '');
+        $response->assertStatus(302)->assertRedirectToRoute('product.index')->assertSessionHas('search', '');
     }
 
     public function test_search_for_nonexistent_product(): void
