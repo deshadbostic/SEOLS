@@ -13,7 +13,7 @@ class SearchController extends Controller
         $category = $request->input('category');
         $numItems = $request->input('items');
 
-        Session::put('search', $search);
+        Session::put('search', preg_replace('/[^A-Za-z0-9 ]/', '', $search));
         if ($category) {
             Session::put('category', $category);
         }
