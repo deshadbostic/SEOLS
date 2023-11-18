@@ -1,17 +1,6 @@
 <script defer>
   @section('custom-scripts')
   document.addEventListener('DOMContentLoaded', () => {
-    let typingTimer;
-    const doneTypingInterval = 500; // in milliseconds
-
-    document.getElementById('search').addEventListener('input', function() {
-      clearTimeout(typingTimer);
-      typingTimer = setTimeout(submitForm, doneTypingInterval);
-    });
-
-    function submitForm() {
-      document.getElementById('searchForm').submit();
-    }
     const alert = document.querySelector("div[role='alert']");
     if (alert) {
 
@@ -41,7 +30,6 @@
 </script>
 <style>
   .dismissing {
-    /* font-size: larger; */
     animation: 1s cubic-bezier(.70, -0.6, .20, .50) 4s forwards dismiss;
   }
 
