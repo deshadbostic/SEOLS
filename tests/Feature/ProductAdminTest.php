@@ -110,6 +110,7 @@ class ProductAdminTest extends TestCase
         $this->actingAs($admin);
         $response = $this->get('/product/' . $product->id . '/edit/');
         $response->assertStatus(200);
+        $response->assertSeeText($product->name);
     }
     /**
      * Test if an admin can store a product without attributes.
