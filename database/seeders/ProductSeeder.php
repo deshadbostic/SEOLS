@@ -16,97 +16,97 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             [
                 'Name' => 'Tesla Powerwall',
-                'Price' => '6000',
+                'Price' => '600',
                 'Quantity' => '14',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwalls',
-                'Price' => '5800',
+                'Price' => '580',
                 'Quantity' => '14',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwall MK2',
-                'Price' => '6000',
+                'Price' => '600',
                 'Quantity' => '13',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwall MK1 ',
-                'Price' => '6700',
+                'Price' => '670',
                 'Quantity' => '10',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'Monocrystalline MK2',
-                'Price' => '7500',
+                'Price' => '750',
                 'Quantity' => '12',
                 'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'Polycrystalline MK1',
-                'Price' => '8000',
+                'Price' => '800',
                 'Quantity' => '19',
                 'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'power optimiser',
-                'Price' => '2000',
+                'Price' => '200',
                 'Quantity' => '3',
                 'Category' => 'Inverter'
             ],
             [
                 'Name' => 'Tesla Powerwall MK1 ',
-                'Price' => '6700',
+                'Price' => '670',
                 'Quantity' => '10',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'Monocrystalline MK2',
-                'Price' => '7500',
+                'Price' => '750',
                 'Quantity' => '12',
                 'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'Polycrystalline MK1',
-                'Price' => '8000',
+                'Price' => '800',
                 'Quantity' => '19',
                 'Category' => 'Solar Panel'
             ],
             [
                 'Name' => 'power optimiser',
-                'Price' => '2000',
+                'Price' => '200',
                 'Quantity' => '3',
                 'Category' => 'Inverter'
             ],
             [
                 'Name' => 'Tesla Powerwall',
-                'Price' => '6000',
+                'Price' => '600',
                 'Quantity' => '14',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'Tesla Powerwalls',
-                'Price' => '5800',
+                'Price' => '580',
                 'Quantity' => '14',
                 'Category' => 'Battery'
             ],
             [
                 'Name' => 'THHN ',
-                'Price' => '800',
+                'Price' => '80',
                 'Quantity' => '05',
                 'Category' => 'Wire'
             ],
             [
                 'Name' => 'USE 2',
-                'Price' => '5800',
+                'Price' => '580',
                 'Quantity' => '30',
                 'Category' => 'Wire'
             ],
             [
                 'Name' => 'PV',
-                'Price' => '5800',
+                'Price' => '580',
                 'Quantity' => '10',
                 'Category' => 'Wire'
             ],

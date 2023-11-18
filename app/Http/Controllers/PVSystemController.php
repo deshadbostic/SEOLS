@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PVSystemTemplateProduct;
 
 class PVSystemController extends Controller
 {
@@ -19,7 +20,8 @@ class PVSystemController extends Controller
      */
     public function create()
     {
-        //
+        //Get the templates
+        $templates = PVSystemTemplateProduct::all();
     }
 
     /**
