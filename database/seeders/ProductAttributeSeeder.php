@@ -15,6 +15,16 @@ class ProductAttributeSeeder extends Seeder
     {
         DB::table('product_attributes')->insert([
             [
+                'product_id' => '10',
+                'Attribute_type' => 'wattage',
+                'Attribute_value' => '300W',
+            ],
+            [
+                'product_id' => '9',
+                'Attribute_type' => 'wattage',
+                'Attribute_value' => '450W',
+            ],
+            [
                 'product_id' => '1',
                 'Attribute_type' => 'weight',
                 'Attribute_value' => '60000lbs',

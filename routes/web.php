@@ -48,7 +48,7 @@ Route::resource('schedule', ScheduleController::class)
 Route::resource('building', BuildingController::class)
     ->middleware(['auth', 'verified']);
 
-Route::resource('room', RoomController::class)
+/* Route::resource('room', RoomController::class)
     ->middleware(['auth', 'verified']);
 
     Route::get('room/dedit', 'RoomController@edit')->name('room.dedit');
@@ -61,7 +61,7 @@ Route::resource('room', RoomController::class)
 
     Route::get('building/dedit', 'BuildingController@edit')->name('building.dedit');
 
-    Route::get('building/delete', 'BuildingController@destroy')->name('building.delete');
+    Route::get('building/delete', 'BuildingController@destroy')->name('building.delete'); */
 
 Route::resource('appliance', ApplianceController::class)
     ->middleware(['auth', 'verified']);

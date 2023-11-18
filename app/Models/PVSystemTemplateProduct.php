@@ -9,6 +9,8 @@ class PVSystemTemplateProduct extends Model
 {
     use HasFactory;
 
+    protected $table = 'pv_system_template_products';
+
     protected $fillable = [
         'template_number',
         'product_id',
