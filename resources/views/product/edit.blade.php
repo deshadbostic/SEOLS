@@ -159,11 +159,11 @@
           <div class="flex justify-between">
             <div>
               <x-input-label for="attribute" :value="__('Attribute Name')" />
-              <x-text-input id="attribute-{{ $attribute->id }}" class="block mt-1 w-full attribute" type="text" maxlength="26" name="attributes[Attribute_type][{{ $attribute->id }}]" value="{{ $attribute->Attribute_type}}" required autofocus autocomplete="attribute" />
+              <x-text-input id="attribute-{{ $attribute->id }}" id="attribute"  class="block mt-1 w-full attribute" type="text" maxlength="26" name="attributes[Attribute_type][{{ $attribute->id }}]" value="{{ $attribute->Attribute_type}}" required autofocus autocomplete="attribute" />
             </div>
             <div>
               <x-input-label for="value" :value="__('Attribute Value')" />
-              <x-text-input id="value-{{ $attribute->id }}" class="block mt-1 w-full value" type="text" maxlength="30" name="attributes[Attribute_value][{{ $attribute->id }}]" value="{{ $attribute->Attribute_value }}" required autofocus autocomplete="value" />
+              <x-text-input id="value-{{ $attribute->id }}" id="value" class="block mt-1 w-full value" type="text" maxlength="30" name="attributes[Attribute_value][{{ $attribute->id }}]" value="{{ $attribute->Attribute_value }}" required autofocus autocomplete="value" />
             </div>
           </div>
           <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
