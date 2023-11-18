@@ -5,6 +5,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 // use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PVSystemController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\HouseInfoController;
 use App\Http\Controllers\QuoteController;
@@ -85,6 +86,9 @@ Route::resource('product', ProductController::class)
 
 Route::resource('configuration', ConfigurationController::class)
     ->middleware(['auth', 'verified']);   
+
+Route::resource('pv_system', PVSystemController::class)
+    ->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
