@@ -26,15 +26,7 @@ class PVSystemController extends Controller
     public function create()
     {
         $user = Auth::user();
-        //Get the templates
-        $templates = PVSystemTemplateProduct::all();
-
-/*         $solar_panels = DB::table('products')
-        ->join('product_attributes', 'products.id', 'product_attributes.product_id')
-        ->select('products.id', 'products.Name', 'products.Price', 'product_attributes.Attribute_type','product_attributes.Attribute_value')
-        ->where('products.Category', '=', 'Solar Panel')
-        ->where('product_attributes.Attribute_type', '=', 'wattage')
-        ->get(); */ 
+        $productInfo = $this->fetchProductInto(); 
 
         $template_product_costs =  DB::table('pv_system_template_products')
         ->join('products', 'pv_system_template_products.product_id', 'products.id')
@@ -96,7 +88,7 @@ class PVSystemController extends Controller
 
         //echo $template_energies;
         //var_dump($template_total_energies);
-        $energy_requirement = 1500;
+        $energy_requirement = 1900;
         $budget_requirement = $user->budget;
         
         $valid_energy_templates = [];
@@ -164,8 +156,6 @@ class PVSystemController extends Controller
                 'template_price' => $template_prices[$template]->price
             ];
         }
-
-        $this->fetchProductInto();
         echo $template_products;
         // var_dump($template_return['template_products']);
         return view('pv_system.create', $template_return);
