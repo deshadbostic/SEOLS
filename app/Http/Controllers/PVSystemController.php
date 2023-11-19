@@ -179,7 +179,7 @@ class PVSystemController extends Controller
      */
     public function store(Request $request)
     {
-        echo $request->energy_generated;
+        //echo $request->energy_generated;
         $user = Auth::user();
         if(!$this->checkRequiredCategories($request)) {
             return;
@@ -189,16 +189,23 @@ class PVSystemController extends Controller
         $products = $request->products;
         $product_counts = $request->product_counts;
 
-        PVSystem::create([
-            'user_id' => $user->id,
-            //'building_id' => '1',
-            'energy_generated' => $request->energy_generated,
-            'equipment_cost' => $request->price,
-        ]);
+        // PVSystem::create([
+        //     'user_id' => $user->id,
+        //     //'building_id' => '1',
+        //     'energy_generated' => $request->energy_generated,
+        //     'equipment_cost' => $request->price,
+        // ]);
+
+        $newPVSystem = new PVSystem;
+        $newPVSystem->user_id = $user->id;
+        $newPVSystem->energy_generated = $request->energy_generated;
+        $newPVSystem->equipment_cost = $request->price;
+
+        $newPVSystem->save();
 
         foreach($products as $key => $product) {
             PVSystemProduct::create([
-                'pv_system_id' => 1,
+                'pv_system_id' => $newPVSystem->id,
                 'product_id' => $product,
                 'product_count' => $product_counts[$key],
             ]);

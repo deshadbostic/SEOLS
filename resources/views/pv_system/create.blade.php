@@ -69,14 +69,21 @@
             <x-text-input id="budget" class="block mt-1 w-full" type="text" maxlength="5" name="budget" value="{{ old('user->budget', $user->budget) }}" autofocus autocomplete="budget" />
             <x-input-error :messages="$errors->get('budget')" class="mt-2" />
         </div>
-        <x-primary-button class="mt-4">
-            {{__('Save')}}
-        </x-primary-button>
+        <div>
+            <x-primary-button class="mt-4">
+                {{__('Save')}}
+            </x-primary-button>
+            <x-primary-button type="button" class="button mt-4" id="get_recommendation">
+                {{__('Get Recommendation')}}
+            </x-primary-button>
+        </div>
+
     </form>
    
     </div>
     @endauth
     <input class="hidden" id="hidden_products" value="{{json_encode($products)}}">
+    <input class="hidden" id="hidden_template" value="{{json_encode($template_products)}}">
 </x-app-layout>
 
 <style>
@@ -237,16 +244,28 @@ function updateEnergyGenerated(){
 
     }
 
-
-
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
     }
-    addProductCategoryEvents()
-    addProductEvents()
 
+    function addRecommendationEvant() {
+        
+        const recommendation_button = document.getElementById('get_recommendation')
+        recommendation_button.addEventListener('click',showTemplate)
+    }
+
+    function showTemplate() {
+        const template = document.getElementById('hidden_template')
+        console.log(template.value)
+    }
+
+    addProductCategoryEvents()
+    addRecommendationEvant()
+    addProductEvents()
+    
+    
 </script>
 
 <!--need to readject energy and price 
