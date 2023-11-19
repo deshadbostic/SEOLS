@@ -52,8 +52,8 @@ class PVSystemController extends Controller
         SELECT template_number, SUM(cost) FROM ( 
             SELECT template_number, product_count*price as cost FROM `pv_system_template_products`, `products` WHERE pv_system_template_products.product_id = products.id 
         ) AS mytable2 GROUP BY template_number;
-        */
-        /* 
+        
+         
         SELECT template_number, SUM(cost) FROM ( 
             SELECT template_number, product_count*price as cost FROM ( 
                 SELECT product_count, price, template_number FROM `pv_system_template_products`, `products` WHERE pv_system_template_products.product_id = products.id 
@@ -68,8 +68,6 @@ class PVSystemController extends Controller
         ->where('product_attributes.Attribute_type', '=', 'wattage')
         ->orderBy('template_number')
         ->get();
-        
-        $tpls = [];
 
         $template_total_energies = [];
 
@@ -88,7 +86,7 @@ class PVSystemController extends Controller
 
         //echo $template_energies;
         //var_dump($template_total_energies);
-        $energy_requirement = 1900;
+        $energy_requirement = 2500;
         $budget_requirement = $user->budget;
         
         $valid_energy_templates = [];
@@ -111,10 +109,10 @@ class PVSystemController extends Controller
         }
         $template = null;
 
-        var_dump($valid_energy_templates);
+/*         var_dump($valid_energy_templates);
         echo "<br><br>";
         var_dump($valid_price_templates);
-        echo "<br><br>";
+        echo "<br><br>"; */
 
 
         if(!empty($valid_energy_templates) && !empty($valid_price_templates)) 
@@ -151,12 +149,25 @@ class PVSystemController extends Controller
 
             $template_return =
             [
+                'user' => $user,
                 'template_products' => $template_products,
                 'template_energy' => $template_total_energies[$template],
-                'template_price' => $template_prices[$template]->price
+                'template_price' => $template_prices[$template]->price,
+                'products' => $productInfo['products'],
+                'categories' => $productInfo['categories']
+            ];
+        } else 
+        {
+            $template_return =
+            [
+                'user' => $user,
+                'template_products' => null,
+                'template_energy' => null,
+                'template_price' => null,
+                'products' => $productInfo['products'],
+                'categories' => $productInfo['categories']
             ];
         }
-        echo $template_products;
         // var_dump($template_return['template_products']);
         return view('pv_system.create', $template_return);
     }
@@ -167,6 +178,7 @@ class PVSystemController extends Controller
     public function store(Request $request)
     {
         //
+        echo "here";
     }
 
     /**
