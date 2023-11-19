@@ -25,7 +25,7 @@ trait PVSystemHelper {
             ->join('product_attributes', 'products.id', 'product_attributes.product_id')
             ->where('Category', '=', $category->Category)
             ->where('Attribute_type', '=', $product_attributes[$category->Category])
-            ->select('Name', 'Price', 'Category', 'Attribute_type', 'Attribute_Value')
+            ->select('product_id','Name', 'Price', 'Category', 'Attribute_type', 'Attribute_Value')
             ->get();
         }
         
