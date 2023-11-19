@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\PVSystemTemplateProduct;
+use App\Traits\PVSystemHelper;
 use Illuminate\Database\Query\JoinClause;
 
 class PVSystemController extends Controller
 {
+    use PVSystemHelper;
     /**
      * Display a listing of the resource.
      */
@@ -163,6 +165,7 @@ class PVSystemController extends Controller
             ];
         }
 
+        $this->fetchProductInto();
         echo $template_products;
         // var_dump($template_return['template_products']);
         return view(
