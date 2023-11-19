@@ -10,6 +10,8 @@ class PVSystemProduct extends Model
 {
     use HasFactory;
 
+    protected $table = 'pv_system_products';
+
     protected $fillable = [
         'pv_system_id',
         'product_id',

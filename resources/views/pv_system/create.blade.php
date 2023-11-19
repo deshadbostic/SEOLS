@@ -14,7 +14,7 @@
     <form method="POST" action="{{ route('pv_system.store') }}">
         @csrf
             <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
-                {{ __('+ Add Attribute') }}
+                {{ __('+ Add Product') }}
             </x-primary-button>
         <div class="attributes">
             <div class="attribute-set">
@@ -37,11 +37,11 @@
 </div>
 <div>
                     <x-input-label class="mt-3" for="product_count" :value="__('Quantity')" />
-                        <x-text-input id="product_count" class="block mt-1 w-full" type="text" maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
+                        <x-text-input id="product_count" class="product_counts block mt-1 w-full" type="text" maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
 </div>
                     </div>
                         <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
-                            <x-delete-button type="button" class=" px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-delete-button>
+                            <x-delete-button type="button" class=" px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }updatePrices()">Remove</x-delete-button>
 
                             <span class="text-red-600 text-sm hidden error-message">Category and Product selection is required and quantity must be above 0.</span> 
                         </div>
@@ -56,7 +56,7 @@
         </div>
         <div>
             <x-input-label class="mt-3" for="price" :value="__('Estimated price:')" /> 
-            <x-text-input id="price" class="block mt-1 w-full" type="text" maxlength="5" name="price" value="{{ old('template_price', $template_price) }}" required autofocus autocomplete="price" />
+            <x-text-input id="price" class="block mt-1 w-full" type="text" maxlength="5" name="price" value="{{ old('price') }}" readonly autofocus autocomplete="price" />
             <x-input-error :messages="$errors->get('template_price')" class="mt-2" />
         </div>
         <div>
@@ -66,9 +66,12 @@
         </div>
         <div>
             <x-input-label class="mt-3" for="budget" :value="__('My Budget:')" /> 
-            <x-text-input id="budget" class="block mt-1 w-full" type="text" maxlength="5" name="budget" value="{{ old('user->budget', $user->budget) }}" required autofocus autocomplete="budget" />
+            <x-text-input id="budget" class="block mt-1 w-full" type="text" maxlength="5" name="budget" value="{{ old('user->budget', $user->budget) }}" autofocus autocomplete="budget" />
             <x-input-error :messages="$errors->get('budget')" class="mt-2" />
         </div>
+        <x-primary-button class="mt-4">
+            {{__('Save')}}
+        </x-primary-button>
     </form>
    
     </div>
@@ -120,14 +123,14 @@ function addAttribute() {
         attributesContainer.appendChild(attributeSet);
     }
     addProductCategoryEvents()
+    addProductEvents()
     updateEnergyGenerated()
 }
 function updateEnergyGenerated(){
-
         const categorySelect = attributePair.querySelector("#category");
         const productSelect = attributePair.querySelector("#product");
-      const product_countInput = attributePair.querySelector("#product_count");
-      const energyGenerated = document.getElementById('energy_generated');
+        const product_countInput = attributePair.querySelector("#product_count");
+        const energyGenerated = document.getElementById('energy_generated');
 
         if(categorySelect.value==="Solar Panel"){
             let productInfo = productSelect.value.split("---");
@@ -151,7 +154,6 @@ function updateEnergyGenerated(){
         let all_products = JSON.parse(hidden_products.value)
         const category_selects = document.querySelectorAll('.category_select')
         const products = document.querySelectorAll('.products')
-        console.log(products)
         category_selects.forEach((select,index) => {
             select.addEventListener('change', function(e) {
                 individual_products = all_products[this.value]
@@ -167,24 +169,76 @@ function updateEnergyGenerated(){
     }
 
     function addProductEvents() {
-        let all_products = JSON.parse(hidden_products.value)
         const category_selects = document.querySelectorAll('.category_select')
         const products = document.querySelectorAll('.products')
-        const product_counts = document.querySelectorAll('.product_count')
-        const price = document.getElementById('price')
-        console.log(products[0])
-        products.forEach((product,index) =>{
-            product.addEventListener('change', function(e) {
-                
-                let category = category_selects[index].value
-                console.log(all_products[category])
-                //console.log(all_products[category_selects][index])
-                //price = ['Price']
-                //console.log(price)
-            })
+        const product_counts = document.querySelectorAll('.product_counts')
+        products.forEach((product) => {
+            product.addEventListener('change', updatePrices)
+            product.addEventListener('blur', updatePrices)
+            product.addEventListener('focus', updatePrices)
+            product.addEventListener('change', updateEnergy)
+            product.addEventListener('blur', updateEnergy)
+            product.addEventListener('focus', updateEnergy)
+        })
+        category_selects.forEach((category_select) => {
+            category_select.addEventListener('change', updatePrices)
+            category_select.addEventListener('blur', updatePrices)
+            category_select.addEventListener('focus', updatePrices)
+            category_select.addEventListener('change', updateEnergy)
+            category_select.addEventListener('blur', updateEnergy)
+            category_select.addEventListener('focus', updateEnergy)
+        })
+        product_counts.forEach((product_count) => {
+            product_count.addEventListener('input', updatePrices)
+            product_count.addEventListener('input', updateEnergy)
         })
     }
     
+    function updatePrices() {
+        let amount = 0
+        let all_products = JSON.parse(hidden_products.value)
+        const category_selects = document.querySelectorAll('.category_select')
+        const products = document.querySelectorAll('.products')
+        const product_counts = document.querySelectorAll('.product_counts')
+        const price = document.getElementById('price')
+        products.forEach((product,index) => {
+            let prod_category = category_selects[index].value
+            db_products = all_products[prod_category]
+            db_products.forEach((db_product) => {
+                if(parseInt(db_product['product_id']) === parseInt(product.value)){
+                    amount += parseInt(db_product['Price'])*product_counts[index].value
+                }
+            })
+        })
+        price.innerText = amount
+        price.value = amount
+    }
+
+    function updateEnergy() {
+        let energy = 0;
+        let all_products = JSON.parse(hidden_products.value)
+        let solar_panels = all_products['Solar Panel']
+        const category_selects = document.querySelectorAll('.category_select')
+        const products = document.querySelectorAll('.products')
+        const product_counts = document.querySelectorAll('.product_counts')
+        const energy_field = document.getElementById('energy_generated')
+        products.forEach((product,index) => {
+            if(category_selects[index].value === 'Solar Panel') {
+                solar_panels.forEach((solar_panel) => {
+                    if(parseInt(solar_panel['product_id']) === parseInt(product.value)){
+                        prod_energy = solar_panel['Attribute_Value'].split("W")[0];
+                        energy += parseInt(prod_energy)*product_counts[index].value;
+                    }
+                })
+            }
+        })
+        energy_field.value = energy
+        energy_field.innerText = energy
+
+    }
+
+
+
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
@@ -192,6 +246,7 @@ function updateEnergyGenerated(){
     }
     addProductCategoryEvents()
     addProductEvents()
+
 </script>
 
 <!--need to readject energy and price 

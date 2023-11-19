@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PVSystem;
+use App\Models\PVSystemProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -177,9 +179,32 @@ class PVSystemController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        echo "here";
-    }
+        echo $request->energy_generated;
+        $user = Auth::user();
+        if(!$this->checkRequiredCategories($request)) {
+            return;
+        }
+        
+        //echo $this->checkRequiredCategories($request);
+        $products = $request->products;
+        $product_counts = $request->product_counts;
+
+        PVSystem::create([
+            'user_id' => $user->id,
+            //'building_id' => '1',
+            'energy_generated' => $request->energy_generated,
+            'equipment_cost' => $request->price,
+        ]);
+
+        foreach($products as $key => $product) {
+            PVSystemProduct::create([
+                'pv_system_id' => 1,
+                'product_id' => $product,
+                'product_count' => $product_counts[$key],
+            ]);
+        }
+        echo '<br> saved';
+    }//end store()
 
     /**
      * Display the specified resource.

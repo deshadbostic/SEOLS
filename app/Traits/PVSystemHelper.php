@@ -42,5 +42,27 @@ trait PVSystemHelper {
         } 
         echo '<br>'.($products['Solar Panel']).'<br>';
         echo '<br>' . $categories . '<br>'; */
-    }
+    }//end fetchProductInfo
+
+    public function checkRequiredCategories($request) : bool {
+        $categories = $request->categories;
+        $required_categories = [
+            'Solar Panel' => false,
+            'Inverter' => false,
+            'Wire' => false,
+        ];
+        foreach($categories as $category) {
+            foreach($required_categories as $key => $required_category) {
+                if($category === $key) {
+                    $required_categories[$key] = true;
+                }
+            }
+        }//end foreach
+        foreach($required_categories as $required_category) {
+            if($required_category === false) {
+                return false;
+            }
+        }
+        return true;
+    }//end checkRequiredCategories
 }
