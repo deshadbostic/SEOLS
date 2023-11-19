@@ -45,7 +45,7 @@ class PVSystemController extends Controller
             ->on('pv_system_template_products.product_id', 'costs.product_id');
         })
         ->groupBy('costs.template_number')
-        ->select(DB::raw('costs.template_number, SUM(cost)'))
+        ->select(DB::raw('costs.template_number, SUM(cost) as price'))
         ->get();
         
         // echo $template_product_costs;
@@ -75,13 +75,98 @@ class PVSystemController extends Controller
         ->orderBy('template_number')
         ->get();
         
-        
-        echo $template_energies;
-        return view(
-            'pv_system.create',
-            [
+        $tpls = [];
+
+        $template_total_energies = [];
+
+        foreach($template_energies as $key => $template) {
+            /* if(isset($template_energies[$key+1]) && $template->template_number === $template_energies[$key+1]->template_number) {
                 
-            ],
+            } */
+            $energy_generated = $template->product_count*preg_split("/W/",$template->Attribute_value)[0]; 
+            if(!isset($template_total_energies[$template->template_number]))
+            {
+                $template_total_energies[$template->template_number] = 0;
+            }
+            $template_total_energies[$template->template_number] += $energy_generated;
+            // echo $template->template_number . " => " . $energy_generated . "<br>";
+        }
+
+        //echo $template_energies;
+        //var_dump($template_total_energies);
+        $energy_requirement = 1500;
+        $budget_requirement = $user->budget;
+        
+        $valid_energy_templates = [];
+        // $difference = $template_total_energies[1] - $energy_requirement;
+        foreach($template_total_energies as $key => $template_total_energy) {
+            $difference = $template_total_energy - $energy_requirement;
+            if($difference >= 0)
+            {
+                $valid_energy_templates[$key] = $difference;
+            }
+        }
+
+        $valid_price_templates = [];
+        foreach($template_prices as $key => $template_total_price) {
+            $difference = $user->budget - $template_total_price->price ;
+            if($difference >= 0)
+            {
+                $valid_price_templates[$key] = $difference;
+            }
+        }
+        $template = null;
+
+        var_dump($valid_energy_templates);
+        echo "<br><br>";
+        var_dump($valid_price_templates);
+        echo "<br><br>";
+
+
+        if(!empty($valid_energy_templates) && !empty($valid_price_templates)) 
+        {
+            while(!empty($valid_energy_templates))
+            {
+                // get minimum difference
+                $min_difference = min($valid_energy_templates);
+
+                // get the template number of the min
+                $min_energy_template = array_search($min_difference, $valid_energy_templates);
+                
+                // check if it is in the valid prices
+                if(array_key_exists($min_energy_template, $valid_price_templates)) // if yes break and return the template
+                {
+                    // save the template
+                    $template = $min_energy_template;
+                    break;
+                }
+                else // if no remove the template from the array
+                {
+                    unset($valid_energy_templates[$min_energy_template]);
+                }
+            }
+        }
+
+        // check if there was valid template returned
+        if(null !== $template) 
+        {
+            $template_products = DB::table('pv_system_template_products')
+            ->join('products', 'pv_system_template_products.product_id', 'products.id')
+            ->where('template_number', '=', $template)
+            ->get();
+
+            $template_return =
+            [
+                'template_products' => $template_products,
+                'template_energy' => $template_total_energies[$template],
+                'template_price' => $template_prices[$template]->price
+            ];
+        }
+
+        echo $template_products;
+        // var_dump($template_return['template_products']);
+        return view(
+            'pv_system.create',$template_return,
         );
     }
 
