@@ -168,9 +168,7 @@ class PVSystemController extends Controller
         $this->fetchProductInto();
         echo $template_products;
         // var_dump($template_return['template_products']);
-        return view(
-            'pv_system.create',$template_return,
-        );
+        return view('pv_system.create', $template_return);
     }
 
     /**
