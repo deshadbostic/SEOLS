@@ -222,7 +222,7 @@ class PVSystemController extends Controller
      */
     public function show(PVSystem $pv_system)
     {
-        $products = DB::table('pv_system_products')
+        $productInfo = DB::table('pv_system_products')
             ->join('products', 'pv_system_products.product_id', 'products.id')
             ->where('pv_system_id', '=', $pv_system->id)
             ->orderBy('products.category')
@@ -251,7 +251,7 @@ class PVSystemController extends Controller
         //     ],
         // );
         $information = [
-            'products' => $products,
+            'products' => $productInfo,
             'energy_generated' => $pv_system->energy_generated,
             'equipment_cost' => $pv_system->energy_generated,
             'labour_cost' => ($pv_system->energy_generated * 0.1)

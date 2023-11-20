@@ -11,12 +11,14 @@
             </div>
             <hr>
             @foreach($products as $key => $product)
+            <!-- {{gettype($product)}} -->
+                
                 <div class="grid-cols-10 grid gap-4 mt-4">
-                    <p class="col-span-2">{{$product->Category}}</p>
-                    <p class="col-span-2">{{$product->Name}}</p>
-                    <p class="col-span-2">{{$product->product_count}}</p>
-                    <p class="col-span-2">${{$product->Price}} each</p>
-                    <form method="GET" action="" class="inline">
+                    <p class="col-span-2">{{ucfirst($product->Category)}}</p>
+                    <p class="col-span-2">{{ucfirst($product->Name)}}</p>
+                    <p class="col-span-2">{{ucfirst($product->product_count)}}</p>
+                    <p class="col-span-2">${{ucfirst($product->Price)}}</p>
+                    <form method="GET" action="{{ route('product.show', $product) }}" class="inline">
                         @csrf
                         <x-primary-button class="justify-center">
                             {{ __('View') }}
