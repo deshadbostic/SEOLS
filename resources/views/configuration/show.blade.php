@@ -56,7 +56,33 @@
                 {{ __('Edit Configuration') }}
                 </x-primary-button>
             </form>
+            <a href="#" onclick="breakdown()">
+                <x-primary-button class="justify-center">
+                    {{ __('Breakdown') }}
+                </x-primary-button>
+            </a>
         </div>
+       
+        <div class="breakdown" id="breakdown" hidden="hidden">
+       
+            <h1 class="text-2xl font-semibold mt-4">Now u see me, now u don't </h1>
+            <div class="text-lg  my-3 text-white">
+                Solar Panel: {{$solar_panel->Name.' - '.$configuration->solar_panel_count.' - '.($solar_panel->Price*$configuration->solar_panel_count)}}
+                Inverter: {{ucfirst($inverter->Name).' - '.$configuration->inverter_count}}
+            </div>
+        </div>
+      
     </div>
     @endauth
 </x-app-layout>
+<script>
+function breakdown(){
+    var breakdown = document.getElementById("breakdown");
+    if (breakdown) {
+            // Remove the 'hidden' attribute to unhide the div
+            breakdown.removeAttribute('hidden');
+        }
+
+}
+
+</script>

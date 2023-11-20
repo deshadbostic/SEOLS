@@ -80,9 +80,13 @@
                     {{__('Get Recommendation')}}
                 </x-primary-button>
             </div>
-            @endauth
+            <div>
+            <span id="template_error" class="mt-4 float-right text-red-600 text-sm hidden">No valid recommendations could be found.</span>
+            </div>
             <input class="hidden" id="hidden_products" value="{{json_encode($products)}}">
             <input class="hidden" id="hidden_template" value="{{json_encode($template_products)}}">
+        </form>
+        @endauth       
 </x-app-layout>
 
 <style>
@@ -132,7 +136,7 @@
             
             addProductCategoryEvents(attributeSet)
             addProductEvents()
-            updateEnergyGenerated()
+            // updateEnergyGenerated()
         }
     }
 
@@ -220,7 +224,7 @@
         const price = document.getElementById('price')
         products.forEach((product, index) => {
             let prod_category = category_selects[index].value
-            db_products = all_products[prod_category]
+            let db_products = all_products[prod_category]
             db_products.forEach((db_product) => {
                 if (parseInt(db_product['product_id']) === parseInt(product.value)) {
                     amount += parseInt(db_product['Price']) * product_counts[index].value
@@ -269,7 +273,12 @@
             }
             else
             {
-                console.error("NO VALID TEMPLATE!");
+                const error_message = document.getElementById('template_error')
+                error_message.classList.remove("hidden");
+                // Set a timer to hide the error message after 4000 milliseconds (4 seconds)
+                setTimeout(function() {
+                    error_message.classList.add("hidden");
+                }, 3000);
             }
         })
     }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pv_systems', function (Blueprint $table) {
             $table->id();
             $table->foreignid('user_id')->constrained()->cascadeOnDelete();
-            //$table->foreignid('building_id')->nullable()->constrained()->cascadeOnDelete();            
+            $table->foreignid('building_id')->nullable()->constrained()->cascadeOnDelete();            
             $table->integer('energy_generated');
             $table->decimal('equipment_cost');
             $table->timestamps();
