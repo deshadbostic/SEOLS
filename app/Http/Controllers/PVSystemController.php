@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\PVSystem;
 use App\Models\PVSystemProduct;
 use Illuminate\Support\Facades\Auth;
@@ -227,6 +228,12 @@ class PVSystemController extends Controller
             ->where('pv_system_id', '=', $pv_system->id)
             ->orderBy('products.category')
             ->get();
+    
+        $products = [];
+        foreach($productInfo as $key => $product)
+        {
+            $products[$key] = Product::where('id', $product->id)->first();
+        }
             
         // $products = PVSystemProduct::where('pv_system_id', $pv_system->id)->get();
         // $productsInfo
@@ -251,7 +258,8 @@ class PVSystemController extends Controller
         //     ],
         // );
         $information = [
-            'products' => $productInfo,
+            'productInfo' => $productInfo,
+            'products' => $products,
             'energy_generated' => $pv_system->energy_generated,
             'equipment_cost' => $pv_system->energy_generated,
             'labour_cost' => ($pv_system->energy_generated * 0.1)

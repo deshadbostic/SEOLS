@@ -3,6 +3,7 @@
     <div class="container mx-auto flex flex-col items-center text-white">
         <h1 class="text-2xl font-semibold mt-4">View Configuration</h1>
         <div class="text-lg  my-3 text-white">
+       
             Solar Panel: {{$solar_panel->Name.' - '.$configuration->solar_panel_count }}
             <form method="GET" action="{{ route('product.show', $solar_panel) }}" class="inline">
                 @csrf
@@ -65,8 +66,7 @@
         </div>
        
         <div class="breakdown" id="breakdown" hidden="hidden">
-       
-            <h1 class="text-2xl font-semibold mt-4">Now u see me, now u don't </h1>
+            <h2 class="text-2xl font-semibold mt-4">Break Down</h2>
             <div class="text-lg  my-3 text-white">
                 Solar Panel: {{$solar_panel->Name.' - '.$configuration->solar_panel_count.' - $'.($solar_panel->Price*$configuration->solar_panel_count)}}
                 <br>Inverter: {{ucfirst($inverter->Name).' - '.$configuration->inverter_count.' - $'.($inverter->Price*$configuration->inverter_count)}}
@@ -93,5 +93,6 @@ function breakdown(){
             }
         }
 }
+
 
 </script>
