@@ -100,13 +100,13 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Name' => 'USE 2',
-                'Price' => '580',
+                'Price' => '58',
                 'Quantity' => '30',
                 'Category' => 'Wire'
             ],
             [
                 'Name' => 'PV',
-                'Price' => '580',
+                'Price' => '70',
                 'Quantity' => '10',
                 'Category' => 'Wire'
             ],

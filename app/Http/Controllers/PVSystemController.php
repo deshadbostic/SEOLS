@@ -88,7 +88,7 @@ class PVSystemController extends Controller
 
         //echo $template_energies;
         //var_dump($template_total_energies);
-        $energy_requirement = 2500;
+        $energy_requirement = 2100;
         $budget_requirement = $user->budget;
         
         $valid_energy_templates = [];
