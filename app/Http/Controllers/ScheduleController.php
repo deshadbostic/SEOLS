@@ -46,15 +46,15 @@ class ScheduleController extends Controller
            return redirect(route('schedule.nameError'));
        } 
        
-       Schedule::updateOrCreate(
-           ['id' => $user_id],
+       Schedule::create(
            [
-               'fName' => $user_fName,
-               'lName' => $user_lName,
-               'address' => $request->address,
-               'DOA' => $request->date,
-               'time' => $request->time,
-               'directions' => $request->directions
+            'user_id' => $user_id,
+            'fName' => $user_fName,
+            'lName' => $user_lName,
+            'address' => $request->address,
+            'DOA' => $request->date,
+            'time' => $request->time,
+            'directions' => $request->directions
            ]);
        return redirect(route('schedule.index'));
    }
