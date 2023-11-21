@@ -63,13 +63,13 @@ class ProductSeeder extends Seeder
                 'Category' => 'Battery'
             ],
             [
-                'Name' => 'Monocrystalline MK2',
-                'Price' => '750',
+                'Name' => 'Monocrystalline MK3',
+                'Price' => '770',
                 'Quantity' => '12',
                 'Category' => 'Solar Panel'
             ],
             [
-                'Name' => 'Polycrystalline MK1',
+                'Name' => 'Polycrystalline MK2',
                 'Price' => '800',
                 'Quantity' => '19',
                 'Category' => 'Solar Panel'
