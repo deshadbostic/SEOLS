@@ -16,7 +16,8 @@ class Scheduleseeder extends Seeder
     {
         DB::table('schedule')->insert([
             [
-            'id' => '23',
+            'id' => '1',
+            'user_id' => '4',
             'fName' => 'Jason',
             'lName' => 'Vincent',
             'address' => 'Parkinson Street',
@@ -25,7 +26,8 @@ class Scheduleseeder extends Seeder
             'directions' => NULL
             ],
             [
-            'id' => '46',
+            'id' => '2',
+            'user_id' => '5',
             'fName' => 'Mark',
             'lName' => 'Anthony',
             'address' => 'Maloney Drive, Jamestown',
