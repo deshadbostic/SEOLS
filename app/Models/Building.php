@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\BuildingHelper;
 
 class Building extends Model
 {
     use HasFactory;
-
+    use BuildingHelper;
+    
     protected $fillable = [
         'name',
         'user_id',

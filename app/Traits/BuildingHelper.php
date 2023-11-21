@@ -6,10 +6,10 @@ trait BuildingHelper
 	{
 		$rooms = $this->room;
 		$totalPower = 0;
-		
 		foreach ($rooms as $room)
 		{
-			$totalPower += $room->appliance->sum('powerConsumption');
+			//echo $room->appliance->wattage
+			$totalPower += $room->appliance->sum('wattage');
 		}
 		return $totalPower; 
 		//return 10000;

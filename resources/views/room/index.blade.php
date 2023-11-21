@@ -4,7 +4,7 @@
             <div class="col-span-12">
                 <div class="overflow-auto lg:overflow-visible ">
 
-
+                {{$roomPower}}
                     <h2 class="text-2xl font-bold mb-2 text-white text-stone-300"> Room Select</h2>
                     <p> Select the room you wish to  model or add a new one</p>
                     @foreach($buildings as $buildingname)
@@ -20,7 +20,6 @@
                                 <option value="{{$room->id}}"> {{$room->name}}</option>
                             @endforeach
                     </select>
-
                     <x-primary-button>
                     {{__('Edit')}}
                 </x-primary-button>

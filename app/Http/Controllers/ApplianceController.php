@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\ApplianceHelper;
 use App\Models\Room;
-use App\Models\Building; 
-use App\Models\Appliance; 
+use App\Models\Building;
+use App\Models\Appliance;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,11 +18,11 @@ class ApplianceController extends Controller
      */
     public function index()
     {
-        $user= Auth::user();
+        $user = Auth::user();
         $buildings = Building::whereBelongsTo($user)->get();
-        $rooms=Room::whereBelongsTo($buildings[0])->get();
-        $appliances=Appliance::whereBelongsTo($rooms[0])->get();
-        return view('appliance.index')->with(['buildings'=> $buildings,'rooms'=>$rooms,'appliances'=>$appliances]);
+        $rooms = Room::whereBelongsTo($buildings[0])->get();
+        $appliances = Appliance::whereBelongsTo($rooms[0])->get();
+        return view('appliance.index')->with(['buildings' => $buildings, 'rooms' => $rooms, 'appliances' => $appliances]);
     }
 
     /**
@@ -39,23 +39,20 @@ class ApplianceController extends Controller
      */
     public function store(Request $request)
     {
-        try
-		{
-			$room = Room::find($request->room_id);
+        try {
+            $room = Room::find($request->room_id);
 
-			$validated = $request->validate([
-				'name' => 'required',
-				'wattage' => 'required|numeric', 
-			]);
-					
-			$room->appliance()->create($validated);
-		}
-		catch (\Exception $ex)
-		{
-			echo $ex->getMessage();
-			//error handling
-		}
-		return redirect(route('appliance.index'));
+            $validated = $request->validate([
+                'name' => 'required',
+                'wattage' => 'required|numeric',
+            ]);
+
+            $room->appliance()->create($validated);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+            //error handling
+        }
+        return redirect(route('appliance.index'));
     }
 
     /**
@@ -69,21 +66,22 @@ class ApplianceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request)
     {
-        //
-        return view('appliance.edit')->with('batteries', 'f');
+        $appliance = Appliance::where("id", $request->applianceid)->get();
+
+        return view('appliance.edit')->with('appliance', $appliance);
     }
     public function dedit(Request $request)
     {
-        return redirect(route('room.edit'));
+        return redirect(route('appliance.edit'));
     }
 
     public function delete(Request $request)
     {
-        return redirect(route('room.delete'));
+        return redirect(route('appliance.delete'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -95,8 +93,10 @@ class ApplianceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $appliance=Appliance::where("id",$request->applianceid)->get();
+        $appliance->delete();
+        return view('appliance.index')->with('appliance', $appliance);  
     }
 }

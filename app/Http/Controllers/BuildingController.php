@@ -18,8 +18,14 @@ class BuildingController extends Controller
     public function index()
     {
        $user= Auth::user();
-        $buildings = Building::whereBelongsTo($user)->get();
-        return view('building.index')->with('buildings', $buildings);
+        $building = Building::whereBelongsTo($user)->first();
+        if(!isset($building->id)) {
+            // $building = null;
+            return view('building.index');
+        } else {
+              return view('building.index')->with('building', $building)->with('totalPower',$building->newCalcPowerConsumption());
+        }
+      
     }
 
     /**
@@ -67,7 +73,7 @@ class BuildingController extends Controller
 
      public function dedit(Request $request)
      {
-         return redirect(route('room.edit'));
+         return redirect(route('building.edit'));
      }
  
      public function delete(Request $request)
@@ -77,7 +83,8 @@ class BuildingController extends Controller
     public function edit(Building $building)
     {
         //
-        return view('building.edit')->with('batteries', 'f');
+        $room=Building::where("id",$request->buildingid)->get();
+        return view('building.edit')->with('building', $building);
     }
 
     /**
@@ -94,6 +101,7 @@ class BuildingController extends Controller
     public function destroy(Building $building)
     {
         //
-
+        $building->delete();
+        return view('building.index');
     }
 }

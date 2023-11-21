@@ -1,23 +1,23 @@
-<?php namespace App\Traits;
+<?php
+
+namespace App\Traits;
 
 trait RoomHelper
 {
 	public function newCalcPowerConsumption()
 	{
-		$rooms = $this->room;
+		$appliances = $this->appliance;
 		$totalPower = 0;
-		
-		foreach ($rooms as $room)
-		{
-			$totalPower += $room->appliance->sum('powerConsumption');
+
+		foreach ($appliances as $appliance) {
+			$totalPower += $appliance->sum('wattage');
 		}
-		return $totalPower; 
+		return $totalPower;
 		//return 10000;
 		// try collect
 	}
 
-
-    public function calcPowerForRoom()
+	public function calcPowerForRoom()
 	{
 		return 50;
 	}

@@ -11,6 +11,7 @@
                 </h3>
             </div>
             <div class="justify-start">
+            
                 <x-input-label for="new_building_name" class="text-xl" :value="__('New Building Name')" />
             </div>
             <div class="justify-start">

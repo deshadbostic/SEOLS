@@ -19,8 +19,8 @@ class RoomController extends Controller
         //
         $user= Auth::user();
         $buildings = Building::whereBelongsTo($user)->get();
-        $rooms=Room::whereBelongsTo($buildings[0])->get();
-        return view('room.index')->with(['buildings'=> $buildings,'rooms'=>$rooms] );
+        $rooms=Room::whereBelongsTo($buildings)->get(); 
+        return view('room.index')->with(['buildings'=> $buildings,'rooms'=>$rooms,'roomPower'=>$rooms[0]->newCalcPowerConsumption()] );
     }
 
     /**

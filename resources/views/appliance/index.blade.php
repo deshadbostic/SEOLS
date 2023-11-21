@@ -10,17 +10,6 @@
                     @foreach($rooms as $room)
                    <p> Room: {{$room->name}} </p>
                    @endforeach
-                    <label> Select an appliance to edit or remove </label>
-                    <form action="{{route('room.dedit') }}" method="GET">
-                         @csrf
-                    <form action="{{route('room.delete') }}" method="POST">
-                    @csrf
-
-                    <select id="roomid" name="roomid">
-                    @foreach($appliances as $appliance)
-                                <option value="{{$appliance->id}}"> {{$appliance->name}}</option>
-                            @endforeach
-                    </select>
 
                     <x-primary-button>
                     {{__('Edit')}}
@@ -32,7 +21,7 @@
                     </form>
                 <form action="{{route('appliance.store')}}" method="POST">
                     @csrf
-                    <select id="room_id" name="room_id">
+                    <select id="appliance_id" name="room_id">
                     @foreach($rooms as $room)
                                 <option value="{{$room->id}}"> {{$room->name}}</option>
                             @endforeach
