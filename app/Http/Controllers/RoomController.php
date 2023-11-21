@@ -17,10 +17,27 @@ class RoomController extends Controller
     public function index()
     {
         //
-        $user= Auth::user();
+/*         $user= Auth::user();
         $buildings = Building::whereBelongsTo($user)->get();
         $rooms=Room::whereBelongsTo($buildings)->get(); 
-        return view('room.index')->with(['buildings'=> $buildings,'rooms'=>$rooms,'roomPower'=>$rooms[0]->newCalcPowerConsumption()] );
+        return view('room.index')->with(['buildings'=> $buildings,'rooms'=>$rooms,'roomPower'=>$rooms[0]->newCalcPowerConsumption()] ); */
+        $user= Auth::user();
+        $building = Building::whereBelongsTo($user)->first();
+        if(!isset($building->id)) {
+            $building = null;
+            return view('room.index',['rooms' => null]);
+        } else {
+            $rooms=Room::whereBelongsTo($building)->get();
+            if(!isset($rooms[0])) {
+                return view('room.index',['rooms' => null]);
+            } else {
+                $roomPowers = [];
+                foreach($rooms as $room) {
+                    $roomPowers[$room->id] = $room->newCalcPowerConsumption();
+                }//end foreach
+                return view('roon.index')->with('rooms', $rooms)->with('roomPowers',$roomPowers);
+            }//end if-else
+        }//end if-else
     }
 
     /**

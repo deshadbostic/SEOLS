@@ -2,8 +2,8 @@
     @auth
         <div class="flex pt-5 justify-center min-h-screen bg-gray-900 grid-cols-14">
             <div class="col-span-12">
-                <div class="overflow-auto lg:overflow-visible ">
                 @if(null === $building)
+                <div class="overflow-auto lg:overflow-visible ">
                 <h2 class="text-2x font-bold mb-2 text-white text-stone-300">Please create your building.</h2>
                 <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
                 <form action="{{route('building.store')}}" method="POST">
@@ -49,7 +49,17 @@
 
                     </tbody>
                 </table>
+                <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
+                    <form action="{{ route('room.create') }}" method="GET">
+                    @csrf
+                        <x-primary-button class="ml-4">
+                            {{ __('Create Room') }}
+                        </x-primary-button>
+                    </form>
+                </div>
                 @endif
-
+        </div>
+        </div>
+        </div>
     @endauth
 </x-app-layout>

@@ -1,48 +1,69 @@
 <x-app-layout>
     @auth
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('My Rooms') }}
+        </h2>
+    </x-slot>
+        <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
+            <form action="{{ route('pv_system.create') }}" method="GET">
+            @csrf
+                <x-primary-button class="ml-4">
+                    {{ __('Create Pv System') }}
+                </x-primary-button>
+            </form>
+        </div>
+        
         <div class="flex pt-5 justify-center min-h-screen bg-gray-900 grid-cols-14">
             <div class="col-span-12">
+                
                 <div class="overflow-auto lg:overflow-visible ">
+                    @if(null !== $rooms)
+                        <!-- Table for Configurations -->
+                        <table class="table text-gray-400 border-separate space-y-6 text-sm">
+                            <!-- maybe do an if to check if the user has any configurations if not, have a create config button -->
 
-                {{$roomPower}}
-                    <h2 class="text-2xl font-bold mb-2 text-white text-stone-300"> Room Select</h2>
-                    <p> Select the room you wish to  model or add a new one</p>
-                    @foreach($buildings as $buildingname)
-                   <p> Building: {{$buildingname->name}} </p>
-                   @endforeach
-                    <label> Select a pre-existing room to edit </label>
-                    <form action="{{route('room.edit',$rooms[0])}}" method="GET">
-                        @csrf
-                    <form action="{{route('room.delete') }}" method="POST">
-                    @csrf
-                    <select id="roomid" name="roomid">
-                    @foreach($rooms as $room)
-                                <option value="{{$room->id}}"> {{$room->name}}</option>
-                            @endforeach
-                    </select>
-                    <x-primary-button>
-                    {{__('Edit')}}
-                </x-primary-button>
-                    </form>
-                <x-primary-button>
-                    {{__('Remove')}}
-                </x-primary-button>
-                    </form>
-                <form action="{{route('room.store')}}" method="POST">
-                    @csrf
-                  <label>  Add a new room </label>
-                  <h2>
-                    Room name </h2>
+                            <!-- Table Header -->
+                            <!-- <h2 class="text-2xl font-bold mb-2 text-white text-stone-300">Configurations</h2> -->
+                            <thead class="bg-gray-800 text-gray-500">
+                                <tr>
+                                    <!-- Column Headers -->
+                                    <th class="p-3 text-neutral-300">PV System #</th>
+                                    <th class="p-3 text-neutral-300">Energy Generated</th>
+                                    <th class="p-3 text-neutral-300">Total Cost</th>
+                                    <th class="p-3 text-neutral-300">Show</th>
+                                    <th class="p-3 text-neutral-300">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loop through Configurations -->
+                                @foreach($pv_systems as $key => $pv_system) 
+                                    <tr class="bg-gray-800 hover:bg-opacity-60">
+                                        <!-- Configuration Details -->
+                                        <td class="p-3 text-center">{{$pv_system->id}}</td>
+                                        <td class="p-3 text-center">{{$pv_system->energy_generated.' W'}}</td>
+                                        <td class="p-3 text-center">{{'$'.$pv_system->equipment_cost+($pv_system->equipment_cost * 0.1)}}</td>
+                                        <td class="px-2 py-1 text-center">
+                                            <form action="{{ route('pv_system.show', $pv_system) }}" method="GET">
+                                            @csrf
+                                                <x-primary-button>{{__('Show') }}</x-primary-button>
+                                            </form>
+                                        </td>    
+                                        <td class="px-2 py-1 text-center">
+                                            <form method="POST" action="{{ route('pv_system.destroy', $pv_system) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                                <x-primary-button>{{__('Delete') }}</x-primary-button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                    <h2 class="text-2x font-bold mb-2 text-white text-stone-300">You currently have no PV System models.</h2>
+                    @endif
 
-                    <input name="name"> 
-                    <input type="hidden" name="building_id" value="{{$buildings[0]->id}}">
-                    <x-primary-button>
-                    {{__('Add Room')}}
-
-                    </form>
-                </x-primary-button>
-                    <p> return to the Building Select Screen </p>
-                   <a href="/building"> Finish</a>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
     @auth
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
-            {{ __('My Configurations') }}
+            {{ __('My PV Systems') }}
         </h2>
     </x-slot>
         <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
