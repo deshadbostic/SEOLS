@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'role' => 'Customer',
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'phone' => $this->faker->phoneNumber,
+            'phone' => '+1 (123) 456-7890',
             'address' => $this->faker->address,
             'budget' => $this->faker->numberBetween(20000, 100000),
             'visited' => false,

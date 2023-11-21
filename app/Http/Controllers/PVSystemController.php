@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\PVSystemTemplateProduct;
+use App\Http\Requests\PVSystemRequest;
 use App\Traits\PVSystemHelper;
 use Illuminate\Database\Query\JoinClause;
 
@@ -39,6 +40,8 @@ class PVSystemController extends Controller
         ->select(DB::raw('template_number, products.id as product_id, price*product_count as cost'))
         ->orderBy('template_number');
 
+        
+
         $template_prices = DB::table('pv_system_template_products')
         ->joinSub($template_product_costs, 'costs', function(JoinClause $join) {
             $join->on('pv_system_template_products.template_number', 'costs.template_number')
@@ -47,7 +50,18 @@ class PVSystemController extends Controller
         ->groupBy('costs.template_number')
         ->select(DB::raw('costs.template_number, SUM(cost) as price'))
         ->get();
+        //
+/*         for($i = 0; $i < count($template_prices); $i++) {
+            if($i === 0) {
+                $template_prices[$i] = -3;
+            } elseif(!isset($template_prices[$i+1])) {
+                $template_prices[] = $template_prices[$i];
+            } else {
+                $template_prices[$i] = $template_prices[$i-1];
+            }
+        } */
         
+
         // echo $template_product_costs;
         // return view('pv_system.create',['prices' => $template_product_costs]);
 
@@ -67,6 +81,7 @@ class PVSystemController extends Controller
         ) AS mytable2 GROUP BY template_number
         */
 
+        
         $template_energies = DB::table('pv_system_template_products')
         ->join('products', 'pv_system_template_products.product_id', 'products.id')
         ->join('product_attributes', 'pv_system_template_products.product_id', 'product_attributes.product_id')
@@ -74,6 +89,9 @@ class PVSystemController extends Controller
         ->where('product_attributes.Attribute_type', '=', 'wattage')
         ->orderBy('template_number')
         ->get();
+
+        
+        
 
         $template_total_energies = [];
 
@@ -89,12 +107,13 @@ class PVSystemController extends Controller
             $template_total_energies[$template->template_number] += $energy_generated;
             // echo $template->template_number . " => " . $energy_generated . "<br>";
         }
+        
 
         //echo $template_energies;
         //var_dump($template_total_energies);
-        $energy_requirement = 2000;
+        $energy_requirement = 3451;
         $budget_requirement = $user->budget;
-        
+    
         $valid_energy_templates = [];
         // $difference = $template_total_energies[1] - $energy_requirement;
         foreach($template_total_energies as $key => $template_total_energy) {
@@ -104,15 +123,16 @@ class PVSystemController extends Controller
                 $valid_energy_templates[$key] = $difference;
             }
         }
-
+        
         $valid_price_templates = [];
         foreach($template_prices as $key => $template_total_price) {
             $difference = $user->budget - $template_total_price->price ;
             if($difference >= 0)
             {
-                $valid_price_templates[$key] = $difference;
+                $valid_price_templates[$template_total_price->template_number] = $difference;
             }
         }
+       
         $template = null;
 
 /*         var_dump($valid_energy_templates);
@@ -144,7 +164,6 @@ class PVSystemController extends Controller
                 }
             }
         }
-
         // check if there was valid template returned
         if(null !== $template) 
         {
@@ -158,7 +177,7 @@ class PVSystemController extends Controller
                 'user' => $user,
                 'template_products' => $template_products,
                 'template_energy' => $template_total_energies[$template],
-                'template_price' => $template_prices[$template]->price,
+                'template_price' => $template_prices[$template-1]->price,
                 'products' => $productInfo['products'],
                 'categories' => $productInfo['categories']
             ];
@@ -181,7 +200,7 @@ class PVSystemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PVSystemRequest $request)
     {
         //echo $request->energy_generated;
         $user = Auth::user();

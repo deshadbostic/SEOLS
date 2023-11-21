@@ -12,13 +12,13 @@
         <h1 class=" text-2xl font-bold text-center my-3">Create New PV System Model</h1>
         <!-- Form -->
         <form id="form" method="POST" action="{{ route('pv_system.store') }}">
-        <span id="form_error" class="mb-4 float-right text-red-600 text-sm hidden">At least one Solar Panel, one Inverter and one wire is needed to save your PV System Model.</span>
+        <span id="form_error" class="mb-4 float-right text-red-600 text-sm hidden">At least one Solar Panel, one Inverter and one Wire is needed to save your PV System Model.</span>
             @csrf
             <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
                 {{ __('+ Add Product') }}
             </x-primary-button>
             <div class="attributes">
-                <div class="attribute-set">
+                <div class="attribute-set" >
                     <div class="grid grid-cols-10 gap-5">
                         <div class="col-span-3">
                             <!--Try adding the attributes and attributes-set dive here -->
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-span-2">
                             <x-input-label class="mt-3" for="product_count" :value="__('Quantity')" />
-                            <x-text-input id="product_count" class="w-full text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm product_counts" type="text" maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
+                            <x-text-input id="product_count"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="w-full text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm product_counts"  maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
                         </div>
                     </div>
                     <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
@@ -69,12 +69,12 @@
                 </div>
                 <div>
                     <x-input-label class="mt-3" for="budget" :value="__('My Budget:')" />
-                    <x-text-input id="budget" class="block mt-1 w-full" type="text" maxlength="5" name="budget" value="{{ old('user->budget', $user->budget) }}" autofocus autocomplete="budget" />
+                    <x-text-input id="budget" type="number" class="block mt-1 w-full" maxlength="5" name="budget"  value="{{ old('user->budget', $user->budget) }}" autofocus autocomplete="budget" />
                     <x-input-error :messages="$errors->get('budget')" class="mt-2" />
                 </div>
             </div>
             <div class="flex justify-between">
-                <x-primary-button class="mt-4" >
+                <x-primary-button class="mt-4" ><!--onclick="return validateAttributeSets()"-->
                     {{__('Save')}}
                 </x-primary-button>
                 <x-primary-button type=" button" class="button mt-4" id="get_recommendation">
@@ -284,7 +284,10 @@
             let db_products = all_products[prod_category]
             db_products.forEach((db_product) => {
                 if (parseInt(db_product['product_id']) === parseInt(product.value)) {
-                    amount += parseInt(db_product['Price']) * product_counts[index].value
+                    if(!isNaN(product_counts[index].value)) {
+                        amount += parseInt(db_product['Price']) * product_counts[index].value 
+                    }
+                    
                 }
             })
         })
@@ -305,7 +308,9 @@
                 solar_panels.forEach((solar_panel) => {
                     if (parseInt(solar_panel['product_id']) === parseInt(product.value)) {
                         prod_energy = solar_panel['Attribute_Value'].split("W")[0];
-                        energy += parseInt(prod_energy) * product_counts[index].value;
+                        if(!isNaN(product_counts[index].value)) {
+                           energy += parseInt(prod_energy) * product_counts[index].value; 
+                        }
                     }
                 })
             }
@@ -402,7 +407,7 @@
             })
 
             template_sets[index].querySelector("#product_count").value = newTemplate["product_count"]
-        /*
+        
         function validateAttributeSets() {
             const attributeSets = document.querySelectorAll('.attribute-set');
             const types = new Set();
@@ -418,7 +423,7 @@
             });
 
             return types.size >= 3;
-        }*/
+        }
             addProductEvents()
             updateEnergy()
             updatePrices()
