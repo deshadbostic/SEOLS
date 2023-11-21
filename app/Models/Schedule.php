@@ -12,5 +12,5 @@ class Schedule extends Model
     public $timestamps = false;
     
     protected $table = 'schedule'; // Specify the correct table name
-    protected $fillable = ['id', 'fName', 'lName', 'address', 'DOA', 'time', 'directions'];
+    protected $fillable = ['id', 'user_id', 'fName', 'lName', 'address', 'DOA', 'time', 'directions'];
 }
