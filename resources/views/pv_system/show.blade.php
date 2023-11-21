@@ -11,14 +11,15 @@
         </div>
         <h1 class="text-2xl text-center font-semibold mt-4">View PV System Model</h1>
 
-        <div class="text-lg  my-3 text-white">
+        <div class="text-lg my-3 text-white">
             <div id="headers" class="grid-cols-8 grid gap-4 mt-4">
                 <p class="col-span-2">Category</p>
                 <p class="col-span-2">Product Name</p>
                 <p class="col-span-2">Product count</p>
-                <p id="price-each-header" class="col-span-2 hidden">Price (Each)</p>
-                <p id="price-total-header" class="col-span-2 hidden">Price (Total)</p>
-                <div></div>
+                <div id="price-header" class="col-span-4 grid gap-4 grid-cols-4 hidden">
+                    <p id="price-each-header" class="col-span-2">Price (Each)</p>
+                    <p id="price-total-header" class="col-span-2">Price (Total)</p>
+                </div>
             </div>
             <hr>
             @php
@@ -29,8 +30,10 @@
                     <p class="col-span-2">{{ucfirst($prodInfo->Category)}}</p>
                     <p class="col-span-2">{{ucfirst($prodInfo->Name)}}</p>
                     <p class="col-span-2">{{ucfirst($prodInfo->product_count)}}</p>
-                    <p class="col-span-2 hidden price-each">${{ucfirst(number_format($prodInfo->Price,2))}}</p>
-                    <p class="col-span-2 hidden price-total">${{number_format($prodInfo->Price * $prodInfo->product_count,2)}}</p>
+                    <div class="price hidden col-span-4 grid gap-4 grid-cols-4">
+                        <p class="col-span-2 price-each">${{ucfirst(number_format($prodInfo->Price,2))}}</p>
+                        <p class="col-span-2 price-total">${{number_format($prodInfo->Price * $prodInfo->product_count,2)}}</p>
+                    </div>
                     <form method="GET" class="inline" action="{{ route('product.show', $products[$key]) }}">
                         @csrf
                         <x-primary-button class="justify-center">
@@ -43,20 +46,27 @@
                 @endphp
             @endforeach
         </div>
-        <a href="#" onclick="breakdown()">
+        
+        <hr class="mb-4">
+
+        <div class="flex justify-around">
+            <div class="space-y-4">
+                <p>Total Equipment Cost: {{'$'.number_format($totalPrice,2)}}</p>
+                <p>Total Labour Cost: {{'$'.number_format($totalPrice*0.1,2)}}</p>
+                <p>Total Cost:{{'$'.number_format($totalPrice*1.1,2)}}</p>
+            </div>
+            <a href="#" onclick="breakdown()" class="">
                 <x-primary-button id="breakdownButton" class="justify-center">
                     {{ __('Show Price Breakdown') }}
                 </x-primary-button>
             </a>
+        </div>
 
             <div class="breakdown" id="breakdown" hidden="hidden">
-            <h2 class="text-2xl font-semibold mt-4">Break Down</h2>
+            <!-- <h2 class="text-2xl font-semibold mt-4">Break Down</h2> -->
         
-        </div>
-        <div class="mt-4">
-    <p>Total PV System Price: ${{$totalPrice}}</p>
-    <br><p>Total Labour Price: ${{$totalPrice*0.1}}</p>
-</div>
+            </div>
+       
     </div>
     @endauth
 </x-app-layout>
@@ -67,20 +77,20 @@ function breakdown()
     var breakdown = document.getElementById("breakdown");
     var button = document.getElementById("breakdownButton");
 
-    document.querySelector("#price-total-header").classList.toggle("hidden")
+    document.querySelector("#price-header").classList.toggle("hidden")
 
     $headers = document.querySelector("#headers")
     $headers.classList.toggle("grid-cols-12")
-    $headers.classList.toggle("grid-cols-10")
+    $headers.classList.toggle("grid-cols-8")
 
     $rows = document.querySelectorAll(".row")
     $rows.forEach(function ($row)
     {
         $row.classList.toggle("grid-cols-12")
-        $row.classList.toggle("grid-cols-10")
+        $row.classList.toggle("grid-cols-8")
     })
 
-    $priceTotals = document.querySelectorAll(".price-total")
+    $priceTotals = document.querySelectorAll(".price")
     $priceTotals.forEach(function ($priceTotal)
     {
         $priceTotal.classList.toggle("hidden")
