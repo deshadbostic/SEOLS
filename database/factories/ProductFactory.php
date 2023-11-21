@@ -20,7 +20,7 @@ class ProductFactory extends Factory
             'Name' => $this->faker->unique()->word,
             'Price' => $this->faker->randomFloat(2, 100, 10000),
             'Quantity' => $this->faker->numberBetween(1, 100),
-            'Category' => $this->faker->randomElement(['Battery', 'Solar Panel', 'Inverter', 'Wire']),
+            'Category' => $this->faker->randomElement(['Battery', 'Solar Panel', 'Inverter', 'Wire', 'Cable', 'Adapter']),
             // Define other attributes as needed
         ];
     }
