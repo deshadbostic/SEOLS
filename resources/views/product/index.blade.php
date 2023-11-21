@@ -51,11 +51,13 @@
       <h2 class="font-semibold text-xl text-white leading-tight">
         {{ __('Product Catalog') }}
       </h2>
+      @if(Auth::user()->role != "Customer")
       <form method="GET" action="{{ route('product.create') }}" class="m-0 ">
         @csrf
         <x-input-error :messages="$errors->get('message')" class="mt-2" />
         <x-primary-button class=" dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white">{{ __('Create Product') }}</x-primary-button>
       </form>
+      @endif
     </div>
     @if (session('error'))
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded fixed right-14 top-[4.75rem]" role="alert">
@@ -70,7 +72,6 @@
     </div>
     @endif
   </x-slot>
-  @if(Auth::user()->role != "Customer")
   <div class="mx-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 my-4 md:flex">
     <form method="get" action="/search" class="w-full" id="searchForm">
       @csrf
@@ -110,7 +111,6 @@
       </div>
     </form>
   </div>
-  @endif
   <div class=" grid grid-cols-autoLayout my-6 gap-4 w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4">
     @if($products->isNotEmpty())
     <div class=" col-span-full">
@@ -146,8 +146,8 @@
           <x-input-error :messages="$errors->get('message')" class="mt-2" />
           <x-delete-button class="justify-center w-full " type="button" data-type="delete-btn">{{ __('Delete') }}</x-delete-button>
           <dialog class="modal flow bg-slate-900 text-white backdrop:bg-black/70 rounded-md border">
-            <div class="" >
-            <p class="bg-red-600 font-black text-xl">Danger Zone!!</p>
+            <div class="">
+              <p class="bg-red-600 font-black text-xl">Danger Zone!!</p>
               <h2 class="text-4xl font-black py-3 ">Delete Item
               </h2>
               <p class="max-w-sm px-5 text-xl">Are you sure you want to delete this item? This will remove the item and can't be undone.</p>
