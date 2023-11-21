@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="flex justify-between">
-                <x-primary-button class="mt-4">
+                <x-primary-button class="mt-4" >
                     {{__('Save')}}
                 </x-primary-button>
                 <x-primary-button type=" button" class="button mt-4" id="get_recommendation">
@@ -95,7 +95,6 @@
         /* pointer-events: none; */
         cursor: not-allowed;
     }
-
     .attributes .attribute-set:only-child .remove:hover,
     .attributes .attribute-set:only-child .remove:focus-visible {
         /* pointer-events: none; */
@@ -345,7 +344,23 @@
             })
 
             template_sets[index].querySelector("#product_count").value = newTemplate["product_count"]
+        /*
+        function validateAttributeSets() {
+            const attributeSets = document.querySelectorAll('.attribute-set');
+            const types = new Set();
 
+            attributeSets.forEach(attributeSet => {
+            const categorySelect = attributeSet.querySelector('.category_select');
+            const productSelect = attributeSet.querySelector('.products');
+
+            if (categorySelect && productSelect) {
+            const type = categorySelect.value + '|' + productSelect.value;
+            types.add(type);
+                }
+            });
+
+            return types.size >= 3;
+        }*/
             addProductEvents()
             updateEnergy()
             updatePrices()
@@ -371,62 +386,3 @@
     addRecommendationEvant()
     addProductEvents()
 </script>
-
-<!--need to readject energy and price 
-function updateConfigPrice() {
-        let amount = 0
-        product_prices.forEach((price,i) => {
-            if(price.value !== '' && product_counts[i].value !== '') {
-                amount += (parseFloat(price.value.split('---')[1])*parseInt(product_counts[i].value))
-            }
-        })
-        console.log(amount)
-        cost_field.value = '$'+(parseInt(amount))
-}
-
-    function updateConfigEnergy() {
-        let solar_panel_energy = document.getElementById('solar_panel_id').value.split("---")[2]
-        let solar_panel_count = document.getElementById('solar_panel_count').value
-        let amount = ((parseInt(solar_panel_energy) * solar_panel_count)*5)
-        energy_generated.value = parseInt(amount) + ' W' 
-    } 
-*/
--->
-<!--
-        <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
-        {{ __('+ Add Attribute') }}
-      </x-primary-button>
-        <div class="attributes">
-            <div class="attribute-set">
-                <div class="flex justify-between">
-                    <div>
-                        <x-input-label class="mt-3" for="category" :value="__('Category')" />
-                        <select  class="w-full text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm category_select" name="categories[]" id="category">
-                            <option value="" selected disabled hidden>Choose Category</option>                           
-                            @foreach ($categories as $category)
-                                <option value="{{$category->Category}}">{{$category->Category}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <x-input-label class="mt-3" for="product" :value="__('Product')" />
-                        <select class="w-full text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm products" name="products[]" id="product">
-                        <option value="" selected disabled hidden>Choose Product</option>
-                        <option value="option 1" >option 1</option>
-                        <option value="option 2" >option 2</option>
-                        <option value="option 3" >option 3</option>
-                        </select>
-                    </div>
-                    <div>
-                    <x-input-label class="mt-3" for="product_count" :value="__('Quantity')" />
-                        <x-text-input id="product_count" class="block mt-1 w-full" type="text" maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
-                    </div>
-                </div>
-                <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
-
-                    <x-delete-button type="button" class=" px-4 py-1 rounded-md uppercase remove" onclick="if (this.parentNode.parentNode.parentNode && this.parentNode.parentNode.parentNode.childElementCount > 1) { this.parentNode.parentNode.remove(); }">Remove</x-delete-button>
-
-                    <span class="text-red-600 text-sm hidden error-message">Category and Product selection is required and quantity must be above 0.</span>
-                </div>
-            </div>
-        </div>-->
