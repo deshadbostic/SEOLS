@@ -185,9 +185,9 @@ class PVSystemController extends Controller
     {
         //echo $request->energy_generated;
         $user = Auth::user();
-        if(!$this->checkRequiredCategories($request)) {
+/*         if(!$this->checkRequiredCategories($request)) {
             return;
-        }
+        } */
         
         //echo $this->checkRequiredCategories($request);
         $products = $request->products;

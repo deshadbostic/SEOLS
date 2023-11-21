@@ -11,7 +11,8 @@
         </div>
         <h1 class=" text-2xl font-bold text-center my-3">Create New PV System Model</h1>
         <!-- Form -->
-        <form method="POST" action="{{ route('pv_system.store') }}">
+        <form id="form" method="POST" action="{{ route('pv_system.store') }}">
+        <span id="form_error" class="mb-4 float-right text-red-600 text-sm hidden">At least one Solar Panel, one Inverter and one wire is needed to save your PV System Model.</span>
             @csrf
             <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
                 {{ __('+ Add Product') }}
@@ -102,7 +103,64 @@
     }
 </style>
 <script>
-    let amount = 0
+    function addFormEvent() {
+        const form = document.getElementById('form')
+        form.addEventListener('submit', function(e) {
+            if(!checkForm()) {
+                e.preventDefault()
+                const form_error = document.getElementById('form_error')
+                form_error.classList.remove("hidden");
+                // Set a timer to hide the error message after 4000 milliseconds (4 seconds)
+                setTimeout(function() {
+                    form_error.classList.add("hidden");
+                }, 4500);
+            } 
+        })
+    }
+
+    function checkForm() {
+        const category_selects = document.querySelectorAll('.category_select')
+        const products = document.querySelectorAll('.products')
+        const product_counts = document.querySelectorAll('.product_counts')
+        let validForm = false
+        if((hasWire(category_selects)) && (hasInverter(category_selects)) && (hasSolarPanel(category_selects))) {
+            validForm = true;
+        }
+        return validForm;
+    }
+
+    function hasWire(selects) {
+        let hasWire = false
+        selects.forEach((select) => {
+            if(select.value === 'Wire') {
+                hasWire = true
+                return
+            }
+        })
+        return hasWire;
+    }
+
+    function hasInverter(selects) {
+        let hasInverter = false
+        selects.forEach((select) => {
+            if(select.value === 'Inverter') {
+                hasInverter = true
+                return
+            }
+        })
+        return hasInverter;
+    }
+
+    function hasSolarPanel(selects) {
+        let hasSolarPanel = false
+        selects.forEach((select) => {
+            if(select.value === 'Solar Panel') {
+                hasSolarPanel = true
+                return
+            }
+        })
+        return hasSolarPanel;
+    }
 
     function addAttribute() {
         const attributesContainer = document.querySelector(".attributes");
@@ -385,4 +443,5 @@
     addProductCategoryEvents()
     addRecommendationEvant()
     addProductEvents()
+    addFormEvent()
 </script>
