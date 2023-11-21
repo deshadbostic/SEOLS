@@ -31,11 +31,11 @@
       <div class="flex flex-col gap-4 w-[280px]">
         <div class="text-lg text-white">Name: {{$product->Name}}</div>
         <div class="text-lg text-white">Category: {{$product->Category}}</div>
-        <div class="text-lg text-white">Quantity: {{$product->Quantity}}</div>
-        <div class="text-lg text-white">Price: {{$product->Price}}</div>
+        <div class="text-lg text-white">Quantity: {{$product->Quantity}} unit(s)</div>
+        <div class="text-lg text-white">Price: ${{$product->Price}}</div>
         <!-- Initial input fields for attribute and value -->
         @foreach ($attributes as $attribute)
-        <div class="text-lg text-white">{{ $attribute->Attribute_type}}: {{ $attribute->Attribute_value }}</div>
+        <div class="text-lg text-white">{{ ucwords($attribute->Attribute_type)}}: {{ $attribute->Attribute_value }}</div>
         @endforeach
       </div>
       @if(Auth::user()->role != "Customer")

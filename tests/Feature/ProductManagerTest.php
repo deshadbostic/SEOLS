@@ -18,6 +18,7 @@ class ProductManagerTest extends TestCase
         $this->actingAs($manager);
         $response = $this->get('/product');
         $response->assertStatus(200);
+        ob_end_clean(); 
     }
     public function test_can_manager_store_product_with_attributes(): void
     {
@@ -53,6 +54,7 @@ class ProductManagerTest extends TestCase
         $response = $this->get('/product/' . $product->id);
         $response->assertStatus(200);
         $response->assertSeeText($product->name);
+        
     }
     public function test_can_manager_update_product_with_attributes(): void
     {
@@ -90,6 +92,7 @@ class ProductManagerTest extends TestCase
         $this->actingAs($manager);
         $response = $this->get('/product/' . $product->id . '/edit/');
         $response->assertStatus(200);
+        ob_end_clean(); 
     }
     public function test_can_manager_store_product_with_no_attributes(): void
     {

@@ -17,6 +17,7 @@ class ProductCustomerTest extends TestCase
         $this->actingAs($user);
         $response = $this->get('/product');
         $response->assertStatus(200)->assertViewIs('product.index');
+        ob_end_clean(); 
     }
     public function test_can_customer_store_product(): void
     {

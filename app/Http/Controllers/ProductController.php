@@ -59,39 +59,55 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request): RedirectResponse
     {
-
         $this->authorize('create', Product::class);
+
         $product = Product::create([
             'Name' => $request->Name,
             'Price' => $request->Price,
             'Quantity' => $request->Quantity,
             'Category' => $request->Category,
         ]);
+
         if (!$product) {
             return redirect()->route('product.index')
                 ->with('error', 'Product creation failed. Please try again.');
         }
-        if ($request['attributes'] && $request['attributes']['Attribute_type'] && $request['attributes']['Attribute_type']) {
-            // Create the associated Attributes records
+
+        if ($request['attributes'] && $request['attributes']['Attribute_type'] && $request['attributes']['Attribute_value']) {
             $attributes = $request->input('attributes');
             $attributeNames = $attributes['Attribute_type'];
             $attributeValues = $attributes['Attribute_value'];
-            // Loop through the arrays to process each attribute-value pair
+
+            // Create an array to keep track of attribute types for validation
+            $existingAttributeTypes = [];
+
             for ($i = 0; $i < count($attributeNames); $i++) {
                 $attributeName = $attributeNames[$i];
                 $attributeValue = $attributeValues[$i];
+
+                // Check if the attribute type already exists for the current product
+                if (in_array(strtolower($attributeName), $existingAttributeTypes)) {
+                    return redirect()->route('product.index')
+                        ->with('error', 'Duplicate product attribute ' . strtolower($attributeName) . ' for this product. Attribute was not created. Please try again.');
+                }
+
+                // Add the current attribute type to the array for validation
+                $existingAttributeTypes[] = strtolower($attributeName);
+
                 // Create and save the Attributes record for each attribute-value pair
                 $attribute = $product->productAttributes()->create([
-                    'Attribute_type' => $attributeName,
-                    'Attribute_value' => $attributeValue,
+                    'Attribute_type' => strtolower($attributeName),
+                    'Attribute_value' => strtolower($attributeValue),
                     // Set the 'product_id' if needed
                 ]);
+
                 if (!$attribute) {
                     return redirect()->route('product.index')
-                        ->with('error', 'Product creation failed. Please try again.');
+                        ->with('error', 'Attribute ' . strtolower($attributeName) . ' creation failed. Please try again.');
                 }
             }
         }
+
         return redirect(route('product.index'))->with('success', 'Product successfully created.');
     }
 
@@ -132,8 +148,10 @@ class ProductController extends Controller
                 ->with('error', 'Product update failed. Please try again.');
         }
         if (!$request->has('attributes') || empty($request->attributes)) {
-            foreach ($product->productAttributes as $attribute) { $attribute->delete();}
-        }               
+            foreach ($product->productAttributes as $attribute) {
+                $attribute->delete();
+            }
+        }
         if ($request['attributes'] && $request['attributes']['Attribute_type'] && $request['attributes']['Attribute_type']) {
             $updateIds = array_keys($request['attributes']['Attribute_type']);
             $ids = $product->productAttributes->pluck('id')->all();
@@ -143,41 +161,55 @@ class ProductController extends Controller
                     $removedIds[] = $id;
                 }
             }
+
+            $existingAttributeTypes = []; // Array to keep track of existing attribute types
+
             foreach ($updateIds as $updateId) {
                 $newAttributeType = $request['attributes']['Attribute_type'][$updateId];
                 $newAttributeValue = $request['attributes']['Attribute_value'][$updateId];
+
+                // Check if the attribute type already exists for the current product
+                if (in_array(strtolower($newAttributeType), $existingAttributeTypes)) {
+                    return redirect()->route('product.index')
+                        ->with('error', 'Duplicate attribute ' . strtolower($newAttributeType) . ' for this product. This attribute was not created. Please try again.');
+                }
+
+                // Add the current attribute type to the array for validation
+                $existingAttributeTypes[] = strtolower($newAttributeType);
+
                 // Check if the values have changed
                 $existingAttribute = ProductAttribute::find($updateId);
                 if ($existingAttribute && $existingAttribute->product_id === $product->id) {
-                    if ($existingAttribute->product_id === $product->id && ($existingAttribute->Attribute_type !== $newAttributeType || $existingAttribute->Attribute_value !== $newAttributeValue)) {
+                    if ($existingAttribute->product_id === $product->id && (strtolower($existingAttribute->Attribute_type) !== strtolower($newAttributeType) || strtolower($existingAttribute->Attribute_value) !== strtolower($newAttributeValue))) {
                         // Values have changed, update the existing attribute
                         $existingAttributeUpdate = $existingAttribute->update([
-                            'Attribute_type' => $newAttributeType,
-                            'Attribute_value' => $newAttributeValue,
+                            'Attribute_type' => strtolower($newAttributeType),
+                            'Attribute_value' => strtolower($newAttributeValue),
                         ]);
                         if (!$existingAttributeUpdate) {
                             return redirect()->route('product.index')
-                                ->with('error', 'Product update failed. Please try again.');
+                                ->with('error', 'Product update failed. Could not update attribute ' . strtolower($existingAttribute->Attribute_type) . '. Please try again.');
                         }
                     }
                 } else {
                     // Create a new attribute
                     $newAttribute = ProductAttribute::create([
                         'product_id' => $product->id,
-                        'Attribute_type' => $newAttributeType,
-                        'Attribute_value' => $newAttributeValue,
+                        'Attribute_type' => strtolower($newAttributeType),
+                        'Attribute_value' => strtolower($newAttributeValue),
                     ]);
                     if (!$newAttribute) {
                         return redirect()->route('product.index')
-                            ->with('error', 'Product update failed. Please try again.');
+                            ->with('error', 'Product update failed. Could not create attribute ' . strtolower($newAttributeType) . '. Please try again.');
                     }
                 }
             }
             foreach ($removedIds as $removedId) {
+                $attributeToBeRemoved = ProductAttribute::find($removedId);
                 $deleteAttribute = ProductAttribute::destroy($removedId);
                 if (!($deleteAttribute > 0)) {
                     return redirect()->route('product.index')
-                        ->with('error', 'Product update failed. Please try again.');
+                        ->with('error', 'Product update failed.  Could not remove attribute ' . strtolower($attributeToBeRemoved->Attribute_type) . '.Please try again.');
                 }
             }
         }

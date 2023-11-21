@@ -117,7 +117,7 @@
       <div class="attributes">
         <!-- Initial input fields for attribute and value -->
       </div>
-      <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
+      <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white mt-4" type="button" onclick="addAttribute()">
         {{ __('+ Add Attribute') }}
       </x-primary-button>
       <div>

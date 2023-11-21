@@ -21,6 +21,7 @@ class ProductAdminTest extends TestCase
         $this->actingAs($admin); // Authenticate as admin
         $response = $this->get('/product'); // Send a GET request to view products
         $response->assertStatus(200); // Assert that the response status is 200 (OK)
+        ob_end_clean();
     }
     /**
      * Test if an admin can store a product with attributes.
@@ -111,6 +112,7 @@ class ProductAdminTest extends TestCase
         $response = $this->get('/product/' . $product->id . '/edit/');
         $response->assertStatus(200);
         $response->assertSeeText($product->name);
+        ob_end_clean();
     }
     /**
      * Test if an admin can store a product without attributes.

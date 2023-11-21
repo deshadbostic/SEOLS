@@ -26,6 +26,8 @@ class SearchTest extends TestCase
         // Assertions
         $response->assertStatus(200);
         $response->assertSee($product->Name);
+
+        ob_end_clean(); 
     }
 
     public function test_search_returns_expected_results()
@@ -60,23 +62,19 @@ class SearchTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Product A');
         $response->assertDontSee('Product B');
+
+        ob_end_clean(); 
     }
 
     public function test_search_products_by_name()
     {
         // Create sample products in the database
-        $products = Product::factory()->count(5)->create();
+        $productA = Product::factory()->create();
+        $productB = Product::factory()->create();
 
         // Perform a search by name
-        $searchTerm = $products->first()->Name;
-        $slicedProducts = $products->slice(1, 4);
-
-        $namesArray = [];
-
-        foreach ($slicedProducts as $product) {
-            // Assuming "Name" is a property of the product object
-            $namesArray[] = $product->Name; // Add the "Name" property to the $namesArray
-        }
+        $searchTerm = $productA->Name;
+        $notSearchTerm = $productB->Name;
 
         $user = User::factory()->create();
 
@@ -88,7 +86,10 @@ class SearchTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee($searchTerm);
-        $response->assertDontSee($namesArray[0]);
+        $response->assertDontSee($notSearchTerm);
+
+        ob_end_clean(); 
+
     }
 
     public function test_filter_products_by_one_category()
@@ -128,6 +129,8 @@ class SearchTest extends TestCase
         $response->assertStatus(200);
         $response->assertDontSeeText(['Product A', 'ProductC']);
         $response->assertSeeText('Product B');
+
+        ob_end_clean(); 
     }
     public function test_filter_products_by_multiple_categories()
     {
@@ -165,6 +168,8 @@ class SearchTest extends TestCase
         $response->assertStatus(200);
         $response->assertDontSeeText(['Product D']);
         $response->assertSeeText(['Product B', 'Product A']);
+
+        ob_end_clean(); 
     }
     public function test_filter_products_by_multiple_categories_and_common_attribute()
     {
@@ -202,6 +207,8 @@ class SearchTest extends TestCase
         $response->assertStatus(200);
         $response->assertDontSeeText(['Product A']);
         $response->assertSeeText(['Product B', 'Product D']);
+
+        ob_end_clean(); 
     }
 
     public function test_reset_search_and_filter_options()
@@ -215,6 +222,7 @@ class SearchTest extends TestCase
 
         // Assertions for verifying the reset action
         $response->assertRedirect(route('product.index'))->assertSessionHasAll([['category' => []], 'num_items' => 5]);
+
     }
 
     public function test_search_handles_empty_queries(): void
@@ -252,6 +260,8 @@ class SearchTest extends TestCase
         $response = $this->withSession(['search' => null])->get('/product');
         $response->assertStatus(200);
         $response->assertSeeText(['Product A', 'Product B', 'Product C']);
+
+        ob_end_clean(); 
     }
 
     public function test_search_handles_special_characters(): void
@@ -288,6 +298,7 @@ class SearchTest extends TestCase
         // Add assertions for handling special characters
         $response = $this->get('/search?search=#@!%$');
         $response->assertStatus(302)->assertRedirectToRoute('product.index')->assertSessionHas('search', '');
+
     }
 
     public function test_search_for_nonexistent_product(): void
@@ -325,5 +336,8 @@ class SearchTest extends TestCase
         // Add assertions for handling non-existent products
         $response->assertStatus(200);
         $response->assertSeeText('No products available');
+
+        ob_end_clean(); 
     }
 }
+

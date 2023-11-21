@@ -1,5 +1,6 @@
 <script defer>
   @section('custom-scripts')
+
   function addAttribute() {
     const attributesContainer = document.querySelector(".attributes");
     const attributeSets = attributesContainer.querySelectorAll(".attribute-set");
@@ -100,22 +101,22 @@
           {{ __('Delete') }}
         </x-delete-button>
         <dialog class="modal flow bg-slate-900 text-white backdrop:bg-black/70 rounded-md border text-center">
-            <div class="" >
+          <div class="">
             <p class="bg-red-600 font-black text-xl">Danger Zone!!</p>
-              <h2 class="text-4xl font-black py-3 ">Delete Item
-              </h2>
-              <p class="max-w-sm px-5 text-xl">Are you sure you want to delete this item? This will remove the item and can't be undone.</p>
+            <h2 class="text-4xl font-black py-3 ">Delete Item
+            </h2>
+            <p class="max-w-sm px-5 text-xl">Are you sure you want to delete this item? This will remove the item and can't be undone.</p>
 
-              <div class="flex py-8 gap-3 justify-center">
-                <x-primary-button class="button text-xl" data-type="cancel" type="button">
-                  No, Cancel
-                </x-primary-button>
-                <x-delete-button class="button text-xl" data-type="delete-item" type="submit">
-                  Yes, Delete
-                </x-delete-button>
-              </div>
+            <div class="flex py-8 gap-3 justify-center">
+              <x-primary-button class="button text-xl" data-type="cancel" type="button">
+                No, Cancel
+              </x-primary-button>
+              <x-delete-button class="button text-xl" data-type="delete-item" type="submit">
+                Yes, Delete
+              </x-delete-button>
             </div>
-          </dialog>
+          </div>
+        </dialog>
       </form>
     </div>
     <form method="POST" action="{{ route('product.update', $product) }}">
@@ -154,15 +155,19 @@
       </div>
       <div class="attributes">
         <!-- Initial input fields for attribute and value -->
-        @foreach ($attributes as $attribute)
+        @foreach ($attributes as $index => $attribute)
         <div class="attribute-set">
           <div class="flex justify-between">
             <div>
-              <x-input-label for="attribute" :value="__('Attribute Name')" />
-              <x-text-input id="attribute-{{ $attribute->id }}" id="attribute"  class="block mt-1 w-full attribute" type="text" maxlength="26" name="attributes[Attribute_type][{{ $attribute->id }}]" value="{{ $attribute->Attribute_type}}" required autofocus autocomplete="attribute" />
+              @php
+              $label = __('Attribute Name') . ' #' . ($index + 1);
+              $value = __('Attribute Value') . ' #' . ($index + 1);
+              @endphp
+              <x-input-label for="attribute" :value="$label" />
+              <x-text-input id="attribute-{{ $attribute->id }}" id="attribute" class="block mt-1 w-full attribute" type="text" maxlength="26" name="attributes[Attribute_type][{{ $attribute->id }}]" value="{{ $attribute->Attribute_type}}" required autofocus autocomplete="attribute" />
             </div>
             <div>
-              <x-input-label for="value" :value="__('Attribute Value')" />
+              <x-input-label for="value" :value="$value" />
               <x-text-input id="value-{{ $attribute->id }}" id="value" class="block mt-1 w-full value" type="text" maxlength="30" name="attributes[Attribute_value][{{ $attribute->id }}]" value="{{ $attribute->Attribute_value }}" required autofocus autocomplete="value" />
             </div>
           </div>
