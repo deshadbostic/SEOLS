@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pv_system_products', function (Blueprint $table) {
+            $table->id();
             $table->foreignid('pv_system_id')->constrained()->cascadeOnDelete();
             $table->foreignid('product_id')->constrained()->cascadeOnDelete();
             $table->integer('product_count');

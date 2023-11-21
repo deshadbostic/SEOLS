@@ -137,9 +137,32 @@ class PVSystemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PVSystemRequest $request, PVSystem $pv_system)
     {
-        //
+        $user = Auth::user();
+        $pv_system->update([
+            'user_id' => $user->id,
+            'energy_generated' => $request->energy_generated,
+            'equipment_cost' => $request->price,
+        ]);
+
+        $products = $request->products;
+        $product_counts = $request->product_counts;
+
+        $old_pv_system_products = PVSystemProduct::where('pv_system_id', $pv_system->id)->get();
+        foreach($old_pv_system_products as $old_pv_system_product) {
+            $old_pv_system_product->delete();
+        }
+
+        foreach($products as $key => $product) {
+            PVSystemProduct::create([
+                'pv_system_id' => $pv_system->id,
+                'product_id' => $product,
+                'product_count' => $product_counts[$key],
+            ]);
+        }//end foreach
+        
+        return redirect(route('pv_system.show', $pv_system));
     }
 
     /**

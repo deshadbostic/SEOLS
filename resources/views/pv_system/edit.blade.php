@@ -11,9 +11,10 @@
         </div>
         <h1 class=" text-2xl font-bold text-center my-3">Edit PV System Model</h1>
         <!-- Form -->
-        <form id="form" method="POST" action="{{ route('pv_system.store') }}">
+        <form id="form" method="POST" action="{{ route('pv_system.update', $pv_system) }}">
         <span id="form_error" class="mb-4 float-right text-red-600 text-sm hidden">At least one Solar Panel, one Inverter and one Wire is needed to save your PV System Model.</span>
             @csrf
+            @method('PATCH')
             <x-primary-button class="dark:active:bg-white dark:focus-visible:bg-white dark:focus-within:bg-white" type="button" onclick="addAttribute()">
                 {{ __('+ Add Product') }}
             </x-primary-button>
