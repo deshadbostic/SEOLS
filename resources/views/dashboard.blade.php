@@ -26,7 +26,7 @@
                         <br>
                         <a href="{{ route('quote.index') }}" class="text-blue-500 hover:underline">System Quotations</a>
                         <br>
-                        <a href="{{ route('configuration.index') }}" class="text-blue-500 hover:underline">My Configurations</a>
+                        <a href="{{ route('pv_system.index') }}" class="text-blue-500 hover:underline">PV System Models</a>
                         <br>
                         <a href="{{ route('FAQs.index') }}" class="text-blue-500 hover:underline">FAQ</a>
 

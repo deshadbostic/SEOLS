@@ -3,6 +3,7 @@
     <div class="container mx-auto flex flex-col items-center text-white">
         <h1 class="text-2xl font-semibold mt-4">View Configuration</h1>
         <div class="text-lg  my-3 text-white">
+       
             Solar Panel: {{$solar_panel->Name.' - '.$configuration->solar_panel_count }}
             <form method="GET" action="{{ route('product.show', $solar_panel) }}" class="inline">
                 @csrf
@@ -13,6 +14,7 @@
         </div>
         <div class="text-lg my-3 text-white">
             Inverter: {{ucfirst($inverter->Name).' - '.$configuration->inverter_count}}
+            <!-- {{gettype($inverter)}} -->
             <form method="GET" action="{{ route('product.show', $inverter) }}" class="inline">
                 @csrf
                 <x-primary-button class="justify-center">
@@ -56,7 +58,41 @@
                 {{ __('Edit Configuration') }}
                 </x-primary-button>
             </form>
+            <a href="#" onclick="breakdown()">
+                <x-primary-button id="breakdownButton" class="justify-center">
+                    {{ __('Show Breakdown') }}
+                </x-primary-button>
+            </a>
         </div>
+       
+        <div class="breakdown" id="breakdown" hidden="hidden">
+            <h2 class="text-2xl font-semibold mt-4">Break Down</h2>
+            <div class="text-lg  my-3 text-white">
+                Solar Panel: {{$solar_panel->Name.' - '.$configuration->solar_panel_count.' - $'.($solar_panel->Price*$configuration->solar_panel_count)}}
+                <br>Inverter: {{ucfirst($inverter->Name).' - '.$configuration->inverter_count.' - $'.($inverter->Price*$configuration->inverter_count)}}
+                <br>Wire: {{ucfirst($wire->Name).' - '.$configuration->wire_count.' - $'.($wire->Price*$configuration->inverter_count)}}
+                <br>Battery: {{ucfirst($battery->Name).' - '.$configuration->battery_count.' - $'.($battery->Price*$configuration->battery_count)}}
+            </div>
+        </div>
+      
     </div>
     @endauth
 </x-app-layout>
+<script>
+function breakdown(){
+    var breakdown = document.getElementById("breakdown");
+    var button = document.getElementById("breakdownButton");
+    if (breakdown && button) {
+            // Remove the 'hidden' attribute to unhide the div
+            if (breakdown.hasAttribute('hidden')) {
+                breakdown.removeAttribute('hidden');
+                button.innerText = 'Hide Breakdown';
+            }else{
+                breakdown.setAttribute('hidden', 'hidden'); // Hide the div
+                button.innerText = 'Show Breakdown';
+            }
+        }
+}
+
+
+</script>
