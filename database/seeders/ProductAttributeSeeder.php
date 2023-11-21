@@ -181,6 +181,11 @@ class ProductAttributeSeeder extends Seeder
                 'Attribute_type' => 'length',
                 'Attribute_value' => '100 foot'
             ],
+            [
+                'product_id' => '11',
+                'Attribute_type' => 'efficiency',
+                'Attribute_value' => '90%'
+            ],
         ]);
     }
 }

@@ -69,7 +69,7 @@
                 </div>
                 <div>
                     <x-input-label class="mt-3" for="budget" :value="__('My Budget:')" />
-                    <x-text-input id="budget" type="number" class="block mt-1 w-full" maxlength="5" name="budget"  value="{{ old('user->budget', $user->budget) }}" autofocus autocomplete="budget" />
+                    <x-text-input id="budget" class="block mt-1 w-full" maxlength="5" name="budget"  value="{{ old('user->budget', $user->budget) }}" autofocus autocomplete="budget" />
                     <x-input-error :messages="$errors->get('budget')" class="mt-2" />
                 </div>
             </div>
