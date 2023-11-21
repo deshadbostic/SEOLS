@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-span-2">
                             <x-input-label class="mt-3" for="product_count" :value="__('Quantity')" />
-                            <x-text-input id="product_count"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="w-full text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm product_counts"  maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
+                            <x-text-input id="product_count"  oninput="this.value = this.value.replace(/[^1-9]/g, '');" class="w-full text-center py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm product_counts"  maxlength="5" name="product_counts[]" value="1" required autofocus autocomplete="price" />
                         </div>
                     </div>
                     <div class="flex flex-row-reverse justify-between items-center mt-2 tags">
