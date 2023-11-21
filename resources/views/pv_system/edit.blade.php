@@ -2,14 +2,14 @@
     @auth
     <div class="mx-auto max-w-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <div class="relative">
-            <a href="{{ route('pv_system.index') }}" class="absolute left-100 top-100 text-blue-600 hover:text-blue-400 focus-within:text-blue-400 active:text-blue-400 font-semibold text-lg">
+            <a href="{{ route('pv_system.show', $pv_system) }}" class="absolute left-100 top-100 text-blue-600 hover:text-blue-400 focus-within:text-blue-400 active:text-blue-400 font-semibold text-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline align-text-top" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back
             </a>
         </div>
-        <h1 class=" text-2xl font-bold text-center my-3">Create New PV System Model</h1>
+        <h1 class=" text-2xl font-bold text-center my-3">Edit PV System Model</h1>
         <!-- Form -->
         <form id="form" method="POST" action="{{ route('pv_system.store') }}">
         <span id="form_error" class="mb-4 float-right text-red-600 text-sm hidden">At least one Solar Panel, one Inverter and one Wire is needed to save your PV System Model.</span>
@@ -86,6 +86,8 @@
             </div>
             <input class="hidden" id="hidden_products" value="{{json_encode($products)}}">
             <input class="hidden" id="hidden_template" value="{{json_encode($template_products)}}">
+            <input class="hidden" id="pv_system" value="{{json_encode($pv_system)}}">
+            <input class="hidden" id="pv_system_products" value="{{json_encode($pv_system_products[0])}}">
         </form>
         @endauth       
 </x-app-layout>
@@ -171,7 +173,7 @@
             const categorySelect = attributePair.querySelector("#category");
             const productSelect = attributePair.querySelector("#product");
             const product_countInput = attributePair.querySelector("#product_count");
-            //console.log(categorySelect)
+            
             if (categorySelect.value.trim() === "" || productSelect.value.trim() === "" || product_countInput.value.trim() === "") {
                 allInputsValid = false; // At least one pair is invalid
                 const errorMessage = attributePair.querySelector(".error-message");
@@ -345,12 +347,61 @@
         })
     }
 
+    function showUserSystem() {
+        var attributesContainer = document.querySelector(".attributes");
+        var baseSet = document.querySelector(".attribute-set").cloneNode(true);
+        const pv_system = document.getElementById('pv_system')
+        const pv_system_products = document.getElementById('pv_system_products')
+        const pv_system_info = JSON.parse(pv_system.value)
+        const pv_system_products_json = JSON.parse(pv_system_products.value);
+
+        var system_sets = []
+
+        console.log(pv_system_products_json)
+        removeAllChildNodes(attributesContainer)
+
+        pv_system_products_json.forEach(function(newTemplate, index) {
+            // clone the base set to get the attrib set
+            let systemSet = baseSet.cloneNode(true);
+
+            system_sets[index] = systemSet;
+            attributesContainer.appendChild(systemSet)
+        })
+
+        addProductCategoryEvents()
+
+        pv_system_products_json.forEach(function(newSystem, index) {
+            let categoryOptions = system_sets[index].querySelector("#category").querySelectorAll("option")
+            categoryOptions.forEach(function(option) {
+                if (option.value.localeCompare(newSystem["Category"]) == 0) {
+                    option.setAttribute("selected", "true")
+                }
+            })
+            let categorySelect = system_sets[index].querySelector('#category')
+
+            let event = new Event("change")
+            categorySelect.dispatchEvent(event)
+
+            let productOptions = system_sets[index].querySelector("#product").querySelectorAll("option")
+            productOptions.forEach(function(option) {
+                if (option.value.localeCompare(newSystem["product_id"]) == 0) {
+                    option.setAttribute("selected", "true")
+                }
+            })
+ 
+            system_sets[index].querySelector("#product_count").value = newSystem["product_count"]
+        })
+        updateEnergy()
+        updatePrices()
+    }
+    showUserSystem()
+
     function showTemplate() {
         var attributesContainer = document.querySelector(".attributes");
         const template = document.getElementById('hidden_template')
         //console.log(template.value)
         let template_json = JSON.parse(template.value)
-        console.log(template_json)
+        
 
         // get a clone of an attribute set as the base
         var baseSet = document.querySelector(".attribute-set").cloneNode(true);
@@ -375,7 +426,7 @@
         */
 
         template_json.forEach(function(newTemplate, index) {
-            console.log(newTemplate)
+        
             // clone the base set to get the attrib set
             let templateSet = baseSet.cloneNode(true);
 
@@ -387,7 +438,7 @@
 
         template_json.forEach(function(newTemplate, index) {
             let categoryOptions = template_sets[index].querySelector("#category").querySelectorAll("option")
-            console.log(categoryOptions)
+       
             categoryOptions.forEach(function(option) {
                 if (option.value.localeCompare(newTemplate["Category"]) == 0) {
                     option.setAttribute("selected", "true")
@@ -399,7 +450,7 @@
             categorySelect.dispatchEvent(event)
 
             let productOptions = template_sets[index].querySelector("#product").querySelectorAll("option")
-            console.log(productOptions)
+         
             productOptions.forEach(function(option) {
                 if (option.value.localeCompare(newTemplate["id"]) == 0) {
                     option.setAttribute("selected", "true")

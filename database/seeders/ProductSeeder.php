@@ -53,7 +53,7 @@ class ProductSeeder extends Seeder
                 'Category' => 'Solar Panel'
             ],
             [
-                'Name' => 'power optimiser Mk2',
+                'Name' => 'Power Optimiser Mk2',
                 'Price' => '200',
                 'Quantity' => '3',
                 'Category' => 'Inverter'
@@ -77,7 +77,7 @@ class ProductSeeder extends Seeder
                 'Category' => 'Solar Panel'
             ],
             [
-                'Name' => 'power optimiser',
+                'Name' => 'Power Optimiser',
                 'Price' => '150',
                 'Quantity' => '3',
                 'Category' => 'Inverter'

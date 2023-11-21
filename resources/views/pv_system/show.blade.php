@@ -60,6 +60,12 @@
                     {{ __('Show Price Breakdown') }}
                 </x-primary-button>
             </a>
+            <form method="GET" action="{{ route('pv_system.edit', $pv_system) }}" class="inline-block">
+                @csrf
+                <x-primary-button class="justify-center">
+                {{ __('Edit PV System Model') }}
+                </x-primary-button>
+            </form>
         </div>
 
             <div class="breakdown" id="breakdown" hidden="hidden">

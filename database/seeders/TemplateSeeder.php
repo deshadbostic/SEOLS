@@ -426,6 +426,72 @@ class TemplateSeeder extends Seeder
                 'product_id' => '16',
                 'product_count' => '9',
             ],
+            
+            [
+                'template_number' => '18',
+                'product_id' => '6',
+                'product_count' => '12',
+            ],
+            [
+                'template_number' => '18',
+                'product_id' => '11',
+                'product_count' => '2',
+            ],
+            [
+                'template_number' => '18',
+                'product_id' => '1',
+                'product_count' => '2',
+            ],
+            [
+                'template_number' => '18',
+                'product_id' => '16',
+                'product_count' => '5',
+            ],
+            [
+                'template_number' => '19',
+                'product_id' => '5',
+                'product_count' => '9',
+            ],
+            [
+                'template_number' => '19',
+                'product_id' => '10',
+                'product_count' => '6',
+            ],
+            [
+                'template_number' => '19',
+                'product_id' => '7',
+                'product_count' => '3',
+            ],
+            [
+                'template_number' => '19',
+                'product_id' => '16',
+                'product_count' => '7',
+            ],
+            [
+                'template_number' => '20',
+                'product_id' => '9',
+                'product_count' => '9',
+            ],
+            [
+                'template_number' => '20',
+                'product_id' => '5',
+                'product_count' => '3',
+            ],
+            [
+                'template_number' => '20',
+                'product_id' => '7',
+                'product_count' => '4',
+            ],
+            [
+                'template_number' => '20',
+                'product_id' => '2',
+                'product_count' => '1',
+            ],
+            [
+                'template_number' => '20',
+                'product_id' => '14',
+                'product_count' => '5',
+            ],
         ]);
     }
 }
