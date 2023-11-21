@@ -30,6 +30,7 @@
                                 <tr class="bg-gray-800 hover:bg-opacity-60">
                                     <!-- Appointment Details -->
                                     <td class="p-3">{{$schedule->id}}</td>
+                                    <td class="p-3">{{$schedule->user_id}}</td>
                                     <td class="p-3 text-center">{{$schedule->fName}}</td>
                                     <td class="p-3 text-center">{{$schedule->lName}}</td>
                                     <td class="p-3 text-center">{{$schedule->address}}</td>
@@ -65,7 +66,7 @@
                         <tbody>
                             <!-- Loop through Appointments -->
                             @foreach($schedules as $schedule)
-                                @if(Auth::user()->id == $schedule->id)
+                                @if(Auth::user()->id == $schedule->user_id)
                                 <tr class="bg-gray-800 hover:bg-opacity-60">
                                     <!-- Appointment Details -->
                                     <td class="p-3 text-center">{{$schedule->address}}</td>
