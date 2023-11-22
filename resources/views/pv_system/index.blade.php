@@ -60,6 +60,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
+                            <form action="{{ route('investment.index') }}" method="GET">
+                            @csrf
+                                <x-primary-button class="ml-4">
+                                    {{ __('Calculate Returns') }}
+                                </x-primary-button>
+                            </form>
+                        </div>
                     @else
                     <h2 class="text-2x font-bold mb-2 text-white text-stone-300">You currently have no PV System models.</h2>
                     @endif
