@@ -11,6 +11,7 @@ use App\Http\Controllers\HouseInfoController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use App\Models\Product;
@@ -94,6 +95,10 @@ Route::resource('pv_system', PVSystemController::class)
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// This route is for accessing the investment return page. Type /investment in the browser
+Route::resource('investment', InvestmentController::class)
+    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

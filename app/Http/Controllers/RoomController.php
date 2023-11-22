@@ -16,28 +16,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
-/*         $user= Auth::user();
-        $buildings = Building::whereBelongsTo($user)->get();
-        $rooms=Room::whereBelongsTo($buildings)->get(); 
-        return view('room.index')->with(['buildings'=> $buildings,'rooms'=>$rooms,'roomPower'=>$rooms[0]->newCalcPowerConsumption()] ); */
-        $user= Auth::user();
-        $building = Building::whereBelongsTo($user)->first();
-        if(!isset($building->id)) {
-            $building = null;
-            return view('room.index',['rooms' => null]);
-        } else {
-            $rooms=Room::whereBelongsTo($building)->get();
-            if(!isset($rooms[0])) {
-                return view('room.index',['rooms' => null]);
-            } else {
-                $roomPowers = [];
-                foreach($rooms as $room) {
-                    $roomPowers[$room->id] = $room->newCalcPowerConsumption();
-                }//end foreach
-                return view('roon.index')->with('rooms', $rooms)->with('roomPowers',$roomPowers);
-            }//end if-else
-        }//end if-else
+        return view('room.index', $this->getIndexInfo());
     }
 
     /**
@@ -46,7 +25,7 @@ class RoomController extends Controller
     public function create()
     {
         //
-        return view('room.index')->with('batteries', 'f');
+        return view('room.create');
     }
 
     /**
@@ -54,23 +33,15 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        // Room::create([
-        //     'name' =>$request->room_name,
-        //     'building_id' => $request->building_id
-        // ]);
-
-    $building=
-			$validated = $request->validate([
-				'name' => 'required',
-                'building_id' => 'required',
-			]);
-            $user= Auth::user();
-            $buildings = Building::whereBelongsTo($user)->get();
-			$buildings[0]->room()->create($validated);	
-	
-	
-		
-		return redirect(route('room.index'));
+        $user= Auth::user();
+        $building = Building::whereBelongsTo($user)->first();
+        Room::create(
+            [
+                'name' =>$request->room_name,
+                'building_id' => $building->id,
+            ]
+        );	
+		return redirect(route('room.index', $this->getIndexInfo()));
     }
 
     /**

@@ -6,10 +6,10 @@
         </h2>
     </x-slot>
         <div class="flex pt-5 justify-start bg-gray-900 grid-cols-14">
-            <form action="{{ route('pv_system.create') }}" method="GET">
+            <form action="{{ route('room.create') }}" method="GET">
             @csrf
                 <x-primary-button class="ml-4">
-                    {{ __('Create Pv System') }}
+                    {{ __('Create Room') }}
                 </x-primary-button>
             </form>
         </div>
@@ -28,29 +28,27 @@
                             <thead class="bg-gray-800 text-gray-500">
                                 <tr>
                                     <!-- Column Headers -->
-                                    <th class="p-3 text-neutral-300">PV System #</th>
-                                    <th class="p-3 text-neutral-300">Energy Generated</th>
-                                    <th class="p-3 text-neutral-300">Total Cost</th>
+                                    <th class="p-3 text-neutral-300">Room Name #</th>
+                                    <th class="p-3 text-neutral-300">Room Power</th>
                                     <th class="p-3 text-neutral-300">Show</th>
                                     <th class="p-3 text-neutral-300">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Loop through Configurations -->
-                                @foreach($pv_systems as $key => $pv_system) 
+                                @foreach($rooms as $key => $room) 
                                     <tr class="bg-gray-800 hover:bg-opacity-60">
                                         <!-- Configuration Details -->
-                                        <td class="p-3 text-center">{{$pv_system->id}}</td>
-                                        <td class="p-3 text-center">{{$pv_system->energy_generated.' W'}}</td>
-                                        <td class="p-3 text-center">{{'$'.$pv_system->equipment_cost+($pv_system->equipment_cost * 0.1)}}</td>
+                                        <td class="p-3 text-center">{{$$room->name}}</td>
+                                        <td class="p-3 text-center">{{$roomPowers[$key].'W'}}</td>
                                         <td class="px-2 py-1 text-center">
-                                            <form action="{{ route('pv_system.show', $pv_system) }}" method="GET">
+                                            <form action="{{ route('room.show', $room) }}" method="GET">
                                             @csrf
                                                 <x-primary-button>{{__('Show') }}</x-primary-button>
                                             </form>
                                         </td>    
                                         <td class="px-2 py-1 text-center">
-                                            <form method="POST" action="{{ route('pv_system.destroy', $pv_system) }}">
+                                            <form method="POST" action="{{ route('room.destroy', $room) }}">
                                             @csrf
                                             @method('DELETE')
                                                 <x-primary-button>{{__('Delete') }}</x-primary-button>
@@ -61,7 +59,7 @@
                             </tbody>
                         </table>
                     @else
-                    <h2 class="text-2x font-bold mb-2 text-white text-stone-300">You currently have no PV System models.</h2>
+                    <h2 class="text-2x font-bold mb-2 text-white text-stone-300">You currently have no Rooms.</h2>
                     @endif
 
                 </div>
