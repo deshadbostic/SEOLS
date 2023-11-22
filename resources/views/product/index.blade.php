@@ -3,11 +3,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     const alert = document.querySelector("div[role='alert']");
     if (alert) {
-
       alert.classList.add('dismissing');
       alert.addEventListener('animationend', () => {
-
-        // alert.classList.add('hidden');
+         alert.classList.add('hidden');
       })
     }
   })
@@ -21,7 +19,6 @@
         const cancel = modal.querySelector('.button[data-type="cancel"');
         cancel.addEventListener("click", () => {
           modal.close();
-          // console.log('cancel');
         });
       })
     });

@@ -23,7 +23,7 @@
     </script>
 </head>
 
-<body>
+<body onload="setMinDate();">
     <x-app-layout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -59,7 +59,7 @@
                     <!-- Time Field -->
                     <div>
                         <x-input-label for="time" :value="__('Time *')" />
-                        <x-text-input id="time" class="block mt-1 w-full" type="time" min="09:00" max="15:00" name="time" :value="old('time')" required autofocus autocomplete="time" />
+                        <x-text-input id="time" class="block mt-1 w-full" type="time" step="3600" min="09:00" max="15:00" name="time" :value="old('time')" required autofocus autocomplete="time" />
                         <x-input-error :messages="$errors->get('time')" class="mt-2" />
                     </div>
                 </div>
