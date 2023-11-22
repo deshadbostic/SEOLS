@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appliance;
 use Illuminate\Http\Request;
 use App\Models\Room; 
 use App\Traits\RoomHelper;
@@ -41,15 +42,16 @@ class RoomController extends Controller
                 'building_id' => $building->id,
             ]
         );	
-		return redirect(route('room.index', $this->getIndexInfo()));
+		return redirect(route('building.show', ['building' => $building]));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Room $room)
     {
-        //
+        $appliances = Appliance::where('room_id', $room->id)->get();
+        return view('room.show',['room' => $room, 'appliances' => $appliances]);
     }
 
      public function dedit(Request $request)
@@ -66,10 +68,8 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(Room $room)
     {
-        $room=Room::where("id",$request->roomid)->get();
-        //
         return view('room.edit')->with('room', $room);
     }
     /**
@@ -77,19 +77,23 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
+        $user= Auth::user();
+        $building = Building::whereBelongsTo($user)->first();
         $room->update([
-            'name' => $request->name,
+            'name' => $request->new_room_name,
+            'building_id' => $building->id,
         ]);
-        return redirect(route('room.index'));
+        return redirect(route('building.show', ['building' => $building]));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Room $room)
     {
-        $room=Room::where("id",$request->roomid)->get();
         $room->delete();
-        return view('room.index')->with('room', $room);
+        $user= Auth::user();
+        $building = Building::whereBelongsTo($user)->first();
+        return redirect(route('building.show', ['building' => $building]));
     }
 }

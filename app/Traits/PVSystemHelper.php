@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Product;
+use App\Models\Building;
 use App\Models\PVSystemProduct;
 use App\Models\PVSystemTemplateProduct;
 use Illuminate\Support\Facades\DB;
@@ -171,7 +172,13 @@ trait PVSystemHelper {
 
         //echo $template_energies;
         //var_dump($template_total_energies);
-        $energy_requirement = 3451;
+        
+        $building = Building::whereBelongsTo($user)->first();
+        $energy_requirement = 0;
+        if(null !== $building) {
+            $energy_requirement = $building->newCalcPowerConsumption();
+        }
+        
         $budget_requirement = $user->budget;
     
         $valid_energy_templates = [];
@@ -237,6 +244,7 @@ trait PVSystemHelper {
                 'user' => $user,
                 'template_products' => $template_products,
                 'pv_system' => $pv_system,
+                'energy_requirement' => $energy_requirement,
                 'pv_system_products' => $pv_system_products,
                 'template_energy' => $template_total_energies[$template],
                 'template_price' => $template_prices[$template-1]->price,
@@ -250,6 +258,7 @@ trait PVSystemHelper {
             [
                 'user' => $user,
                 'pv_system' => $pv_system,
+                'energy_requirement' => $energy_requirement,
                 'pv_system_products' => $pv_system_products,
                 'template_products' => null,
                 'template_energy' => null,

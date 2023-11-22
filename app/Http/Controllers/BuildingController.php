@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Traits\BuildingHelper;
 use App\Models\User;
@@ -65,6 +66,19 @@ class BuildingController extends Controller
     public function show(Building $building)
     {
         //
+        $rooms = Room::where('building_id', $building->id)->get();
+        if($rooms) {
+            $roomPower = [];
+            foreach($rooms as $room) {
+                $roomPower[$room->id] = $room->newCalcPowerConsumption();
+            }
+        }
+        $toReturn = [
+            'rooms' => $rooms,
+            'building' => $building,
+            'roomPower' => $roomPower,
+        ];
+        return view('building.show', $toReturn);
     }
 
     /**

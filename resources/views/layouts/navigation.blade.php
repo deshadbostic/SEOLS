@@ -53,34 +53,25 @@
                         <x-dropdown>
                             <x-slot name="trigger">
                                 <button class="text-gray-400">
-                                    {{ __('House Information') }}
+                                    {{ __('Building') }}
                                 </button>
                             </x-slot>
 
                             <x-slot name="content">
-                            @if(Auth::user()->role == 'operationsManager')
-                                <x-dropdown-link :href="route('houseinfo.index')">
-                                    {{ __('View All Housing Information') }}
-                                </x-dropdown-link>
-                            @endif
 
                             @if(Auth::user()->role == 'Customer')
-                                <x-dropdown-link :href="route('houseinfo.index')">
-                                    {{ __('View Your Housing Information') }}
+                                <x-dropdown-link :href="route('building.index')">
+                                    {{ __('View Your Building') }}
                                 </x-dropdown-link>
                             @endif
-
-                                <x-dropdown-link :href="route('houseinfo.create')">
-                                    {{ __('Add Housing Information') }}
-                                </x-dropdown-link>
                             </x-slot>
 
                         </x-dropdown>
                     </div>
                     @endauth
 
-                    <x-nav-link :href="route('quote.index')" :active="request()->routeIs('quote.index')">
-                        {{ __('PV System Quotation') }}
+                    <x-nav-link :href="route('pv_system.index')" :active="request()->routeIs('pv_system.index')">
+                        {{ __('PV System') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('FAQs.index')" :active="request()->routeIs('FAQs.index')">

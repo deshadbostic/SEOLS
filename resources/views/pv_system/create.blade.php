@@ -57,7 +57,7 @@
                 </div>
                 <div>
                     <x-input-label class="mt-3" for="energy_requirement" :value="__('Energy Requirement:')" />
-                    <x-text-input readonly id="energy_requirement" name="energy_requirement" :value="2100" />
+                    <x-text-input readonly id="energy_requirement" name="energy_requirement" value="{{$energy_requirement}}" />
                     <x-input-error :messages="$errors->get('energy_requirement')" class="mt-2" />
                 </div>
             </div>

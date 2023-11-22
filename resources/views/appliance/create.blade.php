@@ -9,30 +9,28 @@
             </a>
         </div>
         <div class="pt-5 text-center justify-center min-h-screen bg-gray-900 grid-cols-14">
-        <h1 class="text-center font-semibold text-xl text-white leading-tight">
-                {{'Appliance: '. $appliance->name}}
-        </h1>
-            <h2 class="m-3 font-semibold text-xl text-white leading-tight">
-                    {{ __('Edit Appliance') }}
+        <h2 class="m-3 font-semibold text-xl text-white leading-tight">
+                    {{ __('Create Appliance') }}
             </h2>
-            <form id="form" method="POST" action="{{ route('appliance.update', $appliance) }}">
-            @csrf
-            @method('PATCH')
-            <select class="text-center mb-4 py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm category_select" name="room" id="room">
+        <form id="form" method="POST" action="{{ route('appliance.store') }}">
+        @csrf
+        <select class="text-center mb-4 py-2 form-control border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm category_select" name="room" id="room">
             @foreach ($rooms as $room)
                 <option value="{{$room->id}}">{{$room->name}}</option>
             @endforeach
         </select>
-                <x-input-label for="name" class="" :value="__('New Appliance Name')" />
+            
+            @csrf
+            <x-input-label for="name" class="" :value="__('Appliance Name')" />
             <div class="justify-start">
-                <x-text-input class="m-3 text-center"  id="name" placeholder="{{$appliance->name}}" name="name" :value="old('name')" required/>
+                <x-text-input class="m-3 text-center" id="name" name="name" :value="old('name')" required/>
             </div>
             <x-input-label for="wattage" class="" :value="__('Appliance wattage')" />
             <div class="justify-start">
-                <x-text-input class="m-3 text-center" id="wattage" name="wattage" placeholder="{{$appliance->wattage}}" :value="old('wattage')" required/>
+                <x-text-input class="m-3 text-center" id="wattage" name="wattage" :value="old('wattage')" required/>
             </div>
             <x-primary-button>
-                {{__('Save')}}
+                {{__('Create')}}
             </x-primary-button>
         </div>
     @endauth

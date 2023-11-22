@@ -31,7 +31,10 @@ class ApplianceController extends Controller
     public function create()
     {
         //
-        return view('appliance.index')->with('batteries', 'f');
+        $user = Auth::user();
+        $building = Building::whereBelongsTo($user)->first();
+        $rooms = Room::whereBelongsTo($building)->get();
+        return view('appliance.create')->with('rooms', $rooms);
     }
 
     /**
@@ -40,19 +43,17 @@ class ApplianceController extends Controller
     public function store(Request $request)
     {
         try {
-            $room = Room::find($request->room_id);
-
+            $room = Room::find($request->room);
             $validated = $request->validate([
                 'name' => 'required',
                 'wattage' => 'required|numeric',
             ]);
-
             $room->appliance()->create($validated);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
             //error handling
         }
-        return redirect(route('appliance.index'));
+        return redirect(route('room.show',$room));
     }
 
     /**
@@ -66,11 +67,12 @@ class ApplianceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(Appliance $appliance)
     {
-        $appliance = Appliance::where("id", $request->applianceid)->get();
-
-        return view('appliance.edit')->with('appliance', $appliance);
+        $user = Auth::user();
+        $building = Building::whereBelongsTo($user)->first();
+        $rooms = Room::whereBelongsTo($building)->get();
+        return view('appliance.edit')->with('appliance', $appliance)->with('rooms',$rooms);
     }
     public function dedit(Request $request)
     {
@@ -85,18 +87,31 @@ class ApplianceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Appliance $appliance)
     {
         //
+        try {
+            $room = Room::find($request->room);
+            $validated = $request->validate([
+                'name' => 'required',
+                'wattage' => 'required|numeric',
+            ]);
+            $room->appliance()->update($validated);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+            //error handling
+        }
+        
+        return redirect(route('room.show',$room));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Appliance $appliance)
     {
-        $appliance=Appliance::where("id",$request->applianceid)->get();
+        $room = Room::where('id', $appliance->room_id)->first();
         $appliance->delete();
-        return view('appliance.index')->with('appliance', $appliance);  
+        return redirect(route('room.show',$room));  
     }
 }

@@ -9,15 +9,14 @@ trait RoomHelper
 {
 	public function newCalcPowerConsumption()
 	{
+		
 		$appliances = $this->appliance;
 		$totalPower = 0;
 
 		foreach ($appliances as $appliance) {
-			$totalPower += $appliance->sum('wattage');
+			$totalPower += $appliance->wattage;
 		}
 		return $totalPower;
-		//return 10000;
-		// try collect
 	}
 
 	public function calcPowerForRoom()
