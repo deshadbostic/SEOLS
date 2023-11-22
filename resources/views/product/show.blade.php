@@ -31,7 +31,9 @@
       <div class="flex flex-col gap-4 w-[280px]">
         <div class="text-lg text-white">Name: {{$product->Name}}</div>
         <div class="text-lg text-white">Category: {{$product->Category}}</div>
-        <div class="text-lg text-white">Quantity: {{$product->Quantity}} unit(s)</div>
+        @if(Auth::user()->role != "Customer")
+          <div class="text-lg text-white">Quantity: {{$product->Quantity}} unit(s)</div>
+        @endif
         <div class="text-lg text-white">Price: ${{$product->Price}}</div>
         <!-- Initial input fields for attribute and value -->
         @foreach ($attributes as $attribute)
@@ -57,7 +59,6 @@
               <h2 class="text-4xl font-black py-3 ">Delete Item
               </h2>
               <p class="max-w-sm px-5 text-xl">Are you sure you want to delete this item? This will remove the item and can't be undone.</p>
-
               <div class="flex py-8 gap-3 justify-center">
                 <x-primary-button class="button text-xl" data-type="cancel" type="button">
                   No, Cancel
