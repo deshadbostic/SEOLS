@@ -38,7 +38,7 @@
                 <!-- Years Field -->
                 <div>
                     <x-input-label for="numYears" :value="__('Number of Years:')" />
-                    <x-text-input oninput="this.value = this.value.replace(/[^1-9]/g, '');" id="numYears" class="block mt-1 w-full" type="text" name="numYears" :value="old('numYears')" required autofocus autocomplete="numYears" />
+                    <x-text-input oninput="this.value = this.value.replace(/[^0-9]/g, '');" id="numYears" class="block mt-1 w-full" type="text" name="numYears" :value="old('numYears')" required autofocus autocomplete="numYears" />
                     <x-input-error :messages="$errors->get('numYears')" class="mt-2" />
                 </div>
             </div>
