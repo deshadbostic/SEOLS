@@ -28,8 +28,11 @@
                         <br>
                         <a href="{{ route('pv_system.index') }}" class="text-blue-500 hover:underline">PV System Models</a>
                         <br>
+                        <a href="{{ route('building.index') }}" class="text-blue-500 hover:underline">Building Modelling</a>
+                        <br>
+                        <a href="{{ route('investment.index') }}" class="text-blue-500 hover:underline">Return on Investment</a>
+                        <br>
                         <a href="{{ route('FAQs.index') }}" class="text-blue-500 hover:underline">FAQ</a>
-
                     </div>
                 </div>
             </div>
